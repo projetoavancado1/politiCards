@@ -4,7 +4,7 @@
 	function getUsers(){
 		$stmt = getConn()->query("SELECT * FROM users");
 		$users = $stmt->fetchAll(PDO::FETCH_OBJ);
-		echo "{categorias:".json_encode($users)."}";
+		echo json_encode($users);
 	}
 
 	function getUsersByID($id){
@@ -24,13 +24,16 @@
 	function createUser(){
 		$request = \Slim\Slim::getInstance()->request();
 		$user = json_decode($request->getBody());
-		$sql = "INSERT INTO users (nome,email,userType) 
-					values (:nome,:email,:userType) ";
+		$sql = "INSERT INTO users (nome,email,passwd,datebirth,gender,userType) 
+					values (:nome,:email,:passwd,:datebirth,:gender,:userType) ";
 
 		$conn = getConn();
 		$stmt = $conn->prepare($sql);
 		$stmt->bindParam("nome",$user->nome);
 		$stmt->bindParam("email",$user->email);
+		$stmt->bindParam("passwd",$user->passwd);
+		$stmt->bindParam("datebirth",$user->datebirth);
+		$stmt->bindParam("gender",$user->gender);
 		$stmt->bindParam("userType",$user->userType);
 		$stmt->execute();
 
@@ -41,12 +44,16 @@
 	function updateUser($id){
 		$request = \Slim\Slim::getInstance()->request();
 		$user = json_decode($request->getBody());
-		$sql = "UPDATE users SET nome=:nome, email=:email, userType=:userType 
+		$sql = "UPDATE users SET nome=:nome, email=:email,passwd=:passwd,datebirth=:datebirth, 
+					gender=:gender, userType=:userType 
 					WHERE   id=:id";
 		$conn = getConn();
 		$stmt = $conn->prepare($sql);
 		$stmt->bindParam("nome",$user->nome);
 		$stmt->bindParam("email",$user->email);
+		$stmt->bindParam("passwd",$user->passwd);
+		$stmt->bindParam("datebirth",$user->datebirth);
+		$stmt->bindParam("gender",$user->gender);
 		$stmt->bindParam("userType",$user->userType);
 		$stmt->bindParam("id",$id);
 		$stmt->execute();
