@@ -1,5 +1,5 @@
 <?php
-	require'config/mysql_connection.php';
+	require 'config/mysql_connection.php';
 
 	function getUsers(){
 		$stmt = getConn()->query("SELECT * FROM users");
