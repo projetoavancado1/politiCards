@@ -1,7 +1,0 @@
-CREATE TABLE IF NOT EXISTS `users` (
-`id` INT NOT NULL AUTO_INCREMENT ,
-`nome` VARCHAR(100) NULL ,
-`email` VARCHAR(100) NULL ,
-`userType` INT NOT NULL ,
-PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
