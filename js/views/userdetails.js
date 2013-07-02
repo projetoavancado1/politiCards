@@ -13,7 +13,7 @@ window.UserView = Backbone.View.extend({
         "change"        : "change",
         "click .save"   : "beforeSave",
         "click .delete" : "deleteUser",
-        "click  #profilePictureUpload" : "profilePictureUpload"        
+        "change  #profilePicture" : "profilePictureUpload"        
     },
 
     change: function (event) {
@@ -36,27 +36,16 @@ window.UserView = Backbone.View.extend({
         
     },
 
-    beforeSave: function () {  
-        var self = this;
+    beforeSave: function () {          
         var check = this.model.validateAll();
         if (check.isValid === false) {
             utils.displayValidationErrors(check.messages);
             return false;
         }
-
-        /*
-           // Upload picture file if a new file
-        if (this.pictureFile) {
-            this.model.set("profilePicture", this.pictureFile.name);
-            utils.uploadFile(this.pictureFile,
-                function () {
-                    self.saveUser();
-                }
-            );
-        } else {
-            this.saveUser();
-        }           
-        */
+        if (this.pictureFile) {            
+            this.model.set("profilePicture", "../img/profilePictures/"+this.pictureFile.name);            
+            utils.uploadFile(this.pictureFile, null);
+        }
         this.saveUser();
         return false;                
     },
@@ -113,19 +102,22 @@ window.UserView = Backbone.View.extend({
         return false;
     },    
     
-    profilePictureUpload: function (event) {          
-        alert('Implementar upload de imagem');
-        /*
-        var files = event.target.files;
-        if(files){
-            this.pictureFile = files[0];
-            var reader = new FileReader();
-            reader.onloadend = function (){
-                $('#profilePicture').attr('src',reader.result).width(180).height(200);
-            };
-            reader.readAsDataURL(this.pictureFile);        
+    profilePictureUpload: function (event){                          
+
+        var files = event.target.files; // FileList object
+        //render image files as thumbnails.        
+        this.pictureFile = files[0];
+        if (!this.pictureFile.type.match('image.*')){
+            alert('Escolha um arquivo de imagem');
+            return false;
         }
-        */       
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onloadend = function (){
+                $('#viewProfilePicture').attr('src', reader.result).width(180).height(200);                                
+        };                
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(this.pictureFile);
     }
 
 });
