@@ -7,12 +7,30 @@ window.User = Backbone.Model.extend({
         this.validators = {},
 
         this.validators.name = function (value) {
-            return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a name"};
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um nome"};
         };
 
         this.validators.email = function (value) {
-            return value.length > 0? {isValid: true} : {isValid: false, message: "You must enter a e-mail"};
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um email"};
         };    
+
+        this.validators.gender = function (value) {
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um sexo"};
+        };
+
+        this.validators.birthday = function (value) {
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir a data de nascimento"};
+        };
+
+        this.validators.passWord = function (value) {
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir uma senha"};
+        };
+
+        /*
+        this.validators.userType = function (value) {
+            return value in {1,2} ? {isValid: true} : {isValid: false, message: "Você precisa inserir o tipo do usuário"};
+        };
+        */
     },
 
     validateItem: function (key) {
@@ -39,7 +57,11 @@ window.User = Backbone.Model.extend({
     defaults: {
         id: null,
         name: "",
-        email: "",
+        email: "",        
+        gender: "",
+        birthday: "01-01-1970",
+        passWord: "",
+        profilePicture: "../img/profilePictures/defaultPicture.jpg",
         userType: null
     }
     

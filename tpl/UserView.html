@@ -2,7 +2,6 @@
 
     <form class="form-horizontal span12">
 
-
         <fieldset>
 
             <legend>Detalhes do Usuário</legend>
@@ -39,6 +38,33 @@
                     </div>            
 
                     <div class="control-group">
+                        <label for="gender" class="control-label">Gênero:</label>
+
+                        <div class="controls">
+                            <input type="text" id="gender" name="gender" value="<%= gender %>"/>
+                            <span class="help-inline"></span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for='birthday' class="control-label">Data de Nascimento:</label>
+
+                        <div class="controls">
+                            <input type="text" id='birthday' name='birthday' value="<%= birthday %>"/>
+                            <span class="help-inline"></span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for='passWord' class="control-label">Senha:</label>
+
+                        <div class="controls">
+                            <input type="text" id='passWord' name='passWord' value="<%= passWord %>"/>
+                            <span class="help-inline"></span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
                         <label for="userType" class="control-label">Tipo de Usuário:</label>
 
                         <div class="controls">
@@ -51,6 +77,17 @@
                         </div>
                     </div>                
 
+                </div>
+
+                <div class="span3">
+                    <div class="well">
+                        <p><img id="profilePicture" width="180" src="<%= profilePicture === '../img/profilePictures/defaultPicture.jpg' ? '../img/profilePictures/defaultPicture.jpg' : '../img/profilePictures/' + profilePicture %>"/></p>
+
+                        <p>Alterar foto do perfil:<br>
+                           <input id="pathProfilePicture" type="file"></p>                                         
+                        <button id="profilePictureUpload" class="btn btn-inverse" type="button">Fazer upload da imagem</button>
+                        
+                    </div>
                 </div>
                 
             </div>

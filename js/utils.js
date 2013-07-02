@@ -31,11 +31,11 @@ window.utils = {
             contentType: false
         })
         .done(function () {
-            console.log(file.name + " uploaded successfully");
+            console.log("Upload de "+file.name + " realizado com sucesso");
             callbackSuccess();
         })
         .fail(function () {
-            self.showAlert('Error!', 'An error occurred while uploading ' + file.name, 'alert-error');
+            self.showAlert('Erro!', 'Um erro ocorreu enquanto fazia upload do arquivo ' + file.name, 'alert-error');
         });
     },
 
@@ -44,7 +44,7 @@ window.utils = {
             if (messages.hasOwnProperty(key)) 
                 this.addValidationError(key, messages[key]);
         }
-        this.showAlert('Warning!', 'Fix validation errors and try again', 'alert-warning');
+        this.showAlert('Aviso!', 'Corriga os erros de validação e tente novamente', 'alert-warning');
     },
 
     addValidationError: function (field, message) {

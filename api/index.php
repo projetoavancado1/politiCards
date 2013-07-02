@@ -49,12 +49,16 @@ function addUser() {
 	error_log('addUsers\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
 	$user = json_decode($request->getBody());	
-	$sql = "INSERT INTO user (name, email, userType) VALUES (:name, :email, :userType)";
+	$sql = "INSERT INTO user (name, email, gender, birthday, passWord, profilePicture, userType) VALUES (:name, :email, :gender, :birthday, :passWord, :profilePicture, :userType)";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
 		$stmt->bindParam("name", $user->name);
 		$stmt->bindParam("email", $user->email);
+		$stmt->bindParam("gender", $user->gender);
+		$stmt->bindParam("birthday", $user->birthday);
+		$stmt->bindParam("passWord", $user->passWord);
+		$stmt->bindParam("profilePicture", $user->profilePicture);		
 		$stmt->bindParam("userType", $user->userType);		
 		$stmt->execute();
 		$user->id = $db->lastInsertId();
@@ -69,13 +73,17 @@ function addUser() {
 function updateUser($id){
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
-	$user = json_decode($body);
-	$sql = "UPDATE user SET name=:name, email=:email, userType=:userType WHERE id=:id";
+	$user = json_decode($body);	
+	$sql = "UPDATE user SET name=:name, email=:email, gender=:gender, birthday=:birthday, passWord=:passWord, profilePicture=:profilePicture, userType=:userType WHERE id=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
 		$stmt->bindParam("name", $user->name);
 		$stmt->bindParam("email", $user->email);
+		$stmt->bindParam("gender", $user->gender);
+		$stmt->bindParam("birthday", $user->birthday);
+		$stmt->bindParam("passWord", $user->passWord);
+		$stmt->bindParam("profilePicture", $user->profilePicture);		
 		$stmt->bindParam("userType", $user->userType);		
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
