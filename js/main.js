@@ -4,7 +4,9 @@ var AppRouter = Backbone.Router.extend({
         ""                  : "list",
         "users/page/:page"	: "list",
         "users/add"         : "addUser",
-        "users/:id"         : "userDetails"        
+        "users/:id"         : "userDetails" 
+        "employees/:id"     : "employeeDetails",
+        "login"             : "login"       
     },
 
     initialize: function () {
@@ -44,6 +46,24 @@ var AppRouter = Backbone.Router.extend({
         this.headerView.selectMenuItem('add-menu');
 	}
 
+    login: function() {
+        $('#content').html(new LoginView().render().el);
+    }
+
+});
+
+$.ajaxSetup({
+    statusCode: {
+        401: function(){
+            // Redirec the to the login page.
+            window.location.replace('/#login');
+         
+        },
+        403: function() {
+            // 403 -- Access denied
+            window.location.replace('/#denied');
+        }
+    }
 });
 
 utils.loadTemplate(['HeaderView', 'UserView', 'UserListItemView'], function() {
