@@ -143,16 +143,25 @@ function getConnection() {
  * This is just an example. Do not use this in a production environment
  */
 function login() {
+	getConnection();
     if(!empty($_POST['email']) && !empty($_POST['password'])) {
-        // normally you would load credentials from a database. 
-        // This is just an example and is certainly not secure
-        if($_POST['email'] == 'admin' && $_POST['password'] == 'admin') {
-            $user = array("email"=>"admin", "firstName"=>"Clint", "lastName"=>"Berry", "role"=>"user");
-            $_SESSION['user'] = $user;
-            echo json_encode($user);
-        }
-        else {
-            echo '{"error":{"text":"You shall not pass..."}}';
+    	$email = $_POST['email'];
+    	$senha = $_POST['password'];
+    	$sql = "SELECT * FROM user WHERE email='$email' and password='$senha';";
+    	$query = mysql_query($sql);
+    	$resultado = mysql_fetch_assoc($query);
+
+    	// Verifica se encontrou algum registro
+    	if (empty($resultado)) {
+    		echo '{"error":{"text":"You shall not pass..."}}';
+    		    // Nenhum registro foi encontrado => o usuÃ¡rio Ã© invÃ¡lido
+      	  	return false;
+		}else{
+	        // normally you would load credentials from a database. 
+	        // This is just an example and is certainly not secure
+	        $user = array("email"=>$resultado['email'], "name"=>$resultado['name'], "role"=>"user");
+	        $_SESSION['user'] = $user;
+	        echo json_encode($user);
         }
     }
     else {
