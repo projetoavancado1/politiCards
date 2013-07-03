@@ -143,7 +143,10 @@ function getConnection() {
  * This is just an example. Do not use this in a production environment
  */
 function login() {
-	getConnection();
+	$conexao = mysql_connect("localhost","dev","pas20122");	
+	mysql_select_db("politiCards");
+
+	//getConnection();
     if(!empty($_POST['email']) && !empty($_POST['password'])) {
     	$email = $_POST['email'];
     	$senha = $_POST['password'];
@@ -154,8 +157,7 @@ function login() {
     	// Verifica se encontrou algum registro
     	if (empty($resultado)) {
     		echo '{"error":{"text":"You shall not pass..."}}';
-    		    // Nenhum registro foi encontrado => o usuÃ¡rio Ã© invÃ¡lido
-      	  	return false;
+    		   
 		}else{
 	        // normally you would load credentials from a database. 
 	        // This is just an example and is certainly not secure
