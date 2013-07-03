@@ -9,6 +9,7 @@ $app = new Slim();
 $app->get('/', function () {
 		echo "PolitiCards REST API";
 	});
+<<<<<<< HEAD
 $app->get('/users', authorize('user'), 'getUsers');
 $app->get('/users/:id',	authorize('user'), 'getUser');
 $app->get('/users/search/:query', authorize('user'), 'findByName');
@@ -18,6 +19,16 @@ $app->delete('/users/:id', authorize('user'), 'deleteUser');
 
 // I add the login route as a post, since we will be posting the login form info
 $app->post('/login', 'login');
+=======
+$app->get('/users', 'getUsers');
+$app->get('/login/:email/:passwd', 'validaLogin');
+$app->get('/login/', 'teste');
+$app->get('/users/:id',	'getUser');
+$app->get('/users/search/:query', 'findByName');
+$app->post('/users', 'addUser');
+$app->put('/users/:id', 'updateUser');
+$app->delete('/users/:id',	'deleteUser');
+>>>>>>> 10ac7ef829aeb674c132a89f6c6c30b65e96a42a
 
 $app->run();
 
@@ -34,6 +45,32 @@ function getUsers() {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
+
+function teste(){
+	echo"teste";
+}
+
+function validaLogin($email,$passwd) {		
+	$sql = "SELECT * FROM user WHERE email='$email' and passWord='$passwd';";
+	try {
+	   	$query = mysql_query($sql);
+	   	$resultado = mysql_fetch_assoc($query);
+	
+	  	// Verifica se encontrou algum registro
+	   	if (empty($resultado)) {
+	   		  echo "nada";
+	    	   // Nenhum registro foi encontrado 
+	    	   return false;
+		}else{
+			echo"login e senha bateram";
+			return "login e senha bateram";
+		}
+	}catch(PDOException $e) {
+			echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		}
+	}
+
+
 
 function getUser($id) {		
 	$sql = "SELECT * FROM user WHERE id=:id";
