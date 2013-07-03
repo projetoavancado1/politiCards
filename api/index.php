@@ -1,5 +1,7 @@
 <?php
 
+session_start(); // Add this to the top of the file
+
 require 'Slim/Slim.php';
 
 $app = new Slim();
@@ -7,12 +9,15 @@ $app = new Slim();
 $app->get('/', function () {
 		echo "PolitiCards REST API";
 	});
-$app->get('/users', 'getUsers');
-$app->get('/users/:id',	'getUser');
-$app->get('/users/search/:query', 'findByName');
-$app->post('/users', 'addUser');
-$app->put('/users/:id', 'updateUser');
-$app->delete('/users/:id',	'deleteUser');
+$app->get('/users', authorize('user'), 'getUsers');
+$app->get('/users/:id',	authorize('user'), 'getUser');
+$app->get('/users/search/:query', authorize('user'), 'findByName');
+$app->post('/users', authorize('user'), 'addUser');
+$app->put('/users/:id', authorize('user'), 'updateUser');
+$app->delete('/users/:id', authorize('user'), 'deleteUser');
+
+// I add the login route as a post, since we will be posting the login form info
+$app->post('/login', 'login');
 
 $app->run();
 
@@ -132,5 +137,55 @@ function getConnection() {
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	return $dbh;
 }
+
+/**
+ * Quick and dirty login function with hard coded credentials (admin/admin)
+ * This is just an example. Do not use this in a production environment
+ */
+function login() {
+    if(!empty($_POST['email']) && !empty($_POST['password'])) {
+        // normally you would load credentials from a database. 
+        // This is just an example and is certainly not secure
+        if($_POST['email'] == 'admin' && $_POST['password'] == 'admin') {
+            $user = array("email"=>"admin", "firstName"=>"Clint", "lastName"=>"Berry", "role"=>"user");
+            $_SESSION['user'] = $user;
+            echo json_encode($user);
+        }
+        else {
+            echo '{"error":{"text":"You shall not pass..."}}';
+        }
+    }
+    else {
+        echo '{"error":{"text":"Username and Password are required."}}';
+    }
+}
+
+function authorize($role = "user") {
+    return function () use ( $role ) {
+        // Get the Slim framework object
+        $app = Slim::getInstance();
+        // First, check to see if the user is logged in at all
+        if(!empty($_SESSION['user'])) {
+            // Next, validate the role to make sure they can access the route
+            // We will assume admin role can access everything
+            if($_SESSION['user']['role'] == $role || 
+                $_SESSION['user']['role'] == 'admin') {
+                //User is logged in and has the correct permissions... Nice!
+                return true;
+            }
+            else {
+                // If a user is logged in, but doesn't have permissions, return 403
+                $app->halt(403, 'You shall not pass!');
+            }
+        }
+        else {
+            // If a user is not logged in at all, return a 401
+            $app->halt(401, 'You shall not pass!');
+        }
+    };
+}
+
+
+
 
 ?>
