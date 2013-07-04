@@ -156,7 +156,7 @@ function login() {
 
     	// Verifica se encontrou algum registro
     	if (empty($resultado)) {
-    		echo '{"error":{"text":"You shall not pass..."}}';
+    		echo '{"error":{"text":"E-mail ou senha incorreto"}}';
     		   
 		}else{
 	        // normally you would load credentials from a database. 
@@ -167,7 +167,7 @@ function login() {
         }
     }
     else {
-        echo '{"error":{"text":"Username and Password are required."}}';
+        echo '{"error":{"text":"E-mail e senha são obrigatórios."}}';
     }
 }
 

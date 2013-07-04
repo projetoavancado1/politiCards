@@ -57,8 +57,8 @@ window.UserView = Backbone.View.extend({
         this.model.save(null, {
             success: function (model) {
                 self.render();
-                app.navigate('users/' + model.id, false);
-                utils.showAlert('Sucesso!', 'Usuário salvo corretamente', 'alert-success');
+                app.navigate('users/' + model.id, false);                
+                utils.showAlert('Sucesso!', 'Usuário salvo corretamente', 'alert-success');                
             },
             error: function () {
                 utils.showAlert('Erro', 'Um erro correu enquanto tentava salvar o usuário', 'alert-error');
@@ -118,6 +118,37 @@ window.UserView = Backbone.View.extend({
         };                
         // Read in the image file as a data URL.
         reader.readAsDataURL(this.pictureFile);
+    }
+
+});
+
+
+
+window.UserSummaryView = Backbone.View.extend({
+
+    tagName:"div", // Not required since 'div' is the default if no el or tagName specified
+
+    initialize: function () {
+        this.render();
+    },
+
+    render: function () {
+        $(this.el).html(this.template(this.model.toJSON()));
+        return this;
+    },
+/*
+    initialize:function () {
+//        this.template = templates['EmployeeSummary'];
+        this.model.bind("change", this.render, this);
+    },
+
+    render:function () {
+        $(this.el).html(this.template(this.model.toJSON()));
+        return this;
+    },
+*/
+    events: {
+        "change" : "render"        
     }
 
 });

@@ -73,3 +73,27 @@ window.UserCollection = Backbone.Collection.extend({
     url:"../api/users"    
 
 });
+
+
+// Model Post
+
+window.Post = Backbone.Model.extend({
+
+    urlRoot: "../api/posts",
+    
+    defaults: {
+        id: null,
+        senderUser: "",
+        content: "",        
+        comments: null
+    }
+});
+
+
+window.PostCollection = Backbone.Collection.extend({
+
+    model: User,
+    url:"../api/posts"    
+
+});
+

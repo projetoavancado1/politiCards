@@ -1,0 +1,40 @@
+<p><img src="<%= profilePicture %>" width="160" height="160"/></p>
+<h1><%= name %></h1>
+
+<br>
+<div class="row">
+    <div class="span6">
+        <table class="table table-striped">                        
+            <tr>
+                <td><h6>E-mail:</h6></td>
+                <td><i class="icon-envelope"></i> <a href="mailto:<%= email %>"><%= email %></a></td>
+            </tr>
+            <tr>
+                <td><h6>Gênero:</h6></td>
+                <td><i class="icon-user"></i> <%= gender %></td>
+            </tr>
+            <tr>
+                <td><h6>Data de Nascimento:</h6></td>
+                <td><i class="icon-asterisk"></i> <%= birthday %></td>
+            </tr>
+            <tr>
+                <td><h6>Tipo do Usuário:</h6></td>
+                <td><i class="icon-pencil"></i> <%= userType %></td>
+            </tr>
+        </table>
+        <br>
+
+        <div class="form-actions">    
+            <a href="#/users/edit/<%= id %>" class="btn save">Editar Dados</a>        
+        </div>
+        
+        
+        <!--
+
+        <div class="alert alert-warning">
+          <h4 class="alert-heading">Warning</h4>
+          The phone numbers, email addresses, and Twitter handlers are fake.
+        </div>
+        -->
+    </div>
+</div>
