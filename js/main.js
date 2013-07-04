@@ -4,6 +4,7 @@ var AppRouter = Backbone.Router.extend({
         ""                  : "home",
         "users/page/:page"	: "list",
         "users/add"         : "addUser",
+        "users/edit/:id"    : "editUser",
         "users/:id"         : "userDetails",
         "login"             : "login"
     },
@@ -22,10 +23,18 @@ var AppRouter = Backbone.Router.extend({
         this.headerView.selectMenuItem('home-menu');
     },
 
+    editUser: function (id) {
+        var user = new User({id: id});
+        user.fetch({success: function(){
+            $("#content").html(new UserView({model: user}).el);
+        }});
+        this.headerView.selectMenuItem();
+    },
+
     userDetails: function (id) {
         var user = new User({id: id});
-        user.fetch({success: function(){"users/page/:page"
-            $("#content").html(new UserView({model: user}).el);
+        user.fetch({success: function(){
+            $("#content").html(new UserSummaryView({model: user}).el);
         }});
         this.headerView.selectMenuItem();
     },
@@ -59,7 +68,7 @@ var AppRouter = Backbone.Router.extend({
     
 });
 
-utils.loadTemplate(['HeaderView', 'UserView', 'UserListItemView', 'LoginView', 'HomeView'], function() {
+utils.loadTemplate(['HeaderView', 'UserView', 'UserListItemView', 'LoginView', 'HomeView', 'UserSummaryView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });

@@ -57,7 +57,7 @@ window.UserView = Backbone.View.extend({
         this.model.save(null, {
             success: function (model) {
                 self.render();
-                app.navigate('users/' + model.id, false);                
+                //app.navigate('users/' + model.id, false);                
                 utils.showAlert('Sucesso!', 'Usuário salvo corretamente', 'alert-success');                
             },
             error: function () {
@@ -65,38 +65,13 @@ window.UserView = Backbone.View.extend({
             }
         });
     },
-    
-
-    /*
-    saveUser:function (){        
-        var self = this;
-        this.model.set({
-            name:$('#name').val(),
-            email:$('#email').val(),
-            gender:$('#gender').val(),
-            birthday:$('#birthday').val(),
-            passWord:$('#passWord').val(),
-            //profilePicture:$('#profilePicture').val(),            
-            userType:$('#userType').val()            
-        });        
-        this.model.save(null,{
-            success: function (model) {
-                self.render();                
-                app.navigate('users/' + model.id, false);
-                utils.showAlert('Sucesso!', 'Usuário salvo corretamente', 'alert-success');
-            },
-            error: function () {
-                utils.showAlert('Erro', 'Um erro correu enquanto tentava salvar o usuário', 'alert-error');
-            }
-        });
-    },
-    */
 
     deleteUser: function () {
         this.model.destroy({
             success: function () {
                 alert('Usuário removido com sucesso');
-                window.history.back();
+                //window.history.back();
+                window.location.replace('#');
             }
         });
         return false;
@@ -136,17 +111,7 @@ window.UserSummaryView = Backbone.View.extend({
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
     },
-/*
-    initialize:function () {
-//        this.template = templates['EmployeeSummary'];
-        this.model.bind("change", this.render, this);
-    },
 
-    render:function () {
-        $(this.el).html(this.template(this.model.toJSON()));
-        return this;
-    },
-*/
     events: {
         "change" : "render"        
     }
