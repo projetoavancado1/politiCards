@@ -46,7 +46,7 @@ var AppRouter = Backbone.Router.extend({
 	},
 
     login: function() {
-        $('#content').html(new LoginView().render().el);
+        $('#content').html(new LoginView().render().el);        
         // Tell jQuery to watch for any 401 or 403 errors and handle them appropriately
         $.ajaxSetup({
             statusCode: {
@@ -68,7 +68,9 @@ var AppRouter = Backbone.Router.extend({
     
 });
 
-utils.loadTemplate(['HeaderView', 'UserView', 'UserListItemView', 'LoginView', 'HomeView', 'UserSummaryView'], function() {
+utils.loadTemplate(['HeaderView', 'UserView', 'UserListItemView', 
+                    'LoginView', 'HomeView', 'UserSummaryView',
+                    'UserLoginOptionsView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
