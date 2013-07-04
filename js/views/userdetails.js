@@ -13,7 +13,17 @@ window.UserView = Backbone.View.extend({
         "change"        : "change",
         "click .save"   : "beforeSave",
         "click .delete" : "deleteUser",
+        "click #birthday" : "showCalendar",
         "change  #profilePicture" : "profilePictureUpload"        
+    },
+
+    showCalendar: function(event){
+        $("#birthday").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            showAnim: "slideDown"
+        }); 
     },
 
     change: function (event) {
