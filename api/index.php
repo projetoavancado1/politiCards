@@ -152,18 +152,18 @@ function login() {
     	$senha = $_POST['password'];
     	$sql = "SELECT * FROM user WHERE email='$email' and password='$senha';";
     	$query = mysql_query($sql);
-    	$resultado = mysql_fetch_assoc($query);
+    	$result = mysql_fetch_assoc($query);
 
     	// Verifica se encontrou algum registro
-    	if (empty($resultado)) {
-    		echo '{"error":{"text":"E-mail ou senha incorreto"}}';
+    	if (empty($result)) {
+    		echo '{"error":{"text":"E-mail ou senha incorreto(s)"}}';
     		   
 		}else{
 	        // normally you would load credentials from a database. 
 	        // This is just an example and is certainly not secure
-	        $user = array("email"=>$resultado['email'], "name"=>$resultado['name'], "role"=>"user");
+	        $user = array("email"=>$result['email'], "name"=>$result['name'], "role"=>"user");
 	        $_SESSION['user'] = $user;
-	        echo json_encode($user);
+	        echo json_encode($result);	        
         }
     }
     else {
@@ -186,12 +186,12 @@ function authorize($role = "user") {
             }
             else {
                 // If a user is logged in, but doesn't have permissions, return 403
-                $app->halt(403, 'You shall not pass!');
+                $app->halt(403, 'Você não tem premissão!');
             }
         }
         else {
             // If a user is not logged in at all, return a 401
-            $app->halt(401, 'You shall not pass!');
+            $app->halt(401, 'Você não tem premissão!');
         }
     };
 }
