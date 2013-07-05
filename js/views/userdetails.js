@@ -19,10 +19,12 @@ window.UserView = Backbone.View.extend({
 
     showCalendar: function(event){
         $("#birthday").datepicker({
+            yearRange: "1900:2023",
             changeMonth: true,
             changeYear: true,
             dateFormat: "yy-mm-dd",
-            showAnim: "slideDown"
+            showAnim: "slideDown",
+            duration: "slow"
         }); 
     },
 
