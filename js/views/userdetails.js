@@ -13,10 +13,11 @@ window.UserView = Backbone.View.extend({
         "change"        : "change",
         "click .save"   : "beforeSave",
         "click .delete" : "deleteUser",
-        "click #birthday" : "showCalendar",
+        //"click #birthday" : "showCalendar",
         "change  #profilePicture" : "profilePictureUpload"        
     },
 
+    //drop after presentation
     showCalendar: function(event){
         $("#birthday").datepicker({
             yearRange: "1900:2023",
