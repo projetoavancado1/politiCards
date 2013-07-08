@@ -69,5 +69,4 @@ window.utils = {
     hideAlert: function() {
         $('.alert').hide();
     }
-
 };

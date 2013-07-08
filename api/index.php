@@ -18,6 +18,7 @@ $app->delete('/users/:id', authorize('user'), 'deleteUser');
 
 // I add the login route as a post, since we will be posting the login form info
 $app->post('/login', 'login');
+$app->post('/logout', 'logout');
 
 $app->run();
 
@@ -142,12 +143,13 @@ function getConnection() {
  * Quick and dirty login function with hard coded credentials (admin/admin)
  * This is just an example. Do not use this in a production environment
  */
+
 function login() {
 	$conexao = mysql_connect("localhost","dev","pas20122");	
 	mysql_select_db("politiCards");
 
 	//getConnection();
-    if(!empty($_POST['email']) && !empty($_POST['password'])) {
+    if(!empty($_POST['email']) && !empty($_POST['password'])){
     	$email = $_POST['email'];
     	$senha = $_POST['password'];
     	$sql = "SELECT * FROM user WHERE email='$email' and password='$senha';";
@@ -156,14 +158,16 @@ function login() {
 
     	// Verifica se encontrou algum registro
     	if (empty($result)) {
-    		echo '{"error":{"text":"E-mail ou senha incorreto(s)"}}';
-    		   
+    		echo '{"error":{"text":"E-mail ou senha incorreto(s)"}}';    		   
+		}else if(mysql_num_rows($query)>1){
+			echo '{"error":{"text":"Erro interno do sistema. Foram encontrados mais de um usuário com o login e senha informado."}}';    		   
 		}else{
 	        // normally you would load credentials from a database. 
 	        // This is just an example and is certainly not secure
-	        $user = array("email"=>$result['email'], "name"=>$result['name'], "role"=>"user");
-	        $_SESSION['user'] = $user;
-	        echo json_encode($result);	        
+	        $user = array("id"=>$result['id'], "name"=>$result['name'], "email"=>$result['email'], "role"=>"user");
+
+	        $_SESSION['user'] = $user;	        
+	        echo json_encode(array_merge($user,array("profilePicture"=>$result['profilePicture'])));        
         }
     }
     else {
@@ -171,7 +175,14 @@ function login() {
     }
 }
 
-function authorize($role = "user") {
+function logout(){
+	
+	unset($_SESSION['user']);
+	session_destroy();
+
+}
+
+function authorize($role = "user"){
     return function () use ( $role ) {
         // Get the Slim framework object
         $app = Slim::getInstance();
@@ -180,7 +191,7 @@ function authorize($role = "user") {
             // Next, validate the role to make sure they can access the route
             // We will assume admin role can access everything
             if($_SESSION['user']['role'] == $role || 
-                $_SESSION['user']['role'] == 'admin') {
+               $_SESSION['user']['role'] == 'admin'){
                 //User is logged in and has the correct permissions... Nice!
                 return true;
             }

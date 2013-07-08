@@ -1,3 +1,11 @@
+<div class="row status-bar">
+    <div class="span12">
+        <div class="alert alert-success" style="display: none">
+            <b>Successo!</b> Usuário Salvo Corretamente
+        </div>
+    </div>
+</div>
+
 <div class="row">
 
     <form class="form-horizontal span12">
@@ -41,7 +49,12 @@
                         <label for="gender" class="control-label">Gênero:</label>
 
                         <div class="controls">
-                            <input type="text" id="gender" name="gender" value="<%= gender %>"/>
+                            <select id="gender" name="gender" value="<%= gender %>">
+                                <option
+                                <%= gender == 1?'selected':'' %>>Masculino</option>
+                                <option
+                                <%= gender == 2?'selected':'' %>>Feminino</option>
+                            </select>
                             <span class="help-inline"></span>
                         </div>
                     </div>
@@ -59,7 +72,7 @@
                         <label for='passWord' class="control-label">Senha:</label>
 
                         <div class="controls">
-                            <input type="text" id='passWord' name='passWord' value="<%= passWord %>"/>
+                            <input type="password" id='passWord' name='passWord' value="<%= passWord %>"/>
                             <span class="help-inline"></span>
                         </div>
                     </div>
@@ -99,14 +112,6 @@
 
     </form>
 
-</div>
-
-<div class="row status-bar">
-    <div class="span12">
-        <div class="alert alert-success" style="display: none">
-            <b>Successo!</b> Usuário Salvo Corretamente
-        </div>
-    </div>
 </div>
 
 

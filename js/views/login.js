@@ -1,26 +1,26 @@
 window.LoginView = Backbone.View.extend({
 
     initialize:function () {
-        console.log('Initializing Login View');
+        console.log('Initializing Login View');       
     },
 
-    events: {
+    events: {        
         "click #loginButton": "login"
     },
 
-    render:function () {
+    render:function (){
         $(this.el).html(this.template());
         return this;
     },
 
-    login:function (event) {
+    login:function (event){
         event.preventDefault(); // Don't let this button submit the form
         $('.alert-error').hide(); // Hide any errors on a new submit
         var url = '../api/login';
         console.log('Loggin in... ');
         var formValues = {
-            email: $('#inputEmail').val(),
-            password: $('#inputPassword').val()
+            email: $('#email').val(),
+            password: $('#password').val()
         };
 
         $.ajax({
@@ -41,7 +41,7 @@ window.LoginView = Backbone.View.extend({
                                          name: data.name,
                                          profilePicture: data.profilePicture});   
                     console.log(data);     
-                    $('#userLoggof').html(new UserLoginOptionsView({model: user}).render().el);                            
+                    $('#userLoginOptions').html(new UserLoginOptionsView({model: user}).render().el);                            
                 }
             }
         });
@@ -64,10 +64,4 @@ window.UserLoginOptionsView = Backbone.View.extend({
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
     }
-
-    /*
-    login:function (event) {
-        $("#userLoggof").html(this.template());
-    }
-    */
 });
