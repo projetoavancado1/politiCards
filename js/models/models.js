@@ -74,7 +74,6 @@ window.UserCollection = Backbone.Collection.extend({
 
 });
 
-
 // Model Post
 
 window.Post = Backbone.Model.extend({
@@ -89,11 +88,8 @@ window.Post = Backbone.Model.extend({
     }
 });
 
-
 window.PostCollection = Backbone.Collection.extend({
-
     model: User,
     url:"../api/posts"    
-
 });
 

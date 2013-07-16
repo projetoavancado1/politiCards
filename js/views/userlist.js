@@ -1,6 +1,7 @@
 window.UserListView = Backbone.View.extend({
 
     initialize: function () {
+        console.log('Initializing User List View');    
         this.render();
     },
 
@@ -29,6 +30,7 @@ window.UserListItemView = Backbone.View.extend({
     className: "span3",
 
     initialize: function () {
+        console.log('Initializing User List Item View');    
         this.model.bind("change", this.render, this);
         this.model.bind("destroy", this.close, this);
     },

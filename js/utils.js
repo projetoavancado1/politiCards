@@ -68,5 +68,43 @@ window.utils = {
 
     hideAlert: function() {
         $('.alert').hide();
-    }
+    },
+
+    isLogged: function(callback){        
+        var url = '../api/islogged';
+        console.log('islogged... ');                                      
+        $.ajax({
+            url: url,
+            type:'GET',
+            dataType:"json",
+            success:function (data) {                                                                                                    
+                callback(data["islogged"]);
+            },
+        });        
+    },
+
+    sessionInfo: function(callback){        
+        var url = '../api/sessionInfo';
+        console.log('sessionInfo... ');                                      
+        $.ajax({
+            url: url,
+            type:'GET',
+            dataType:"json",
+            success:function (data) {   
+                //console.log("Session Info: ");
+                //console.log(data);                                                                                                 
+                callback(data);
+            },
+        });        
+    },
+
+
+    logout:function(){                   
+        var url = '../api/logout';
+        console.log('Logout... ');                           
+        $.ajax({
+            url: url,
+            type:'GET'
+        });                            
+    },
 };

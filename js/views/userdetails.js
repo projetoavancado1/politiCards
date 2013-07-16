@@ -1,6 +1,7 @@
 window.UserView = Backbone.View.extend({
 
     initialize: function () {
+        console.log('Initializing User View');    
         this.render();
     },
 
@@ -10,10 +11,9 @@ window.UserView = Backbone.View.extend({
     },
 
     events: {
-        "change"        : "change",
-        "click .save"   : "beforeSave",
-        "click .delete" : "deleteUser",
-        //"click #birthday" : "showCalendar",
+        "change"                  : "change",
+        "click .save"             : "beforeSave",
+        "click .delete"           : "deleteUser",        
         "change  #profilePicture" : "profilePictureUpload"        
     },
 
@@ -117,6 +117,7 @@ window.UserSummaryView = Backbone.View.extend({
     tagName:"div", // Not required since 'div' is the default if no el or tagName specified
 
     initialize: function () {
+        console.log('Initializing Summary View');    
         this.render();
     },
 

@@ -3,6 +3,7 @@ window.Paginator = Backbone.View.extend({
     className: "pagination pagination-centered",
 
     initialize:function () {
+        console.log('Initializing Paginator View');    
         this.model.bind("reset", this.render, this);
         this.render();
     },

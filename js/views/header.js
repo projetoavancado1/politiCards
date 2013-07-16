@@ -1,13 +1,14 @@
 window.HeaderView = Backbone.View.extend({
 
     initialize: function () {
-        this.render();
+        console.log('Initializing Header View');       
+        this.render();        
     },
 
-    render: function () {
-        $(this.el).html(this.template());
+    render: function () {                
+        $(this.el).html(this.template());                                                                    
         return this;
-    },
+    },    
 
     selectMenuItem: function (menuItem) {
         $('.nav li').removeClass('active');

@@ -1,5 +1,7 @@
 <?php
 
+ini_set( 'default_charset', 'utf-8');
+
 session_start(); // Add this to the top of the file
 
 require 'Slim/Slim.php';
@@ -18,7 +20,9 @@ $app->delete('/users/:id', authorize('user'), 'deleteUser');
 
 // I add the login route as a post, since we will be posting the login form info
 $app->post('/login', 'login');
-$app->post('/logout', 'logout');
+$app->get('/logout', 'logout');
+$app->get('/islogged', 'islogged');
+$app->get('/sessionInfo', 'sessionInfo');
 
 $app->run();
 
@@ -164,10 +168,10 @@ function login() {
 		}else{
 	        // normally you would load credentials from a database. 
 	        // This is just an example and is certainly not secure
-	        $user = array("id"=>$result['id'], "name"=>$result['name'], "email"=>$result['email'], "role"=>"user");
+	        $user = array("id"=>$result['id'], "name"=>$result['name'], "email"=>$result['email'], "profilePicture"=>$result['profilePicture'], "role"=>"user");
 
-	        $_SESSION['user'] = $user;	        
-	        echo json_encode(array_merge($user,array("profilePicture"=>$result['profilePicture'])));        
+	        $_SESSION["user"] = $user;	        
+	        echo json_encode($user);//json_encode(array_merge($user,array("profilePicture"=>$result['profilePicture'])));        
         }
     }
     else {
@@ -176,10 +180,28 @@ function login() {
 }
 
 function logout(){
-	
-	unset($_SESSION['user']);
-	session_destroy();
+	if(!empty($_SESSION['user'])){
+		unset($_SESSION['user']);
+		session_destroy();
+	}else{
+		echo '{"error":{"text":"O usuário não está logado no sistema."}}';
+	}	
+}
 
+function isLogged(){	
+	if(!empty($_SESSION['user'])){		
+		echo '{"islogged":true}';
+	}else{
+		echo '{"islogged":false}';
+	}
+}
+
+function sessionInfo(){
+	if(!empty($_SESSION['user'])){							
+		echo json_encode($_SESSION["user"]);
+	}else{
+		echo '{"error":{"text":"Não há nenhum usuário logado no sistema."}}';
+	}
 }
 
 function authorize($role = "user"){

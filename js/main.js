@@ -6,13 +6,14 @@ var AppRouter = Backbone.Router.extend({
         "users/add"         : "addUser",
         "users/edit/:id"    : "editUser",
         "users/:id"         : "userDetails",
-        "login"             : "login",
-        "logout/:id"        : "logout"
+        "login"             : "login"
+        ///"logout"            : "logout"
     },
 
     initialize: function () {
         this.headerView = new HeaderView();
         $('.header').html(this.headerView.el);
+        $('#userLoginOptions').html(new UserLoginOptionsView().el);                    
     },
 
     list: function(page) {
@@ -60,45 +61,9 @@ var AppRouter = Backbone.Router.extend({
                     window.location.replace('/#denied');
                 }
             }
-        });
-    },
-
-
-    logout:function (id){        
-           
-        var url = '../api/logout';
-        console.log('Logout... ');
-        var logoutValue = {
-            id: id
-        };
-        window.location.replace('#');             
-        $.ajax({
-            url: url,
-            type:'POST',
-            dataType:"json",
-            data: logoutValue
-            /*
-            success:function (data) {
-                //console.log(["Login request details: ", data]);
-               
-                if(data.error) {  // If there is an error, show the error messages
-                    $('.alert-error').text(data.error.text).show();
-                }
-                else { // If not, send them back to the home page                    
-                    window.location.replace('#users/'+data.id);                       
-
-                    var user = new User({id: data.id,
-                                         name: data.name,
-                                         profilePicture: data.profilePicture});   
-                    console.log(data);     
-                    $('#userLoginOptions').html(new UserLoginOptionsView({model: user}).render().el);                            
-                }
-            }*/
-            
-        });
+        });        
     },
      
-
     home: function(){
         $('#content').html(new HomeView().render().el);
     }
@@ -106,8 +71,7 @@ var AppRouter = Backbone.Router.extend({
 });
 
 utils.loadTemplate(['HeaderView', 'UserView', 'UserListItemView', 
-                    'LoginView', 'HomeView', 'UserSummaryView',
-                    'UserLoginOptionsView'], function() {
+                    'LoginView', 'HomeView', 'UserSummaryView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
