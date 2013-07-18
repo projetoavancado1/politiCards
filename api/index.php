@@ -11,6 +11,8 @@ $app = new Slim();
 $app->get('/', function () {
 		echo "PolitiCards REST API";
 	});
+
+// routes for users
 $app->get('/users', authorize('user'), 'getUsers');
 $app->get('/users/:id',	authorize('user'), 'getUser');
 $app->get('/users/search/:query', authorize('user'), 'findByName');
@@ -23,6 +25,19 @@ $app->post('/login', 'login');
 $app->get('/logout', 'logout');
 $app->get('/islogged', 'islogged');
 $app->get('/sessionInfo', 'sessionInfo');
+
+// routes for posts
+$app->get('/posts', 'getPosts');
+$app->get('/posts/:id', 'getPost');
+$app->get('/posts/my/:user', 'getPostsOfUser');
+$app->post('/posts', 'addPost');
+$app->put('/posts/:id', 'updatePost');
+$app->delete('/posts/:id', 'deletePost');
+
+// routes for comments
+$app->get('/comments/list/:post', 'getCommentsOfPost');
+$app->post('/comments', 'addComment');
+$app->delete('/comments/:id', 'deleteComment');
 
 $app->run();
 
@@ -227,6 +242,160 @@ function authorize($role = "user"){
             $app->halt(401, 'Você não tem premissão!');
         }
     };
+}
+
+
+// ---------- functions for posts routes -----------
+
+//return all posts in database
+function getPosts() {	
+	$sql = "select * FROM posts ORDER BY author";
+	try {
+		$db = getConnection();		
+		$stmt = $db->query($sql);  
+		$posts = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo json_encode($posts);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+//return one post, if your ID equals the parameter ID
+function getPost($id) {		
+	$sql = "SELECT * FROM posts WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$post = $stmt->fetchObject();  
+		$db = null;
+		echo json_encode($post); 
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+// return all posts createds for one user, if your id equals the parameter id
+function getPostsOfUser($user) {	
+	$sql = "select * FROM posts where author=:author";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("author", $user);
+		$stmt->execute();
+		$posts = $stmt->fetchAll(PDO::FETCH_OBJ); 
+		$db = null;
+		echo json_encode($posts);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function addPost() {	
+	error_log('addPost\n', 3, '/var/tmp/php.log');
+	$request = Slim::getInstance()->request();
+	$post = json_decode($request->getBody());	
+	$sql = "INSERT INTO posts (author, title, message) VALUES (:author, :title, :message)";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("author", $post->author);
+		$stmt->bindParam("title", $post->title);
+		$stmt->bindParam("message", $post->message);
+		$stmt->execute();
+		$post->id = $db->lastInsertId();
+		$db = null;
+		echo json_encode($post); 
+	} catch(PDOException $e) {
+		error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function updatePost($id){
+	$request = Slim::getInstance()->request();
+	$body = $request->getBody();
+	$post = json_decode($body);	
+	$sql = "UPDATE posts SET author=:author, message=:message WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("author", $post->author);
+		$stmt->bindParam("message", $post->message);
+		$stmt->bindParam("id", $post->id);
+		$stmt->execute();
+		$db = null;
+		echo json_encode($post); 
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function deletePost($id) {
+	$sql = "DELETE FROM posts WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$db = null;
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+
+// ---------- functions for comments routes -----------
+
+function getCommentsOfPost($post) {	
+	$sql = "select * FROM comments where post=:post";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("post", $post);
+		$stmt->execute();
+		$comments = $stmt->fetchAll(PDO::FETCH_OBJ); 
+		$db = null;
+		echo json_encode($comments);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function addComment() {	
+	error_log('addComment\n', 3, '/var/tmp/php.log');
+	$request = Slim::getInstance()->request();
+	$comment = json_decode($request->getBody());	
+	$sql = "INSERT INTO comments (author, post, text) VALUES (:author, :post, :text)";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("author", $comment->author);
+		$stmt->bindParam("post", $comment->post);
+		$stmt->bindParam("text", $comment->text);
+		$stmt->execute();
+		$comment->id = $db->lastInsertId();
+		$db = null;
+		echo json_encode($comment); 
+	} catch(PDOException $e) {
+		error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function deleteComment($id) {
+	$sql = "DELETE FROM comments WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$db = null;
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
 }
 
 ?>

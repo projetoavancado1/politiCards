@@ -19,6 +19,20 @@
 -- Table structure for tables
 --
 
+INSERT INTO `posts`(`author`,`title`,`message`)
+VALUES
+	('1','Protestos em Brasília','Protestos em Brasília'),
+	('1','Protestos em São Paulo','Protestos em São Paulo'),
+	('2','Protestos em Minas','Protestos em Minas'),
+	('3','Protestos em Alagoas','Protestos em Alagoas');
+
+INSERT INTO `comments`(`author`,`post`,`text`)
+VALUES
+	('3','1','Protestos em Brasília'),
+	('3','1','Protestos em São Paulo'),
+	('4','2','Protestos em Minas'),
+	('6','3','Protestos em Alagoas');
+
 INSERT INTO `user`(`name`,`email`,`gender`,`birthday`,`passWord`,`profilePicture`,`userType`) 
 VALUES 
 	('Digenaldo Neto','digenaldo.net@dce.ufpb.br','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
