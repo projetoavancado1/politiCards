@@ -20,6 +20,8 @@
 --
 
 DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `posts`;
+DROP TABLE IF EXISTS `comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 
@@ -34,5 +36,26 @@ CREATE TABLE IF NOT EXISTS `user`(
 	`userType` INT NULL,
 	PRIMARY KEY (`id`)
 )ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `posts`(
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`author` INT NOT NULL,
+	`title` VARCHAR(100),
+	`message` VARCHAR(100) NOT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`author`) REFERENCES `user`(`id`)
+)ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `comments`(
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`author` INT NOT NULL,
+	`post` INT NOT NULL,
+	`text` VARCHAR(100) NOT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`author`) REFERENCES `user`(`id`),
+	FOREIGN KEY (`post`) REFERENCES `posts` (`id`)
+)ENGINE = InnoDB;
+
 
 /*!40101 SET character_set_client = @saved_cs_client */;
