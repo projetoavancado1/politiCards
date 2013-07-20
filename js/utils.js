@@ -98,6 +98,25 @@ window.utils = {
         });        
     },
 
+    login:function (email, password, callback){
+        var url = '../api/login';
+        console.log('Loggin in... ');
+        var formValues = {
+            email: email,
+            password: password
+        };
+
+        $.ajax({
+            url:url,
+            type:'POST',
+            dataType:"json",
+            data: formValues,            
+            success:function (data) {        
+                callback(data);                                       
+            }
+        });
+    },
+
 
     logout:function(){                   
         var url = '../api/logout';

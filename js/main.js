@@ -6,8 +6,7 @@ var AppRouter = Backbone.Router.extend({
         "users/add"         : "addUser",
         "users/edit/:id"    : "editUser",
         "users/:id"         : "userDetails",
-        "login"             : "login"
-        ///"logout"            : "logout"
+        "login"             : "login"        
     },
 
     initialize: function () {
@@ -22,7 +21,7 @@ var AppRouter = Backbone.Router.extend({
         userList.fetch({success: function(){
             $("#content").html(new UserListView({model: userList, page: p}).el);
         }});
-        this.headerView.selectMenuItem('home-menu');
+        this.headerView.selectMenuItem('list-menu');
     },
 
     editUser: function (id) {
@@ -47,8 +46,20 @@ var AppRouter = Backbone.Router.extend({
         this.headerView.selectMenuItem('add-menu');
 	},
 
-    login: function() {
-        $('#content').html(new LoginView().render().el);        
+    login: function() {            
+        var loginData = {email: $('#email').length > 0? $('#email').val(): "", 
+                         password: $('#password').length > 0? $('#password').val(): "",
+                         erroMessage: $("#errorAlert").text()};
+        $('#content').prepend(new LoginView(loginData).el);         
+        $('#myModal').on('show', function (){
+            $('#userLoginOptions').html("");
+            if($("#errorAlert").text().length > 0){
+                $("#errorAlert").show();       
+            }else{
+                $("#errorAlert").hide();       
+            }
+        });        
+        $('#myModal').modal('show');                        
         // Tell jQuery to watch for any 401 or 403 errors and handle them appropriately
         $.ajaxSetup({
             statusCode: {
@@ -65,7 +76,8 @@ var AppRouter = Backbone.Router.extend({
     },
      
     home: function(){
-        $('#content').html(new HomeView().render().el);
+        $('#content').html(new HomeView().render().el);                                 
+        this.headerView.selectMenuItem();
     }
     
 });
@@ -75,4 +87,3 @@ utils.loadTemplate(['HeaderView', 'UserView', 'UserListItemView',
     app = new AppRouter();
     Backbone.history.start();
 });
-

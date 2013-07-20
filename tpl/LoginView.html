@@ -1,29 +1,38 @@
-<div class="alert alert-error" style="display:none;"></div>
-<div class="row">
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  
+  <div class="modal-header">          
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <br>  
+  </div>  
+  <div class="modal-body">    
+    <legend "padding= 0px;" >Login</legend>
 
-  <form id= "loginForm"class="form-horizontal span12">
+    <div id="errorAlert"class="alert alert-error" style="display:none;"><%= erroMessage %></div>        
+    <!--style="display:none;"-->
+      <form id= "loginForm"class="form-horizontal">    
+      <div class="control-group">
+        <label class="control-label" for="inputEmail">E-mail</label>
+        <div class="controls">
+          <input type="text" id="email" placeholder="Email" value="<%= email %>">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputPassword">Senha</label>
+        <div class="controls">
+          <input type="password" id="password" placeholder="Senha" value="<%= password %>">
+        </div>
+      </div>
 
-  <fieldset>
-
-  <legend>Login</legend><br/>
-
-  <div class="control-group">
-    <label class="control-label" for="inputEmail">E-mail</label>
-    <div class="controls">
-      <input type="text" id="email" placeholder="Email">
-    </div>
+      <div class="control-group">
+        <div class="controls">
+          <button id="loginButton" type="submit" class="btn">Entrar</button>
+        </div>
+      </div>
+    </form>       
   </div>
-  <div class="control-group">
-    <label class="control-label" for="inputPassword">Senha</label>
-    <div class="controls">
-      <input type="password" id="password" placeholder="Senha">
-    </div>
+  <div class="modal-footer">
+    <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>-->
   </div>
-
-  <div class="control-group">
-    <div class="controls">
-      <button id="loginButton" type="submit" class="btn">Entrar</button>
-    </div>
-  </div>
-</form>
 </div>
+
+

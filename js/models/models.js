@@ -25,12 +25,6 @@ window.User = Backbone.Model.extend({
         this.validators.passWord = function (value) {
             return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir uma senha"};
         };
-
-        /*
-        this.validators.userType = function (value) {
-            return value in {1,2} ? {isValid: true} : {isValid: false, message: "Você precisa inserir o tipo do usuário"};
-        };
-        */
     },
 
     validateItem: function (key) {

@@ -1,44 +1,35 @@
 window.LoginView = Backbone.View.extend({
 
-    initialize:function () {
-        console.log('Initializing Login View');       
+    initialize:function(loginData){
+        console.log('Initializing Login View');        
+        this.render(loginData);                
     },
 
     events: {        
-        "click #loginButton": "login"
+        "click #loginButton" : "login"
     },
 
-    render:function (){
-        $(this.el).html(this.template());
+    render:function(loginData){                   
+        $(this.el).html(this.template(loginData));                                          
         return this;
     },
 
-    login:function (event){
-        event.preventDefault(); // Don't let this button submit the form
-        $('.alert-error').hide(); // Hide any errors on a new submit
-        var url = '../api/login';
-        console.log('Loggin in... ');
-        var formValues = {
-            email: $('#email').val(),
-            password: $('#password').val()
-        };
-
-        $.ajax({
-            url:url,
-            type:'POST',
-            dataType:"json",
-            data: formValues,            
-            success:function (data) {                               
-                if(data.error) {  // If there is an error, show the error messages
-                    $('.alert-error').text(data.error.text).show();
-                }
-                else { // If not, send them back to the home page                    
-                    window.location.replace('#users/'+data.id);                                                           
-                    $('#userLoginOptions').html(new UserLoginOptionsView().el);
-                }
+    login:function (event){        
+        event.preventDefault(); // Don't let this button submit the form        
+        $('.alert-error').hide(); // Hide any errors on a new submit        
+        var email = $('#email').val();
+        var password = $('#password').val();
+        utils.login(email, password, function(loginInfo){
+            if(loginInfo.error) {  // If there is an error, show the error messages                
+                $('.alert-error').text(loginInfo.error.text).show();
+            }else { // If not, send them back to the home page                                    
+                $('#myModal').modal('hide');
+                $('#myModal').remove();
+                window.location.replace('#users/'+loginInfo.id);                                                           
+                $('#userLoginOptions').html(new UserLoginOptionsView().el);                
             }
-        });
-    }
+        });                    
+    },
 });
 
 window.UserLoginOptionsView = Backbone.View.extend({                
@@ -48,9 +39,25 @@ window.UserLoginOptionsView = Backbone.View.extend({
         this.render();                
     },
 
-    
     events: {            
-        "click #logoutOption": "logout"
+        "click #logoutOption": "logout",
+        "click #loginButton" : "login"
+    },        
+
+    login:function (event){
+        event.preventDefault(); // Don't let this button submit the form
+        $('.alert-error').hide(); // Hide any errors on a new submit
+        var email = $('#email').val();
+        var password = $('#password').val();
+        utils.login(email, password, function(loginInfo){
+            if(loginInfo.error) {  // If there is an error, show the error messages
+                window.location.replace("#login");  
+                $('.alert-error').text(loginInfo.error.text);                                                                                                         
+            }else { // If not, send them back to the home page                    
+                window.location.replace('#users/'+loginInfo.id);                                                           
+                $('#userLoginOptions').html(new UserLoginOptionsView().el);
+            }
+        });                    
     },
 
     logout: function(){
