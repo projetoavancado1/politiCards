@@ -56,9 +56,13 @@ var AppRouter = Backbone.Router.extend({
             if($("#errorAlert").text().length > 0){
                 $("#errorAlert").show();       
             }else{
-                $("#errorAlert").hide();       
+                $("#errorAlert").hide();                  
             }
         });        
+        $('#myModal').on('hide', function (){
+            $('#userLoginOptions').html(new UserLoginOptionsView().el);                    
+            window.location.replace('#');
+        });
         $('#myModal').modal('show');                        
         // Tell jQuery to watch for any 401 or 403 errors and handle them appropriately
         $.ajaxSetup({
@@ -76,7 +80,7 @@ var AppRouter = Backbone.Router.extend({
     },
      
     home: function(){
-        $('#content').html(new HomeView().render().el);                                 
+        $('#content').html(new HomeView().render().el);                                         
         this.headerView.selectMenuItem();
     }
     
