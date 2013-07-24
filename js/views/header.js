@@ -10,7 +10,7 @@ window.HeaderView = Backbone.View.extend({
         return this;
     },    
 
-    selectMenuItem: function (menuItem) {
+    selectMenuItem: function (menuItem) {        
         $('.nav li').removeClass('active');
         if (menuItem) {
             $('.' + menuItem).addClass('active');

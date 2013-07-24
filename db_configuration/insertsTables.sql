@@ -19,7 +19,7 @@
 -- Table structure for tables
 --
 
-INSERT INTO `posts`(`author`,`title`,`message`)
+INSERT INTO `posts`(`author`,`title`,`text`)
 VALUES
 	('1','Protestos em Brasília','Protestos em Brasília'),
 	('1','Protestos em São Paulo','Protestos em São Paulo'),

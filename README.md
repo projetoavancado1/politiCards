@@ -8,8 +8,8 @@ politiCards
 2. Enter in the directory. 
 3. Execute createTables.sql to create the tables:
 
-	mysql politiCards -u dev -p < politiCards.sql
+	mysql politiCards -u dev -p < createTables.sql
 
 4.  Execute insertsOfTables.sql to populate the tables:
 
-	mysql politiCards -u dev -p < insertsOfTables.sql
+	mysql politiCards -u dev -p < insertsTables.sql
