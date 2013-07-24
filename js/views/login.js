@@ -42,29 +42,7 @@ window.UserLoginOptionsView = Backbone.View.extend({
     events: {            
         "click #logoutOption": "logout",
         "click #loginButton" : "login"
-    },        
-
-    login:function (event){
-        event.preventDefault(); // Don't let this button submit the form
-        $('.alert-error').hide(); // Hide any errors on a new submit
-        var email = $('#email').val();
-        var password = $('#password').val();
-        utils.login(email, password, function(loginInfo){
-            if(loginInfo.error) {  // If there is an error, show the error messages
-                window.location.replace("#login");  
-                $('.alert-error').text(loginInfo.error.text);                                                                                                         
-            }else { // If not, send them back to the home page                    
-                window.location.replace('#users/'+loginInfo.id);                                                           
-                $('#userLoginOptions').html(new UserLoginOptionsView().el);
-            }
-        });                    
-    },
-
-    logout: function(){
-        window.location.replace('#');
-        utils.logout();        
-        this.render();
-    },
+    },            
 
     render:function (){                
         console.log("Rendering UserLoginOptionsView");
@@ -85,6 +63,28 @@ window.UserLoginOptionsView = Backbone.View.extend({
             }   
         });            
         return this;
+    },
+
+    login:function (event){
+        event.preventDefault(); // Don't let this button submit the form
+        $('.alert-error').hide(); // Hide any errors on a new submit
+        var email = $('#email').val();
+        var password = $('#password').val();
+        utils.login(email, password, function(loginInfo){
+            if(loginInfo.error) {  // If there is an error, show the error messages
+                window.location.replace("#login");  
+                $('#erroMessage').text(loginInfo.error.text);
+            }else { // If not, send them back to the home page                    
+                window.location.replace('#users/'+loginInfo.id);                                                           
+                $('#userLoginOptions').html(new UserLoginOptionsView().el);
+            }
+        });                    
+    },
+
+    logout: function(){
+        window.location.replace('#');
+        utils.logout();        
+        this.render();
     }
 
 });

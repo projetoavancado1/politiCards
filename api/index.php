@@ -16,7 +16,7 @@ $app->get('/', function () {
 $app->get('/users', authorize('user'), 'getUsers');
 $app->get('/users/:id',	authorize('user'), 'getUser');
 $app->get('/users/search/:query', authorize('user'), 'findByName');
-$app->post('/users', authorize('user'), 'addUser');
+$app->post('/users', 'addUser');
 $app->put('/users/:id', authorize('user'), 'updateUser');
 $app->delete('/users/:id', authorize('user'), 'deleteUser');
 

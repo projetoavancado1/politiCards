@@ -41,13 +41,14 @@ window.utils = {
 
     displayValidationErrors: function (messages) {
         for (var key in messages) {
-            if (messages.hasOwnProperty(key)) 
+            if (messages.hasOwnProperty(key))                 
+                console.log(key);
                 this.addValidationError(key, messages[key]);
         }
-        this.showAlert('Aviso!', 'Corriga os erros de validação e tente novamente', 'alert-warning');
+        this.showAlert('Aviso!', 'Corriga os erros de validação e tente novamente.', 'alert-warning');
     },
 
-    addValidationError: function (field, message) {
+    addValidationError: function (field, message){                
         var controlGroup = $('#' + field).parent().parent();
         controlGroup.addClass('error');
         $('.help-inline', controlGroup).html(message);

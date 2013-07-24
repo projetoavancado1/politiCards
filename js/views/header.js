@@ -4,7 +4,7 @@ window.HeaderView = Backbone.View.extend({
         console.log('Initializing Header View');       
         this.render();        
     },
-
+    
     render: function () {                
         $(this.el).html(this.template());                                                                    
         return this;

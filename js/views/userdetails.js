@@ -51,7 +51,7 @@ window.UserView = Backbone.View.extend({
 
     beforeSave: function () {          
         var check = this.model.validateAll();
-        if (check.isValid === false) {
+        if (check.isValid === false){            
             utils.displayValidationErrors(check.messages);
             return false;
         }
@@ -71,10 +71,13 @@ window.UserView = Backbone.View.extend({
             success: function (model) {
                 self.render();
                 //app.navigate('users/' + model.id, false);                
-                utils.showAlert('Sucesso!', 'Usuário salvo corretamente', 'alert-success');                
+                utils.showAlert('Sucesso!', 'Usuário salvo corretamente.', 'alert-success');
+                utils.login(model.get("email"), model.get("passWord"), function(){});
+                window.location.replace('#');
+                $('#userLoginOptions').html(new UserLoginOptionsView().el);                
             },
             error: function () {
-                utils.showAlert('Erro', 'Um erro correu enquanto tentava salvar o usuário', 'alert-error');
+                utils.showAlert('Erro!', 'Um erro correu enquanto tentava salvar o usuário.', 'alert-error');
             }
         });
     },
@@ -83,8 +86,13 @@ window.UserView = Backbone.View.extend({
         this.model.destroy({
             success: function () {
                 alert('Usuário removido com sucesso');
-                //window.history.back();
+                //window.history.back();                
                 window.location.replace('#');
+                utils.logout();
+            },
+
+            error: function(){
+                alert("Deu erro!");
             }
         });
         return false;
@@ -102,7 +110,7 @@ window.UserView = Backbone.View.extend({
         var reader = new FileReader();
         // Closure to capture the file information.
         reader.onloadend = function (){
-                $('#viewProfilePicture').attr('src', reader.result).width(180).height(200);                                
+            $('#viewProfilePicture').attr('src', reader.result).width(180).height(200);                                
         };                
         // Read in the image file as a data URL.
         reader.readAsDataURL(this.pictureFile);
