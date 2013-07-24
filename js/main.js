@@ -6,7 +6,10 @@ var AppRouter = Backbone.Router.extend({
         "users/add"         : "addUser",
         "users/edit/:id"    : "editUser",
         "users/:id"         : "userDetails",
-        "login"             : "login"        
+        "login"             : "login",      
+        "posts/edit/:id"    : "editPost",
+        "posts/new"         : "createPost",
+        "posts/page/:page"  : "listPosts"
     },
 
     initialize: function () {
@@ -42,16 +45,16 @@ var AppRouter = Backbone.Router.extend({
 
 	addUser: function() {        
         var user = new User();
-        $('#content').html(new UserView({model: user}).el);        
+        $('#content').html(new UserView({model: user}).el);
         this.headerView.selectMenuItem('add-menu');
 	},
 
     login: function() {            
         var loginData = {email: $('#email').length > 0? $('#email').val(): "", 
                          password: $('#password').length > 0? $('#password').val(): "",
-                         erroMessage: $("#erroMessage").text()};
+                         erroMessage: $("#errorAlert").text()};
         $('#content').prepend(new LoginView(loginData).el);         
-        $('#loginModal').on('show', function (){
+        $('#myModal').on('show', function (){
             $('#userLoginOptions').html("");
             if($("#errorAlert").text().length > 0){
                 $("#errorAlert").show();       
@@ -59,11 +62,11 @@ var AppRouter = Backbone.Router.extend({
                 $("#errorAlert").hide();                  
             }
         });        
-        $('#loginModal').on('hide', function (){
+        $('#myModal').on('hide', function (){
             $('#userLoginOptions').html(new UserLoginOptionsView().el);                    
             window.location.replace('#');
         });
-        $('#loginModal').modal('show');                        
+        $('#myModal').modal('show');                        
         // Tell jQuery to watch for any 401 or 403 errors and handle them appropriately
         $.ajaxSetup({
             statusCode: {
@@ -82,12 +85,34 @@ var AppRouter = Backbone.Router.extend({
     home: function(){
         $('#content').html(new HomeView().render().el);                                         
         this.headerView.selectMenuItem();
+    },
+
+    editPost: function(id){
+        var post = new Post({id: id});
+        post.fetch({success: function(){
+            $("#content").html(new PostView({model: post}).el);
+        }});
+    },
+
+    createPost: function(){
+        var post = new Post();
+        $('#content').html(new PostView({model: post}).el);
+    },
+
+    listPosts: function(page){
+        var p = page ? parseInt(page, 10) : 1;
+        var postList = new PostCollection();
+        postList.fetch({success: function(){
+            $("#content").html(new PostListView({model: postList, page: p}).el);
+        }});
+        this.headerView.selectMenuItem('list-menu');
+
     }
     
 });
 
-utils.loadTemplate(['HeaderView', 'UserView', 'UserListItemView', 
-                    'LoginView', 'HomeView', 'UserSummaryView'], function() {
+utils.loadTemplate(['HeaderView', 'UserView','UserListItemView', 'PostItemView', 
+                    'LoginView', 'HomeView', 'UserSummaryView', 'PostView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
