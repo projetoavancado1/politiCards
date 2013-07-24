@@ -23,8 +23,8 @@ window.LoginView = Backbone.View.extend({
             if(loginInfo.error) {  // If there is an error, show the error messages                
                 $('.alert-error').text(loginInfo.error.text).show();
             }else { // If not, send them back to the home page                                    
-                $('#myModal').modal('hide');
-                $('#myModal').remove();
+                $('#loginModal').modal('hide');
+                $('#loginModal').remove();
                 window.location.replace('#users/'+loginInfo.id);                                                           
                 $('#userLoginOptions').html(new UserLoginOptionsView().el);                
             }
