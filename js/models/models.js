@@ -95,3 +95,23 @@ window.PostCollection = Backbone.Collection.extend({
     url:"../api/posts"    
 });
 
+// Model Comment 
+
+window.Comment = Backbone.Model.extend({
+
+    urlRoot: "../api/Comments",
+    defaults:{
+        id: null,
+        author: "",
+        post: "",
+        text: ""
+    }
+});
+
+window.CommentCollection = Backbone.Collection.extend({
+
+    model: Comment,
+    url: "../api/Comments"
+
+});
+
