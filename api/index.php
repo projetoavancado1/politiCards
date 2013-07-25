@@ -249,7 +249,7 @@ function authorize($role = "user"){
 
 //return all posts in database
 function getPosts() {	
-	$sql = "select * FROM posts ORDER BY author";
+	$sql = "select * FROM posts ORDER BY id DESC";
 	try {
 		$db = getConnection();		
 		$stmt = $db->query($sql);  
@@ -279,7 +279,7 @@ function getPost($id) {
 
 // return all posts createds for one user, if your id equals the parameter id
 function getPostsOfUser($user) {	
-	$sql = "select * FROM posts where author=:author";
+	$sql = "select * FROM posts where author=:author ORDER BY id DESC";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
