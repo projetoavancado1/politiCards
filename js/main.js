@@ -52,9 +52,9 @@ var AppRouter = Backbone.Router.extend({
     login: function() {            
         var loginData = {email: $('#email').length > 0? $('#email').val(): "", 
                          password: $('#password').length > 0? $('#password').val(): "",
-                         erroMessage: $("#errorAlert").text()};
+                         erroMessage: $("#erroMessage").text()};
         $('#content').prepend(new LoginView(loginData).el);         
-        $('#myModal').on('show', function (){
+        $('#loginModal').on('show', function (){
             $('#userLoginOptions').html("");
             if($("#errorAlert").text().length > 0){
                 $("#errorAlert").show();       
@@ -62,11 +62,11 @@ var AppRouter = Backbone.Router.extend({
                 $("#errorAlert").hide();                  
             }
         });        
-        $('#myModal').on('hide', function (){
+        $('#loginModal').on('hide', function (){
             $('#userLoginOptions').html(new UserLoginOptionsView().el);                    
             window.location.replace('#');
         });
-        $('#myModal').modal('show');                        
+        $('#loginModal').modal('show');                        
         // Tell jQuery to watch for any 401 or 403 errors and handle them appropriately
         $.ajaxSetup({
             statusCode: {

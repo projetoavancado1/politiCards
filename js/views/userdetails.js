@@ -68,13 +68,17 @@ window.UserView = Backbone.View.extend({
         var self = this;
         console.log(this.model.toJSON());
         this.model.save(null, {
-            success: function (model) {
-                self.render();
+            success: function(model){
+                self.render();                
                 //app.navigate('users/' + model.id, false);                
                 utils.showAlert('Sucesso!', 'Usuário salvo corretamente.', 'alert-success');
-                utils.login(model.get("email"), model.get("passWord"), function(){});
-                window.location.replace('#');
-                $('#userLoginOptions').html(new UserLoginOptionsView().el);                
+                utils.isLogged(function(islogged){                    
+                    if (islogged == false){   
+                        utils.login(model.get("email"), model.get("passWord"), function(){});
+                        window.location.replace('#');
+                        $('#userLoginOptions').html(new UserLoginOptionsView().el);                
+                    }
+                });
             },
             error: function () {
                 utils.showAlert('Erro!', 'Um erro correu enquanto tentava salvar o usuário.', 'alert-error');
@@ -92,11 +96,11 @@ window.UserView = Backbone.View.extend({
             },
 
             error: function(){
-                alert("Deu erro!");
+                alert("Retorna error, mas exclui!");
             }
         });
         return false;
-    },    
+    },        
     
     profilePictureUpload: function (event){                          
 

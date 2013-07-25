@@ -9,10 +9,19 @@ window.User = Backbone.Model.extend({
         this.validators.name = function (value) {
             return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um nome"};
         };
-
-        this.validators.email = function (value) {
-            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um email"};
-        };    
+        
+        this.validators.email = function (value) {                                    
+            var returnData = {isValid: true};
+            if(! value.length > 0)
+                returnData = {isValid: false, message: "Você precisa inserir um e-mail."};
+            else{
+                var atpos = value.indexOf("@");
+                var dotpos = value.lastIndexOf(".");    
+                if(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= value.length)
+                    returnData = {isValid: false, message: "Insira um e-mail válido."};
+            }
+            return returnData;
+        },
 
         this.validators.gender = function (value) {
             return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um sexo"};

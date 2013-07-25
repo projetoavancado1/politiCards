@@ -47,26 +47,26 @@ VALUES
 
 INSERT INTO `user`(`name`,`email`,`gender`,`birthday`,`passWord`,`profilePicture`,`userType`) 
 VALUES 
-	('Digenaldo Neto','digenaldo.net@dce.ufpb.br','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Raphael Diniz','raphael.diniz@dce.ufpb.br','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Joao Helis Bernardo','joaohelis.bernardo@dce.ufpb.br','Masculino', '27-07-1993', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Kelson Victor','kelson.victor@dce.ufpb.br','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Pablo Lima','pablo.lima@dce.ufpb.br','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Juan Duarte','juan.duarte@dce.ufpb.br','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Smith Ascari','smith.ascari@dce.ufpb.br','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Carlos Junior','carlos@gmail.com','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Lucas Andrade','Lucas@hotmail.com','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Joaquim Santos','joaquim@gmail.com','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Jaqueline Silva','jaqueline@uol.com.br','Feminino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Giseli Lima','giseli@gmail.com','Feminino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Maria Jose','mariajose@gmail.com','Feminino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Joana Silva','joana@gmail.com','Feminino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Juliana Bernardo','juliana@gmail.com','Feminino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Barbara Duarte','barbara@gmail.com','Feminino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Isadora Montenegro','isadora@gmail.com','Feminino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Fernanda Lima','fernada@gmail.com','Feminino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Joao Maria','joao@gmail.com','Masculino', '24-01-2424', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Yuri Malheiros','yuri@dce.ufpb.br','Masculino', '01-01-1990', '123', '../img/profilePictures/defaultPicture.jpg', '1');
+	('Digenaldo Neto','digenaldo.neto@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/digenaldo.jpg', '1'),
+	('Raphael Diniz','raphael.diniz@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/raphael.jpg', '1'),
+	('Joao Helis Bernardo','joaohelis.bernardo@dce.ufpb.br','Masculino', '07-27-1993', '123', '../img/profilePictures/joaohelis.jpg', '1'),
+	('Kelson Victor','kelson.victor@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/kelson.jpg', '1'),
+	('Pablo Lima','pablo.lima@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/pablo.jpg', '1'),
+	('Juan Duarte','juan.duarte@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/juan.jpg', '1'),
+	('Smith Ascari','smith.ascari@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/smith.jpg', '1'),
+	('Yuri Malheiros','yuri@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/yuri.jpg', '1'),
+	('Carlos Junior','carlos.junior@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Lucas Andrade','lucas.andrade@hotmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Joaquim Santos','joaquim.santos@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Jaqueline Silva','jaqueline.silva@uol.com.br','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Giseli Lima','giseli.lima@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Maria Jose','maria.jose@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Joana Silva','joana.silva@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Juliana Bernardo','juliana.bernardo@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Barbara Duarte','barbara.duarte@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Isadora Montenegro','isadora.montenegro@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Fernanda Lima','fernada.lima@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
+	('Joao Maria','joao.maria@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1');
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
