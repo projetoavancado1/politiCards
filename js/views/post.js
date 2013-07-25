@@ -1,30 +1,37 @@
 window.PostView = Backbone.View.extend({
 
 	initialize: function(){
-		console.log("Starting Post View...");
+		console.log("Starting Post View...");    
 		this.render();
 	},
 
 	render: function(){
-		$(this.el).html(this.template(this.model.toJSON()));
-        return this;
+  		$(this.el).html(this.template(this.model.toJSON()));
+      return this;
 	},
-
 
 	events: {
-		"click #postButton"         : "savePost",
-		"click #deletePostButton"   : "deletePost"
-
+      "change"                    : "change",
+  		"click #postButton"         : "savePost",
+  		"click #deletePostButton"   : "deletePost"
 	},
 
+  change: function (event) {    
+      var target = event.target;
+      var change = {};
+      change[target.name] = target.value;
+      this.model.set(change);
+  },
+
 	savePost: function(){
-	    var post = this;
+
+	    var self = this;
 
       console.log(this.model.toJSON());
 
       this.model.save(null, {
           success: function (model) {
-          	post.render();
+              self.render();
               utils.showAlert('Sucesso!', 'Postagem realizada com sucesso', 'alert-success');                
           },
           error: function () {

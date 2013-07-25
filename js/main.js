@@ -95,9 +95,11 @@ var AppRouter = Backbone.Router.extend({
         }});
     },
 
-    createPost: function(){
-        var post = new Post();
-        $('#content').html(new PostView({model: post}).el);
+    createPost: function(){        
+        utils.sessionInfo(function(data){
+           var post = new Post({author: data.id});           
+           $('#content').html(new PostView({model: post}).el);
+        });                
     },
 
     listPosts: function(page){
