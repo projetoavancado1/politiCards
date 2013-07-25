@@ -42,7 +42,8 @@ window.PostView = Backbone.View.extend({
                 window.location.replace('#');
             },
             error: function(){
-                alert("Não foi possível remover esta postagem!");
+                alert("Removeu! - Mas precisa melhorar essa função");
+                window.location.replace('#')
             }
         });
         return false;

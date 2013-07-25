@@ -139,4 +139,23 @@ window.utils = {
             type:'GET'
         });                            
     },
+
+    getPostsOfUser:function(callback){
+        utils.sessionInfo(function(data){
+            var userID =data.id;
+            var url = '../api/posts/my/'+ userID;
+            
+            $.ajax({
+                url:url,
+                type:'GET',
+                dataType:"json",            
+                success:function (data) {        
+                    callback(data);                                       
+                }
+            });
+        
+        });
+        
+    }
+
 };
