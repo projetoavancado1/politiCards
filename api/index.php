@@ -55,7 +55,7 @@ function getUsers() {
 	}
 }
 
-function getUser($id) {		
+function getUser($id){		
 	$sql = "SELECT * FROM user WHERE id=:id";
 	try {
 		$db = getConnection();

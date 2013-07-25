@@ -1,6 +1,10 @@
-<a href="#posts/edit/<%= id %>" class="thumbnail plain">    
-    <h4><%= title %></h4> 
-    <p><%= text %></p> 
-    <p>ID: <%= id %></p> 
-    <p>Author: <%= author %></p> 
-</a>
+<div class="media">
+  <a href="#" class="pull-left">
+    <img class="media-object" src="<%= authorProfilePicture %>"  width="64" height="64">
+  </a>
+  <div class="media-body" contenteditable="true">
+    <a href=""><h4 class="media-heading"><%= author %></h4></a>
+    <h5 class="media-heading"><%= title %></h5>
+    <%= text %>
+  </div>
+</div>

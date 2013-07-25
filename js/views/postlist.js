@@ -14,11 +14,11 @@ window.PostListView = Backbone.View.extend ({
         var startPos = (this.options.page - 1) * boundaryElements;
         var endPos = Math.min(startPos + boundaryElements, length);
 
-        $(this.el).html('<ul class="thumbnails"></ul>');
+        $(this.el).html('<div id="id" class="span12">');
 
         console.log('entrou aki 1');
         for (var i = startPos; i < endPos; i++) {
-            $('.thumbnails', this.el).append(new PostItemView({model: posts[i]}).render().el);
+            $('#id', this.el).append(new PostItemView({model: posts[i]}).render().el);
         }
 
         if(length > boundaryElements){
@@ -32,8 +32,8 @@ window.PostListView = Backbone.View.extend ({
 
 window.PostItemView = Backbone.View.extend({
 
-    tagName: "li",
-	className: "span3",
+    //tagName: "li",
+	className: "well",
 
     initialize: function () {
         console.log('Starting Post List Item View...');    
@@ -42,7 +42,16 @@ window.PostItemView = Backbone.View.extend({
     },
 
     render: function () {        
-        $(this.el).html(this.template(this.model.toJSON()));        
+        var self = this;        
+        utils.getUser(this.model.get("author"), function(user){                    
+            var postDetails = {
+                authorProfilePicture: user["profilePicture"],
+                author: user["name"],
+                title: self.model.get("title"),
+                text: self.model.get("text")
+            };
+            $(self.el).html(self.template(postDetails));
+        });                
         return this;
     }
 

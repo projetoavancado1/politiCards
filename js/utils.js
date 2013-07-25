@@ -83,6 +83,19 @@ window.utils = {
         });        
     },
 
+    getUser: function(id, user_callback){
+        var url = '../api/users/'+id;
+        console.log('islogged... ');                                      
+        $.ajax({
+            url: url,
+            type:'GET',
+            dataType:"json",
+            success:function (data) {                                                                                                    
+                user_callback(data);
+            },
+        });
+    },
+
     sessionInfo: function(callback){        
         var url = '../api/sessionInfo';
         console.log('sessionInfo... ');                                      
