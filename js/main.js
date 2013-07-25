@@ -1,15 +1,16 @@
 var AppRouter = Backbone.Router.extend({
 
     routes: {
-        ""                  : "home",
-        "users/page/:page"	: "list",
-        "users/add"         : "addUser",
-        "users/edit/:id"    : "editUser",
-        "users/:id"         : "userDetails",
-        "login"             : "login",      
-        "posts/edit/:id"    : "editPost",
-        "posts/new"         : "createPost",
-        "posts/page/:page"  : "listPosts"
+        ""                    : "home",
+        "users/page/:page" 	  : "list",
+        "users/add"           : "addUser",
+        "users/edit/:id"      : "editUser",
+        "users/:id"           : "userDetails",
+        "login"               : "login",      
+        "posts/edit/:id"      : "editPost",
+        "posts/new"           : "createPost",
+        "posts/page/:page"    : "listPosts",
+        "my/posts/page/:page" : "listMyPosts"
     },
 
     initialize: function () {
@@ -105,6 +106,15 @@ var AppRouter = Backbone.Router.extend({
         postList.fetch({success: function(){
             $("#content").html(new PostListView({model: postList, page: p}).el);
         }});
+        this.headerView.selectMenuItem('list-menu');
+
+    },
+
+    listMyPosts: function(page){
+        utils.getPostsOfUser(function(data){
+            var p = page ? parseInt(page, 10) : 1;
+            $("#content").html(new PostListView({model: data, page: p}).el);
+        });
         this.headerView.selectMenuItem('list-menu');
 
     }
