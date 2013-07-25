@@ -27,17 +27,17 @@ $app->get('/islogged', 'islogged');
 $app->get('/sessionInfo', 'sessionInfo');
 
 // routes for posts
-$app->get('/posts', 'getPosts');
-$app->get('/posts/:id', 'getPost');
-$app->get('/posts/my/:user', 'getPostsOfUser');
-$app->post('/posts', 'addPost');
-$app->put('/posts/:id', 'updatePost');
-$app->delete('/posts/:id', 'deletePost');
+$app->get('/posts', authorize('user'), 'getPosts');
+$app->get('/posts/:id', authorize('user'), 'getPost');
+$app->get('/posts/my/:user', authorize('user'), 'getPostsOfUser');
+$app->post('/posts', authorize('user'), 'addPost');
+$app->put('/posts/:id', authorize('user'), 'updatePost');
+$app->delete('/posts/:id', authorize('user'), 'deletePost');
 
 // routes for comments
-$app->get('/comments/list/:post', 'getCommentsOfPost');
-$app->post('/comments', 'addComment');
-$app->delete('/comments/:id', 'deleteComment');
+$app->get('/comments/list/:post', authorize('user'), 'getCommentsOfPost');
+$app->post('/comments', authorize('user'), 'addComment');
+$app->delete('/comments/:id', authorize('user'), 'deleteComment');
 
 $app->run();
 
@@ -297,13 +297,13 @@ function addPost() {
 	error_log('addPost\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
 	$post = json_decode($request->getBody());	
-	$sql = "INSERT INTO posts (author, title, message) VALUES (:author, :title, :message)";
+	$sql = "INSERT INTO posts (author, title, text) VALUES (:author, :title, :text)";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
 		$stmt->bindParam("author", $post->author);
 		$stmt->bindParam("title", $post->title);
-		$stmt->bindParam("message", $post->message);
+		$stmt->bindParam("text", $post->text);
 		$stmt->execute();
 		$post->id = $db->lastInsertId();
 		$db = null;
@@ -318,12 +318,12 @@ function updatePost($id){
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
 	$post = json_decode($body);	
-	$sql = "UPDATE posts SET author=:author, message=:message WHERE id=:id";
+	$sql = "UPDATE posts SET author=:author, test=:text WHERE id=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
 		$stmt->bindParam("author", $post->author);
-		$stmt->bindParam("message", $post->message);
+		$stmt->bindParam("text", $post->text);
 		$stmt->bindParam("id", $post->id);
 		$stmt->execute();
 		$db = null;
