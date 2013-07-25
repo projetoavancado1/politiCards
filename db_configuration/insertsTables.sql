@@ -21,15 +21,27 @@
 
 INSERT INTO `posts`(`author`,`title`,`text`)
 VALUES
-	('1','Protestos em Brasília','Protestos em Brasília'),
-	('1','Protestos em São Paulo','Protestos em São Paulo'),
+	('1','Protestos em Brasilia','Protestos em Brasilia'),
+	('1','Protestos em Sao Paulo','Protestos em Sao Paulo'),
 	('2','Protestos em Minas','Protestos em Minas'),
-	('3','Protestos em Alagoas','Protestos em Alagoas');
+	('3','Protestos em Alagoas','Protestos em Alagoas'),
+	('1','Protestos em Brasilia2','Protestos em Brasilia2'),
+	('1','Protestos em Sao Paulo2','Protestos em Sao Paulo2'),
+	('2','Protestos em Minas2','Protestos em Minas2'),
+	('3','Protestos em Alagoas2','Protestos em Alagoas2'),
+	('1','Protestos em Brasilia3','Protestos em Brasilia3'),
+	('1','Protestos em Sao Paulo3','Protestos em Sao Paulo3'),
+	('2','Protestos em Minas3','Protestos em Minas3'),
+	('3','Protestos em Alagoas3','Protestos em Alagoas3'),
+	('1','Protestos em Brasilia4','Protestos em Brasilia4'),
+	('1','Protestos em Sao Paulo4','Protestos em Sao Paulo4'),
+	('2','Protestos em Minas4','Protestos em Minas4'),
+	('3','Protestos em Alagoas4','Protestos em Alagoas4');
 
 INSERT INTO `comments`(`author`,`post`,`text`)
 VALUES
-	('3','1','Protestos em Brasília'),
-	('3','1','Protestos em São Paulo'),
+	('3','1','Protestos em Brasilia'),
+	('3','1','Protestos em Sao Paulo'),
 	('4','2','Protestos em Minas'),
 	('6','3','Protestos em Alagoas');
 

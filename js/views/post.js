@@ -12,7 +12,8 @@ window.PostView = Backbone.View.extend({
 
 
 	events: {
-		"click #postButton"         : "savePost"
+		"click #postButton"         : "savePost",
+		"click #deletePostButton"   : "deletePost"
 
 	},
 
@@ -30,6 +31,21 @@ window.PostView = Backbone.View.extend({
                 utils.showAlert('Erro', 'Um erro correu na criação desta postagem', 'alert-error');
             }
         });
+   	},
+
+   	deletePost:function(){
+   		console.log(this.model.toJSON());
+   		console.log(this.model.isNew());
+   		this.model.destroy({
+            success: function () {
+                alert('Postagem removida');
+                window.location.replace('#');
+            },
+            error: function(){
+                alert("Não foi possível remover esta postagem!");
+            }
+        });
+        return false;
    	}
 
 });
