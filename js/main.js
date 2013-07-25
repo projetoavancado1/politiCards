@@ -113,7 +113,8 @@ var AppRouter = Backbone.Router.extend({
     listMyPosts: function(page){
         utils.getPostsOfUser(function(data){
             var p = page ? parseInt(page, 10) : 1;
-            $("#content").html(new PostListView({model: data, page: p}).el);
+            var postList = new PostCollection(data);
+            $("#content").html(new PostListView({model: postList, page: p}).el);
         });
         this.headerView.selectMenuItem('list-menu');
 
