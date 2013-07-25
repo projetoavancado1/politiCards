@@ -32,7 +32,7 @@ $app->get('/posts/:id', authorize('user'), 'getPost');
 $app->get('/posts/my/:user', authorize('user'), 'getPostsOfUser');
 $app->post('/posts', authorize('user'), 'addPost');
 $app->put('/posts/:id', authorize('user'), 'updatePost');
-$app->delete('/posts/:id', authorize('user'), 'deletePost');
+$app->delete('/posts/:id', authorize('user'), 'deletePost');  
 
 // routes for comments
 $app->get('/comments/list/:post', authorize('user'), 'getCommentsOfPost');
@@ -334,6 +334,9 @@ function updatePost($id){
 }
 
 function deletePost($id) {
+	//delete all comments this POST 
+	deleteCommentOfPost($id);
+
 	$sql = "DELETE FROM posts WHERE id=:id";
 	try {
 		$db = getConnection();
@@ -391,6 +394,19 @@ function deleteComment($id) {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
 		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$db = null;
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function deleteCommentOfPost($post){
+	$sql = "DELETE FROM comments WHERE post=:post";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("post", $post);
 		$stmt->execute();
 		$db = null;
 	} catch(PDOException $e) {
