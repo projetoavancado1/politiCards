@@ -18,20 +18,20 @@ window.PostView = Backbone.View.extend({
 	},
 
 	savePost: function(){
-		var post = this;
+	    var post = this;
 
-        console.log(this.model.toJSON());
+      console.log(this.model.toJSON());
 
-        this.model.save(null, {
-            success: function (model) {
-            	post.render();
-                utils.showAlert('Sucesso!', 'Postagem realizada com sucesso', 'alert-success');                
-            },
-            error: function () {
-                utils.showAlert('Erro', 'Um erro correu na criação desta postagem', 'alert-error');
-            }
-        });
-   	},
+      this.model.save(null, {
+          success: function (model) {
+          	post.render();
+              utils.showAlert('Sucesso!', 'Postagem realizada com sucesso', 'alert-success');                
+          },
+          error: function () {
+              utils.showAlert('Erro', 'Um erro correu na criação desta postagem', 'alert-error');
+          }
+      });
+ 	},
 
    	deletePost:function(){
    		console.log(this.model.toJSON());
@@ -42,8 +42,7 @@ window.PostView = Backbone.View.extend({
                 window.location.replace('#');
             },
             error: function(){
-                alert("Removeu! - Mas precisa melhorar essa função");
-                window.location.replace('#')
+                alert("Não foi possível remover esta postagem!");
             }
         });
         return false;
