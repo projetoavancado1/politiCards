@@ -47,7 +47,7 @@ window.utils = {
         this.showAlert('Aviso!', 'Corriga os erros de validação e tente novamente', 'alert-warning');
     },
 
-    addValidationError: function (field, message) {
+    addValidationError: function (field, message) {        
         var controlGroup = $('#' + field).parent().parent();
         controlGroup.addClass('error');
         $('.help-inline', controlGroup).html(message);

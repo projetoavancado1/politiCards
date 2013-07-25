@@ -68,8 +68,8 @@ window.UserLoginOptionsView = Backbone.View.extend({
     login:function (event){
         event.preventDefault(); // Don't let this button submit the form
         $('.alert-error').hide(); // Hide any errors on a new submit
-        var email = $('#email').val();
-        var password = $('#password').val();
+        var email = $('#email-auth').val();
+        var password = $('#password-auth').val();
         utils.login(email, password, function(loginInfo){
             if(loginInfo.error) {  // If there is an error, show the error messages
                 window.location.replace("#login");  

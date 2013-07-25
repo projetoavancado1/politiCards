@@ -50,8 +50,8 @@ var AppRouter = Backbone.Router.extend({
 	},
 
     login: function() {            
-        var loginData = {email: $('#email').length > 0? $('#email').val(): "", 
-                         password: $('#password').length > 0? $('#password').val(): "",
+        var loginData = {email: $('#email-auth').length > 0? $('#email-auth').val(): "", 
+                         password: $('#password-auth').length > 0? $('#password-auth').val(): "",
                          erroMessage: $("#erroMessage").text()};
         $('#content').prepend(new LoginView(loginData).el);         
         $('#loginModal').on('show', function (){

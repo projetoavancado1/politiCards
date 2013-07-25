@@ -7,7 +7,7 @@ window.User = Backbone.Model.extend({
         this.validators = {},
 
         this.validators.name = function (value) {
-            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um nome"};
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um nome."};
         };
         
         this.validators.email = function (value) {                                    
@@ -24,15 +24,15 @@ window.User = Backbone.Model.extend({
         },
 
         this.validators.gender = function (value) {
-            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um sexo"};
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir um sexo."};
         };
 
         this.validators.birthday = function (value) {
-            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir a data de nascimento"};
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir a data de nascimento."};
         };
 
         this.validators.passWord = function (value) {
-            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir uma senha"};
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir uma senha."};
         };
     },
 
