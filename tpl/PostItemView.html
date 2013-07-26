@@ -3,9 +3,11 @@
     <img class="media-object" src="<%= authorProfilePicture %>"  width="64" height="64" style="padding-right:10px">
   </a>
   <div class="media-body">
-    <a href=""><h4 class="media-heading"><%= author %></h4></a>
+    <a href=""><h5 class="media-heading"><%= author %></h5></a>
     <h3 class="media-heading"><%= title %></h3>
     <p><%= text %><p>
-    <a style="margin-left:750px" class="label label-info" href="" >Exibir Comentários >></a>
+    <span class="badge badge-info"><%= len %></span>
+    <a id="buttonShowComments" class="label label-info" href="#posts/<%= id %>" >Exibir Comentários >></a>
   </div>
+  
 </div>

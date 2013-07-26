@@ -156,6 +156,21 @@ window.utils = {
         
         });
         
+    },
+
+    getCommentsOfPost:function(postID, callback){
+
+        var url = "../api/comments/list/"+postID;
+
+         $.ajax({
+                url:url,
+                type:'GET',
+                dataType:"json",            
+                success:function (data) {        
+                    callback(data);                                       
+                }
+            });
+
     }
 
 };

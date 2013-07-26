@@ -99,7 +99,7 @@ window.PostCollection = Backbone.Collection.extend({
 
 window.Comment = Backbone.Model.extend({
 
-    urlRoot: "../api/Comments",
+    urlRoot: "../api/comments",
     defaults:{
         id: null,
         author: "",
@@ -111,7 +111,7 @@ window.Comment = Backbone.Model.extend({
 window.CommentCollection = Backbone.Collection.extend({
 
     model: Comment,
-    url: "../api/Comments"
+    url: "../api/comments"
 
 });
 

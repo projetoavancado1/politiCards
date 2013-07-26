@@ -42,15 +42,21 @@ window.PostItemView = Backbone.View.extend({
 
     render: function () {        
         var self = this;        
-        utils.getUser(this.model.get("author"), function(user){                    
-            var postDetails = {
+        utils.getUser(this.model.get("author"), function(user){
+            utils.getCommentsOfPost(self.model.get("id"), function(comments){
+                var postDetails = {
                 authorProfilePicture: user["profilePicture"],
                 author: user["name"],
                 title: self.model.get("title"),
-                text: self.model.get("text")
+                text: self.model.get("text"),
+                id: self.model.get("id"),
+                len: comments.length
             };
             $(self.el).html(self.template(postDetails));
-        });                
+
+
+            });
+        });     
         return this;
     }
 

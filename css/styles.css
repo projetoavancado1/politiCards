@@ -15,3 +15,29 @@ a.plain:hover
     float: left;
     margin-right: 12px;
 }
+
+
+.postText{
+   	width:800px;
+   	height:200px;
+   	resize:none;
+}
+
+.postTitle{
+	width:800px;
+   	max-width:800px;
+}
+
+.commentPost{
+	width:499px;
+   	height:48px;
+   	resize:none;
+}
+
+#buttonShowComments{
+	margin-left:750px; 
+}
+
+#commentButton{
+	margin-left:420px;
+}

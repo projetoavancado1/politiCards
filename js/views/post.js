@@ -56,3 +56,18 @@ window.PostView = Backbone.View.extend({
    	}
 
 });
+
+window.PostShowView = Backbone.View.extend({
+
+    initialize: function () {
+        console.log('Starting Show Post View');    
+        this.render();
+    },
+
+    render: function () {
+        $(this.el).html(this.template(this.model.toJSON()));
+        return this;
+    }
+
+
+});
