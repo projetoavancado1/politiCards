@@ -138,39 +138,6 @@ window.utils = {
             url: url,
             type:'GET'
         });                            
-    },
-
-    getPostsOfUser:function(callback){
-        utils.sessionInfo(function(data){
-            var userID =data.id;
-            var url = '../api/posts/my/'+ userID;
-            
-            $.ajax({
-                url:url,
-                type:'GET',
-                dataType:"json",            
-                success:function (data) {        
-                    callback(data);                                       
-                }
-            });
-        
-        });
-        
-    },
-
-    getCommentsOfPost:function(postID, callback){
-
-        var url = "../api/comments/list/"+postID;
-
-         $.ajax({
-                url:url,
-                type:'GET',
-                dataType:"json",            
-                success:function (data) {        
-                    callback(data);                                       
-                }
-            });
-
     }
 
 };

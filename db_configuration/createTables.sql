@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `posts`(
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`author` INT NOT NULL,
 	`title` VARCHAR(100) NOT NULL,
-	`text` VARCHAR(3000) NOT NULL,
+	`text` VARCHAR(10000) NOT NULL,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`author`) REFERENCES `user`(`id`)
 )ENGINE = InnoDB;
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `comments`(
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`author` INT NOT NULL,
 	`post` INT NOT NULL,
-	`text` VARCHAR(100) NOT NULL,
+	`text` VARCHAR(1000) NOT NULL,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`author`) REFERENCES `user`(`id`),
 	FOREIGN KEY (`post`) REFERENCES `posts` (`id`)

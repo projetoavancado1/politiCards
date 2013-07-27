@@ -1,13 +1,14 @@
 <div class="media">
-  <a href="#" class="pull-left">
+  <a href="#users/<%= authorID %>" class="pull-left">
     <img class="media-object" src="<%= authorProfilePicture %>"  width="64" height="64" style="padding-right:10px">
   </a>
   <div class="media-body">
-    <a href=""><h5 class="media-heading"><%= author %></h5></a>
+    <a href="#users/<%= authorID %>"><h5 class="media-heading"><%= author %></h5></a>
     <h3 class="media-heading"><%= title %></h3>
     <p><%= text %><p>
-    <span class="badge badge-info"><%= len %></span>
-    <a id="buttonShowComments" class="label label-info" href="#posts/<%= id %>" >Exibir Comentários >></a>
+
+    <a id="buttonShowComments" class="badge badge-info" href="#posts/<%= id %>" ><%= len %> Comentários >></a>
+
   </div>
   
 </div>

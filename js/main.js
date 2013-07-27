@@ -114,7 +114,7 @@ var AppRouter = Backbone.Router.extend({
     },
 
     listMyPosts: function(page){
-        utils.getPostsOfUser(function(data){
+        postUtils.getPostsOfUser(function(data){
             console.log("qtde de posts: "+ data.length);
             var p = page ? parseInt(page, 10) : 1;
             var postList = new PostCollection(data);
@@ -125,28 +125,22 @@ var AppRouter = Backbone.Router.extend({
     },
 
     createListCommentsOfPost:function(postID){
-        utils.getCommentsOfPost(postID,function(data){
+        postUtils.getCommentsOfPost(postID,function(data){
             var commentList = new CommentCollection(data);
             
         });
     },
 
     showPost:function(id){
-        var post = new Post({id: id});
-        post.fetch({success: function(){
-            $("#content").html(new PostShowView({model: post}).el);
-                utils.sessionInfo(function(user){
-                    var comment = new Comment({post: id, author:user.id});
-                    $('.comment', "#content").append(new CommentView({model: comment}).render().el);
-                });  
+        postUtils.showPost(id);
+    }
 
-        }});
-        this.headerView.selectMenuItem();
-    },
+
 });
 
-utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 'CommentView',
-                    'LoginView', 'HomeView', 'UserSummaryView', 'PostView'], function() {
+utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 
+                    'CommentView','LoginView', 'HomeView', 'UserSummaryView', 'PostView',
+                    'CommentItemView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });

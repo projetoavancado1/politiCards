@@ -43,10 +43,11 @@ window.PostItemView = Backbone.View.extend({
     render: function () {        
         var self = this;        
         utils.getUser(this.model.get("author"), function(user){
-            utils.getCommentsOfPost(self.model.get("id"), function(comments){
+            postUtils.getCommentsOfPost(self.model.get("id"), function(comments){
                 var postDetails = {
                 authorProfilePicture: user["profilePicture"],
                 author: user["name"],
+                authorID: user["id"],
                 title: self.model.get("title"),
                 text: self.model.get("text"),
                 id: self.model.get("id"),
