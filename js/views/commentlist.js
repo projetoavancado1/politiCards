@@ -31,29 +31,47 @@ window.CommentItemView = Backbone.View.extend({
 
     render: function () {        
         var self = this;
+        
         utils.getUser(this.model.get("author"), function(user){
-            var commentDetails = {
 
-
-                //authorPicture: user.profilePicture,
-                //authorName: user.name,
-                //authorID: user.id
-                //text: self.model.get("text"),
-                //post: self.model.get("post"),
-                //id: self.model.get("id")
-            };
-            self.model.set({
+            utils.sessionInfo(function(currentUser){
+                self.model.set({
                     authorPicture: user.profilePicture,
                     authorName: user.name,
                     authorID: user.id
-            });
+                });
 
-            console.log(self.model.toJSON());
+                if(currentUser.id == self.model.get("authorID")){
+                    self.model.set({deleteButton: "×"});
+                }else{
+                    self.model.set({deleteButton: ""});
+                }
+
+                console.log(self.model.toJSON());
+                $(self.el).html(self.template(self.model.toJSON())); 
             
-            $(self.el).html(self.template(self.model.toJSON()));    
+            });
+               
         });
 
         return this;
+    },
+
+    events:{
+        "click #deleteComment"   : "deleteComment"
+    },
+
+    deleteComment:function(){
+        var self = this;
+        console.log(this.model.toJSON());
+        console.log(this.model.isNew());
+        
+        self.model.destroy();
+        postUtils.showPost(self.model.get("post"));
+        return false;
+
     }
+
+
 
 });

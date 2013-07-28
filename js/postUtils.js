@@ -13,7 +13,7 @@ window.postUtils = {
     showCommentBox:function(postID){
         utils.sessionInfo(function(user){
             var comment = new Comment({post: postID, author:user.id});
-                $(".comment").html(new CommentView({model: comment}).render().el);
+                $(".comment").html(new CommentView({model: comment}).el);
         });
         
     },

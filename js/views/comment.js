@@ -13,7 +13,7 @@ window.CommentView = Backbone.View.extend({
 	events:{
 		"change"                 : "change",
 		"click #commentButton"   : "saveComment",
-		"click #deleteComment"   : "deleteComment"
+		//"click #deleteComment"   : "deleteComment"
 	},
 
 	change: function (event) {    
