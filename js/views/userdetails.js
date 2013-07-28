@@ -90,9 +90,7 @@ window.UserView = Backbone.View.extend({
         this.model.destroy({
             success: function () {
                 alert('Usuário removido com sucesso');
-                //window.history.back();                
-                window.location.replace('#');
-                utils.logout();
+                //window.history.back();                                                
             },
 
             error: function(){
@@ -124,9 +122,7 @@ window.UserView = Backbone.View.extend({
 
 
 
-window.UserSummaryView = Backbone.View.extend({
-
-    //tagName:"div", // Not required since 'div' is the default if no el or tagName specified
+window.UserSummaryView = Backbone.View.extend({    
 
     initialize: function () {
         console.log('Initializing Summary View');    

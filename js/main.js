@@ -114,8 +114,7 @@ var AppRouter = Backbone.Router.extend({
         postList.fetch({success: function(){
             $("#content").html(new PostListView({model: postList, page: p}).el);
         }});
-        this.headerView.selectMenuItem('list-menu');
-
+        //this.headerView.selectMenuItem('list-menu');
     },
 
     listMyPosts: function(page){
@@ -131,16 +130,13 @@ var AppRouter = Backbone.Router.extend({
 
     createListCommentsOfPost:function(postID){
         postUtils.getCommentsOfPost(postID,function(data){
-            var commentList = new CommentCollection(data);
-            
+            var commentList = new CommentCollection(data);            
         });
     },
 
     showPost:function(id){
         postUtils.showPost(id);
     }
-
-
 });
 
 utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 

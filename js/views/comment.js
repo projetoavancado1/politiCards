@@ -12,8 +12,7 @@ window.CommentView = Backbone.View.extend({
 
 	events:{
 		"change"                 : "change",
-		"click #commentButton"   : "saveComment",
-		"click #deleteComment"   : "deleteComment"
+		"click #commentButton"   : "saveComment",		
 	},
 
 	change: function (event) {    
@@ -36,26 +35,6 @@ window.CommentView = Backbone.View.extend({
 			  utils.showAlert('Erro', 'Tente enviar este cometário mais tarde', 'alert-error');
 			}
 		});
-
 		postUtils.updatePostFullView(this.model);
-
-  	},
-
-  	deleteComment:function(){
-  		console.log("tentou deletar");
-  		console.log(this.model.toJSON());
-   		console.log(this.model.isNew());
-   		this.model.destroy({
-            success: function () {
-                alert('Comentário excluído!');
-                window.location.replace('#');
-            },
-            error: function(){
-                alert("Não foi possível excluir este comentário!");
-            }
-        });
-        return false;
-
   	}
-
 });
