@@ -7,7 +7,18 @@
     <h3 class="media-heading"><%= title %></h3>
     <p><%= text %><p>
 
-    <a id="buttonShowComments" class="badge badge-info" href="#posts/<%= id %>" ><%= len %> Comentários >></a>
+    <a id="buttonShowComments" class="badge badge-info" href="#posts/<%= id %>" ><%= len %> -
+      <% 
+        if (len == 0){
+            print("Comentar >>");
+        }
+        else if(len == 1){
+            print("Comentario >>");
+        }else{          
+            print("Comentarios >>");
+        }         
+      %>
+    </a>
 
   </div>
   

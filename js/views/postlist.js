@@ -14,10 +14,10 @@ window.PostListView = Backbone.View.extend ({
         var startPos = (this.options.page - 1) * boundaryElements;
         var endPos = Math.min(startPos + boundaryElements, length);
 
-        $(this.el).html('<div id="id" class="span12">');
+        $(this.el).html('<div id="post-list">');
         
         for (var i = startPos; i < endPos; i++) {
-            $('#id', this.el).append(new PostItemView({model: posts[i]}).render().el);
+            $('#post-list', this.el).append(new PostItemView({model: posts[i]}).render().el);
         }
 
         if(length > boundaryElements){

@@ -31,22 +31,27 @@ window.postUtils = {
 		postUtils.showCommentBox(comment.get("post"));
   	},
 
-  	getPostsOfUser:function(callback){
+    getPostsOfUser:function(userID, posts){                
+        var url = '../api/posts/my/'+ userID;
+        
+        $.ajax({
+            url:url,
+            type:'GET',
+            dataType:"json",            
+            success:function (data) {        
+                posts(data);                                       
+            }
+        });                
+    },
+
+  	getPostsOfLoggedUser:function(callback){
+        var self = this;
         utils.sessionInfo(function(data){
             var userID =data.id;
-            var url = '../api/posts/my/'+ userID;
-            
-            $.ajax({
-                url:url,
-                type:'GET',
-                dataType:"json",            
-                success:function (data) {        
-                    callback(data);                                       
-                }
+            self.getPostsOfUser(userID, function(posts){
+                callback(posts);
             });
-        
-        });
-        
+        });        
     },
 
     getCommentsOfPost:function(postID, callback){
@@ -61,7 +66,6 @@ window.postUtils = {
                     callback(data);                                       
                 }
             });
-
     }
 
 };

@@ -126,7 +126,7 @@ window.UserView = Backbone.View.extend({
 
 window.UserSummaryView = Backbone.View.extend({
 
-    tagName:"div", // Not required since 'div' is the default if no el or tagName specified
+    //tagName:"div", // Not required since 'div' is the default if no el or tagName specified
 
     initialize: function () {
         console.log('Initializing Summary View');    
@@ -137,9 +137,8 @@ window.UserSummaryView = Backbone.View.extend({
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
     },
-
+    
     events: {
         "change" : "render"        
     }
-
 });

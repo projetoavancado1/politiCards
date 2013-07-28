@@ -40,20 +40,20 @@ window.PostView = Backbone.View.extend({
       });
  	},
 
-   	deletePost:function(){
-   		console.log(this.model.toJSON());
-   		console.log(this.model.isNew());
-   		this.model.destroy({
-            success: function () {
-                alert('Postagem removida');
-                window.location.replace('#');
-            },
-            error: function(){
-                alert("Não foi possível remover esta postagem!");
-            }
-        });
-        return false;
-   	}
+ 	deletePost:function(){
+ 		console.log(this.model.toJSON());
+ 		console.log(this.model.isNew());
+ 		this.model.destroy({
+          success: function () {
+              alert('Postagem removida');
+              window.location.replace('#');
+          },
+          error: function(){
+              alert("Não foi possível remover esta postagem!");
+          }
+      });
+      return false;
+ 	}
 
 });
 

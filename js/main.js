@@ -42,7 +42,12 @@ var AppRouter = Backbone.Router.extend({
         user.fetch({success: function(){
             $("#content").html(new UserSummaryView({model: user}).el);
         }});
-        this.headerView.selectMenuItem();
+        postUtils.getPostsOfUser(id, function(data){
+            //var p = page ? parseInt(page, 10) : 1;
+            var postList = new PostCollection(data);
+            $("#content").append(new PostListView({model: postList, page: 1}).el);
+        });
+        //this.headerView.selectMenuItem();
     },
 
 	addUser: function() {        
@@ -114,7 +119,7 @@ var AppRouter = Backbone.Router.extend({
     },
 
     listMyPosts: function(page){
-        postUtils.getPostsOfUser(function(data){
+        postUtils.getPostsOfLoggedUser(function(data){
             console.log("qtde de posts: "+ data.length);
             var p = page ? parseInt(page, 10) : 1;
             var postList = new PostCollection(data);
