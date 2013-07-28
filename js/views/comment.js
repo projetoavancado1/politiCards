@@ -42,6 +42,7 @@ window.CommentView = Backbone.View.extend({
   	},
 
   	deleteComment:function(){
+  		alert("Entrei aqui!");
   		console.log("tentou deletar");
   		console.log(this.model.toJSON());
    		console.log(this.model.isNew());
