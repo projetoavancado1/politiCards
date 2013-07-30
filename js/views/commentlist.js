@@ -32,43 +32,29 @@ window.CommentItemView = Backbone.View.extend({
     },
 
     render: function () {        
-        var self = this;
+        var self = this;        
         utils.getUser(this.model.get("author"), function(user){
-            var commentDetails = {
-                //authorPicture: user.profilePicture,
-                //authorName: user.name,
-                //authorID: user.id
-                //text: self.model.get("text"),
-                //post: self.model.get("post"),
-                //id: self.model.get("id")
-            };
-            self.model.set({
+            utils.sessionInfo(function(currentUser){
+                self.model.set({
                     authorPicture: user.profilePicture,
                     authorName: user.name,
                     authorID: user.id
-            });
-
-            console.log(self.model.toJSON());
-            
-            $(self.el).html(self.template(self.model.toJSON()));    
+                });
+                var style = (currentUser.id == self.model.get("authorID"))? "block": "none";                                
+                self.model.set({displayStyle: style});
+                console.log(self.model.toJSON());
+                $(self.el).html(self.template(self.model.toJSON()));             
+            });               
         });
         return this;
     },
 
-    deleteComment:function(){                
-        //console.log(this.model.toJSON());
-        //console.log(this.model.isNew());
-        this.model.destroy({
-            wait: true,             
-            success: function () {
-                alert('Comentário excluído!');                
-            },
-            error: function(){
-                alert("Da erro, mas exclui!");
-                //alert("Não foi possível excluir este comentário!");
-            }
-        });        
+    deleteComment:function(){
+        var self = this;
+        console.log(this.model.toJSON());
+        console.log(this.model.isNew());        
+        self.model.destroy();
+        postUtils.showPost(self.model.get("post"));
         return false;
     }
-
 });
