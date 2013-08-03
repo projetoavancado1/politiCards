@@ -17,7 +17,15 @@ var AppRouter = Backbone.Router.extend({
     initialize: function () {
         this.headerView = new HeaderView();
         $('.header').html(this.headerView.el);
-        $('#userLoginOptions').html(new UserLoginOptionsView().el);                    
+        $('#userLoginOptions').html(new UserLoginOptionsView().el);
+        utils.sessionInfo(function(user){
+            //verifica se o usuário está logado, se sim, renderiza o menu navigation 
+            if(user.id != null){
+                //cria o menu navigation, quando atualizamos a página
+                $('.menu').html(new MenuNavigationView().el);                       
+            }            
+        }); 
+       
     },
 
     list: function(page) {
@@ -26,7 +34,7 @@ var AppRouter = Backbone.Router.extend({
         userList.fetch({success: function(){
             $("#content").html(new UserListView({model: userList, page: p}).el);
         }});
-        this.headerView.selectMenuItem('list-menu');
+       
     },
 
     editUser: function (id) {
@@ -47,6 +55,8 @@ var AppRouter = Backbone.Router.extend({
             var postList = new PostCollection(data);
             $("#content").append(new PostListView({model: postList, page: 1}).el);
         });
+        //cria o menu navigation quando logamos no sistema
+        $('.menu').html(new MenuNavigationView().el);                       
         //this.headerView.selectMenuItem();
     },
 
@@ -86,7 +96,8 @@ var AppRouter = Backbone.Router.extend({
                     window.location.replace('/#denied');
                 }
             }
-        });        
+        });
+
     },
      
     home: function(){
@@ -141,7 +152,7 @@ var AppRouter = Backbone.Router.extend({
 
 utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 
                     'CommentView','LoginView', 'HomeView', 'UserSummaryView', 'PostView',
-                    'CommentItemView'], function() {
+                    'CommentItemView','MenuNavigationView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });

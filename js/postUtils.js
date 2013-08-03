@@ -5,7 +5,7 @@ window.postUtils = {
         post.fetch({success: function(){
             $("#content").html(new PostShowView({model: post}).el);  
         }});
-        ''
+        
         this.showCommentsOfPost(id);
         this.showCommentBox(id);
     },
@@ -21,7 +21,7 @@ window.postUtils = {
     showCommentsOfPost:function(postID){
         postUtils.getCommentsOfPost(postID, function(comments){
             var commentList = new CommentCollection(comments);
-            $(".comments","#content").append(new CommentListView({model: commentList}).el);
+            $(".comments").append(new CommentListView({model: commentList}).el);
         });
 
     }, 

@@ -18,24 +18,24 @@ a.plain:hover
 
 
 .postText{
-   	width:800px;
-   	height:200px;
+   	width:550px;
+   	height:150px;
    	resize:none;
 }
 
 .postTitle{
-	width:800px;
-   	max-width:800px;
+	width:540px;
+  max-width:800px;
 }
 
 .commentPost{
 	width:499px;
-   	height:48px;
-   	resize:none;
+  height:48px;
+ 	resize:none;
 }
 
 #buttonShowComments{
-	margin-left:750px; 
+	margin-left:630px; 
 }
 
 #commentButton{
@@ -55,4 +55,64 @@ a.plain:hover
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.content {
+  position: absolute;
+  width: 800px;
+  height: 101px;
+  left: 230px;
+  top: 80px;
+}
+
+.menu {
+  position: absolute;
+  width: 200px;
+  height:100%;
+  left: 20px;
+  top: 40px;
+}
+
+/*talvez não precise mais daki pra baixo*/
+#menu { 
+  margin: 0; /* retira o recuo para alguns browsers */ 
+  padding:0; /* retira o recuo para outros browsers */ 
+  list-style-type: none; /* retira o marcador de listas*/ 
+  background-color: #ffffff; /* cor do fundo */ 
+}
+
+
+#menu li a {
+  text-decoration: none; /* retira o sublinhado dos links */ 
+  font-family: Geneva, Arial, Helvetica, sans-serif; /* define o tipo de fonte */ 
+  font-size:16px; /* define o tamanho da fonte */ 
+  color:#000000; /* define a cor da fonte */ 
+}
+
+#menu li a:hover {
+  background-color: #d3d3d3; /* cor do fundo */
+  color: #000000; /* cor da fonte */
+  display:block;
+}     
+
+#menu li a:link, #menu li a:visited {
+  border-left:15px; 
+  padding-left:15px; /* espaçamento entre a barrinha e o texto do link */ 
+  display:block;
+  height:30%;
+}
+
+#picMenu {
+  margin: 0; /* retira o recuo para alguns browsers */ 
+  padding:0; /* retira o recuo para outros browsers */ 
+  list-style-type: none; /* retira o marcador de listas*/ 
+  background-color: #ffffff; /* cor do fundo */ 
+}
+
+#picMenu li{
+  text-decoration: none; /* retira o sublinhado dos links */ 
+  font-family: Geneva, Arial, Helvetica, sans-serif; /* define o tipo de fonte */ 
+  font-size:12px; /* define o tamanho da fonte */ 
+  color:#000000; /* define a cor da fonte */ 
+  padding-left:15px;
 }

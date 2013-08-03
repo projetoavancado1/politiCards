@@ -1,12 +1,13 @@
-<div id="post-view">
+<!--125px para centralizar o conteúdo na div content-->
+<div style="margin-left:125px" id="post-view">
 	<div class="control-group">
-		<input class="input-xxlarge" type="text" id="title" name="title" value="<%= title %>" placeholder="Digite o título da postagem"/>
+		<input class="input-xxlarge postTitle" type="text" id="title" name="title" value="<%= title %>" placeholder="Digite o título da postagem"/>
 	</div>
 	<div class="control-group">		
-		<textarea class="input-block-level" rows="5" id= "text" name = "text" value="<%= text %>" placeholder="Escreva uma mensagem"></textarea>
+		<textarea class="input-block-level postText" rows="5" id= "text" name = "text" value="<%= text %>" placeholder="Escreva uma mensagem"></textarea>
 		<!--cols="100"-->
 	</div>
 	<div class="form-actions">
-        <a href="#posts/page/1" id="postButton" class="btn btn-primary save">Enviar Postagem</a>        
+        <a  id="postButton" class="btn btn-primary save">Enviar Postagem</a>        
     </div>
 </div>
