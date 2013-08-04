@@ -52,9 +52,11 @@ window.CommentItemView = Backbone.View.extend({
     deleteComment:function(){
         var self = this;
         console.log(this.model.toJSON());
-        console.log(this.model.isNew());        
+        console.log(this.model.isNew());
+        // deleta o comentário do BD        
         self.model.destroy();
-        postUtils.showPost(self.model.get("post"));
+        //remove o comentário da tela (sem atualizar)
+        self.remove();
         return false;
     }
 });

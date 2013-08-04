@@ -138,6 +138,21 @@ window.utils = {
             url: url,
             type:'GET'
         });                            
+    },
+
+    renderMenuNavigation:function(){
+        utils.isLogged(function(state){
+             //verifica se o usuário está logado, se sim, renderiza o menu navigation 
+            if(state){
+                //cria o menu navigation, quando atualizamos a página
+                $('.menu').html(new MenuNavigationView().el);                  
+            }   
+        });
+    },
+
+    //garante a exclusão do menu navigation após logout
+    deleteMenuNavigation: function(){
+        $('.menu').html("<div />");
     }
 
 };

@@ -74,7 +74,7 @@ window.UserLoginOptionsView = Backbone.View.extend({
             if(loginInfo.error) {  // If there is an error, show the error messages
                 window.location.replace("#login");  
                 $('#erroMessage').text(loginInfo.error.text);
-            }else { // If not, send them back to the home page                    
+            }else { // If not, send them back to the home page
                 window.location.replace('#users/'+loginInfo.id);                                                           
                 $('#userLoginOptions').html(new UserLoginOptionsView().el);
             }
@@ -82,6 +82,9 @@ window.UserLoginOptionsView = Backbone.View.extend({
     },
 
     logout: function(){
+        //assegura que o menu navigation será removido após o logout
+        utils.deleteMenuNavigation();
+        //----
         window.location.replace('#');
         utils.logout();        
         this.render();

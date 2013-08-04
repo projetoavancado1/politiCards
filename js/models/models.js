@@ -105,6 +105,12 @@ window.Comment = Backbone.Model.extend({
         author: "",
         post: "",
         text: ""
+    },
+
+    validate: function(values){
+        if(values.text == ""){
+            return 'Digite um comentário';
+        }
     }
 });
 

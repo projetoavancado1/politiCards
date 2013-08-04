@@ -14,17 +14,6 @@ window.MenuNavigationView = Backbone.View.extend({
         	return this;
     	});
 
-    },
-
-    events:{
-        //"change"             : "change",
-        "click #logoutOption": "remove"
-    },
-
-    remove: function(){
-        var self = this;
-        self.remove();
-    },
-
+    }
 
 });

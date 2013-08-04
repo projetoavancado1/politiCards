@@ -18,13 +18,8 @@ var AppRouter = Backbone.Router.extend({
         this.headerView = new HeaderView();
         $('.header').html(this.headerView.el);
         $('#userLoginOptions').html(new UserLoginOptionsView().el);
-        utils.sessionInfo(function(user){
-            //verifica se o usuário está logado, se sim, renderiza o menu navigation 
-            if(user.id != null){
-                //cria o menu navigation, quando atualizamos a página
-                $('.menu').html(new MenuNavigationView().el);                       
-            }            
-        }); 
+        
+        utils.renderMenuNavigation();
        
     },
 
@@ -56,7 +51,8 @@ var AppRouter = Backbone.Router.extend({
             $("#content").append(new PostListView({model: postList, page: 1}).el);
         });
         //cria o menu navigation quando logamos no sistema
-        $('.menu').html(new MenuNavigationView().el);                       
+        utils.renderMenuNavigation();
+        
         //this.headerView.selectMenuItem();
     },
 
