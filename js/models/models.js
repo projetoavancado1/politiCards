@@ -121,3 +121,17 @@ window.CommentCollection = Backbone.Collection.extend({
 
 });
 
+window.FriendRequest = Backbone.Model.extend({
+    urlRoot: "../api/friendrequests",
+    defaults:{
+        requestingUser:"",
+        targetUser:""
+    }
+
+});
+
+window.FriendRequestCollection = Backbone.Collection.extend({
+    model: FriendRequest,
+    url:"../api/friendrequests"    
+});
+

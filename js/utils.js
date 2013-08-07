@@ -153,6 +153,19 @@ window.utils = {
     //garante a exclusão do menu navigation após logout
     deleteMenuNavigation: function(){
         $('.menu').html("<div />");
+    },
+
+    getFriendRequestsOfUser:function(userId, callback){
+        var url = '../api//friendrequests/'+ userId;
+        
+        $.ajax({
+            url:url,
+            type:'GET',
+            dataType:"json",            
+            success:function (data) {        
+                callback(data);                                       
+            }
+        });   
     }
 
 };

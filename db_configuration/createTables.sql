@@ -57,5 +57,14 @@ CREATE TABLE IF NOT EXISTS `comments`(
 	FOREIGN KEY (`post`) REFERENCES `posts` (`id`)
 )ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `friend_requests`(
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`requestingUser` INT NOT NULL,
+	`targetUser` INT NOT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`requestingUser`) REFERENCES `user`(`id`),
+	FOREIGN KEY (`targetUser`) REFERENCES `user` (`id`)
+)ENGINE = InnoDB;
+
 
 /*!40101 SET character_set_client = @saved_cs_client */;

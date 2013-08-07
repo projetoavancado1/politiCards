@@ -11,7 +11,15 @@ var AppRouter = Backbone.Router.extend({
         "posts/new"           : "createPost",
         "posts/page/:page"    : "listPosts",
         "my/posts/page/:page" : "listMyPosts",
-        "posts/:id"           : "showPost"
+        "posts/:id"           : "showPost",
+        "alerts/:id"          : "alerts"
+    },
+
+    alerts:function(id){
+        utils.getFriendRequestsOfUser(id,function(data){
+            var requestList = new FriendRequestCollection(data);
+            $('body').html(new FriendRequestListView({model: requestList}).el);
+        });
     },
 
     initialize: function () {
@@ -148,7 +156,7 @@ var AppRouter = Backbone.Router.extend({
 
 utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 
                     'CommentView','LoginView', 'HomeView', 'UserSummaryView', 'PostView',
-                    'CommentItemView','MenuNavigationView'], function() {
+                    'CommentItemView','MenuNavigationView', 'FriendRequestItemView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });

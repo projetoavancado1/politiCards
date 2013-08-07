@@ -39,6 +39,9 @@ $app->get('/comments/list/:post', authorize('user'), 'getCommentsOfPost');
 $app->post('/comments', authorize('user'), 'addComment');
 $app->delete('/comments/:id', authorize('user'), 'deleteComment');
 
+$app->get('/friendrequests/:user', authorize('user'), 'getRequestsUser');
+
+
 $app->run();
 
 function getUsers() {	
@@ -411,6 +414,21 @@ function deleteCommentOfPost($post){
 		$db = null;
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getRequestsUser($user){
+	try{
+		$sql = "select * from friend_requests where targetUser=:user";
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt ->bindParam(":user",$user);
+		$stmt ->execute();
+		$requests = $stmt ->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo json_encode($requests);
+	}catch(PDOException $e){
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 

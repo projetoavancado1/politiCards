@@ -31,7 +31,7 @@ window.postUtils = {
 		postUtils.showCommentBox(comment.get("post"));
   	},
 
-    getPostsOfUser:function(userID, posts){                
+    getPostsOfUser:function(userID, callback){                
         var url = '../api/posts/my/'+ userID;
         
         $.ajax({
@@ -39,7 +39,7 @@ window.postUtils = {
             type:'GET',
             dataType:"json",            
             success:function (data) {        
-                posts(data);                                       
+                callback(data);                                       
             }
         });                
     },
