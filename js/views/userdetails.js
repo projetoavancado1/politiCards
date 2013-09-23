@@ -40,7 +40,7 @@ window.UserView = Backbone.View.extend({
         this.model.set(change);
 
         // Run validation rule (if any) on changed item
-        var check = this.model.validateItem(target.id);
+        var check = utils.validateItem(target.id, this.model);
         if (check.isValid === false) {
             utils.addValidationError(target.id, check.message);
         } else {
@@ -49,8 +49,8 @@ window.UserView = Backbone.View.extend({
         
     },
 
-    beforeSave: function () {          
-        var check = this.model.validateAll();
+    beforeSave: function () {                          
+        var check = utils.validateAll(this.model);
         if (check.isValid === false){            
             utils.displayValidationErrors(check.messages);
             return false;

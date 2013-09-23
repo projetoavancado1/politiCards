@@ -39,8 +39,16 @@ $app->get('/comments/list/:post', authorize('user'), 'getCommentsOfPost');
 $app->post('/comments', authorize('user'), 'addComment');
 $app->delete('/comments/:id', authorize('user'), 'deleteComment');
 
-$app->get('/friendrequests/:user', authorize('user'), 'getRequestsUser');
+// routes for messages
+$app->get('/messages', authorize('user'), 'getMessages');
+$app->get('/messages/:id', authorize('user'), 'getMessage');
+$app->get('/messages/sent/:user', authorize('user'), 'getSentMessageOfUser');
+$app->get('/messages/received/:user', authorize('user'), 'getReceivedMessageOfUser');
+$app->post('/messages', 'addMessage');
+$app->put('/messages/:id', authorize('user'), 'updateMessage');
+$app->delete('/messages/:id', authorize('user'), 'deleteMessage');  
 
+$app->get('/friendrequests/:user', authorize('user'), 'getRequestsUser');
 
 $app->run();
 
@@ -429,6 +437,131 @@ function getRequestsUser($user){
 		echo json_encode($requests);
 	}catch(PDOException $e){
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
+	}
+}
+
+// ---------- functions for messages routes -----------
+
+function getMessages() {	
+	$sql = "SELECT * FROM message ORDER BY id DESC";
+	try {
+		$db = getConnection();		
+		$stmt = $db->query($sql);  
+		$messages = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo json_encode($messages);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getMessage($id) {		
+	$sql = "SELECT * FROM message WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$message = $stmt->fetchObject();  
+		$db = null;
+		echo json_encode($message); 
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getSentMessageOfUser($sender) {	
+	//error_log('getSentMessageOfUser\n', 3, '/var/tmp/php.log');
+	$sql = "SELECT * FROM message WHERE sender=:sender";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("sender", $sender);
+		$stmt->execute();
+		$message = $stmt->fetchAll(PDO::FETCH_OBJ); 
+		$db = null;
+		echo json_encode($message);
+	} catch(PDOException $e) {
+	//	error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getReceivedMessageOfUser($receiver) {	
+	//error_log('getReceivedMessageOfUser\n', 3, '/var/tmp/php.log');
+	$sql = "select * FROM message where receiver=:receiver";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("receiver", $receiver);
+		$stmt->execute();
+		$message = $stmt->fetchAll(PDO::FETCH_OBJ); 
+		$db = null;
+		echo json_encode($message);
+	} catch(PDOException $e) {
+	//	error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function addMessage(){	
+	//error_log('addMessage\n', 3, '/var/tmp/php.log');
+	$request = Slim::getInstance()->request();
+	$message = json_decode($request->getBody());	
+	$sql = "INSERT INTO message (sender, receiver, text, title, wasRead) VALUES (:sender, :receiver, :text, :title, :wasRead)";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("sender", $message->sender);
+		$stmt->bindParam("receiver", $message->receiver);
+		$stmt->bindParam("text", $message->text);
+		$stmt->bindParam("title", $message->title);
+		$stmt->bindParam("wasRead", $message->wasRead);
+		$stmt->execute();
+		$message->id = $db->lastInsertId();
+		$db = null;
+		echo json_encode($message); 
+	} catch(PDOException $e) {
+	//	error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function updateMessage($id){
+	//error_log('updateMessage\n', 3, '/var/tmp/php.log');
+	$request = Slim::getInstance()->request();
+	$body = $request->getBody();
+	$message = json_decode($body);	
+	$sql = "UPDATE message SET sender=:sender, receiver=:receiver, text=:text, title=:title, wasRead=:wasRead WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("sender", $message->sender);
+		$stmt->bindParam("receiver", $message->receiver);
+		$stmt->bindParam("text", $message->text);
+		$stmt->bindParam("title", $message->title);
+		$stmt->bindParam("wasRead", $message->wasRead);
+		$stmt->execute();
+		$db = null;
+		echo json_encode($post); 
+	} catch(PDOException $e) {
+		error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function deleteMessage($id) {
+	//error_log('deleteMessage\n', 3, '/var/tmp/php.log');
+	$sql = "DELETE FROM message WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$db = null;
+	} catch(PDOException $e) {
+	//	error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
 

@@ -66,5 +66,17 @@ CREATE TABLE IF NOT EXISTS `friend_requests`(
 	FOREIGN KEY (`targetUser`) REFERENCES `user` (`id`)
 )ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `message`(
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`sender` INT NOT NULL,
+	`receiver` INT NOT NULL,
+	`title` VARCHAR(100) NOT NULL,
+	`text` VARCHAR(1000) NOT NULL,	
+	`wasRead` BOOL NOT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`sender`) REFERENCES `user`(`id`),
+	FOREIGN KEY (`receiver`) REFERENCES `user`(`id`)
+)ENGINE = InnoDB;
+
 
 /*!40101 SET character_set_client = @saved_cs_client */;

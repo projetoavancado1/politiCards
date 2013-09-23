@@ -10,10 +10,12 @@
 </script>
 
 <div class="row">
-    <div class="span6">        
+    <div class="span6">    
+        <div id="errorAlert"class="alert alert-error" style="display:none;"></div>    
         <div class="well">
             <img src="<%= profilePicture %>" width="160" height="160"/>
-            <button  onclick="teste()" style="margin-left:80px;margin-top:125px" class="btn"><img width="20" height="20"  src="../img/icons/add-user.png"> Adicionar aos amigos</button>
+
+            <button  onclick="teste()" style="margin-left:80px;margin-top:125px" class="btn"><img width="20" height="20"  src="../img/icons/add-user.png"> Adicionar aos amigos</button>            
         </div>
         <h1><%= name %></h1><br>
 
@@ -38,7 +40,8 @@
         <br>
 
         <div class="form-actions">    
-            <a href="#/users/edit/<%= id %>" class="btn save">Editar Dados</a>        
+            <a href="#/users/edit/<%= id %>" class="btn save">Editar Dados</a>
+            <a href="#/message/send/user/<%= id %>" class="btn save">Enviar Mensagem</a>              
         </div>
     
     </div>

@@ -1,18 +1,45 @@
 var AppRouter = Backbone.Router.extend({
 
     routes: {
-        ""                    : "home",
-        "users/page/:page" 	  : "list",
-        "users/add"           : "addUser",
-        "users/edit/:id"      : "editUser",
-        "users/:id"           : "userDetails",
-        "login"               : "login",      
-        "posts/edit/:id"      : "editPost",
-        "posts/new"           : "createPost",
-        "posts/page/:page"    : "listPosts",
-        "my/posts/page/:page" : "listMyPosts",
-        "posts/:id"           : "showPost",
-        "alerts/:id"          : "alerts"
+        ""                         : "home",
+        "users/page/:page" 	       : "list",
+        "users/add"                : "addUser",
+        "users/edit/:id"           : "editUser",
+        "users/:id"                : "userDetails",
+        "login"                    : "login",      
+        "posts/edit/:id"           : "editPost",
+        "posts/new"                : "createPost",
+        "posts/page/:page"         : "listPosts",
+        "my/posts/page/:page"      : "listMyPosts",
+        "posts/:id"                : "showPost",
+        "alerts/:id"               : "alerts",
+        "message/send/user/:userReceiver"   : "createMessage",
+        "message/received"         : "showReceivedMessage",
+        "message/sent"             : "showSentMessage",
+        "message/details/:id"      : "messageDetails",
+        "message"                  : "message"
+    },
+
+    message: function () {                        
+        $('#content').html(new TableMessageView().el);        
+    },
+
+    showReceivedMessage: function(){
+
+    },
+
+    showSentMessage: function(){
+
+    },
+
+    messageDetails: function(id){
+
+        utils.getUser(id, function(user){
+            var message = new Message({id: id}); 
+            message.fetch({success: function(){                
+                $('#content').html(new MessageDetailsView({model: message}).el);
+            }});
+        });                               
     },
 
     alerts:function(id){
@@ -34,10 +61,9 @@ var AppRouter = Backbone.Router.extend({
     list: function(page) {
         var p = page ? parseInt(page, 10) : 1;
         var userList = new UserCollection();
-        userList.fetch({success: function(){
+        userList.fetch({success: function(){            
             $("#content").html(new UserListView({model: userList, page: p}).el);
-        }});
-       
+        }});       
     },
 
     editUser: function (id) {
@@ -151,12 +177,19 @@ var AppRouter = Backbone.Router.extend({
 
     showPost:function(id){
         postUtils.showPost(id);
+    },
+
+    createMessage: function(userReceiver){                
+        utils.sessionInfo(function(data){
+           var message = new Message({sender: data.id, receiver: userReceiver});           
+           $('#content').html(new MessageView({model: message}).el);
+        });                
     }
 });
 
 utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 
                     'CommentView','LoginView', 'HomeView', 'UserSummaryView', 'PostView',
-                    'CommentItemView','MenuNavigationView', 'FriendRequestItemView'], function() {
+                    'CommentItemView','MenuNavigationView', 'FriendRequestItemView', 'MessageView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });

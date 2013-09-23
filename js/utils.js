@@ -85,7 +85,7 @@ window.utils = {
 
     getUser: function(id, user_callback){
         var url = '../api/users/'+id;
-        console.log('islogged... ');                                      
+        console.log('getUser... ');                                      
         $.ajax({
             url: url,
             type:'GET',
@@ -113,7 +113,7 @@ window.utils = {
 
     login:function (email, password, callback){
         var url = '../api/login';
-        console.log('Loggin in... ');
+        console.log('login... ');
         var formValues = {
             email: email,
             password: password
@@ -166,6 +166,27 @@ window.utils = {
                 callback(data);                                       
             }
         });   
+    },
+
+    validateItem: function (key, model){                        
+        return (model.validators[key]) ? model.validators[key](model.get(key)) : {isValid: true};
+    },
+
+    // TODO: Implement Backbone's standard validate() method instead.
+    validateAll: function (model){
+
+        var messages = {};
+
+        for (var key in model.validators) {
+            if(model.validators.hasOwnProperty(key)) {
+                var check = model.validators[key](model.get(key));
+                if (check.isValid === false) {
+                    messages[key] = check.message;
+                }
+            }
+        }        
+
+        return _.size(messages) > 0 ? {isValid: false, messages: messages} : {isValid: true};
     }
 
 };

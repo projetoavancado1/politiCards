@@ -8,8 +8,7 @@ window.MenuNavigationView = Backbone.View.extend({
     render: function () {
    		var self = this;
     	utils.sessionInfo(function(data){
-    		var user = new User(data);
-    		console.log(user.toJSON());
+    		var user = new User(data);    		
     		$('.menu').html(self.template(user.toJSON()));     
         	return this;
     	});

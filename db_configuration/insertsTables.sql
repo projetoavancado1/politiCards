@@ -72,6 +72,13 @@ VALUES
 	('Fernanda Lima','fernada.lima@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
 	('Joao Maria','joao.maria@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1');
 
+
+INSERT INTO `message`(`sender`,`receiver`,`text`,`title`,`wasRead`)
+VALUES 
+	('1','2','The first message','A title',false),
+	('1','3','The second message','A title 2',false),
+	('3','5','Other Message','A title 3',false);
+
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
