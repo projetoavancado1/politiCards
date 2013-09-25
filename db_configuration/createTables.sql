@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `message`(
 	`sender` INT NOT NULL,
 	`receiver` INT NOT NULL,
 	`title` VARCHAR(100) NOT NULL,
-	`text` VARCHAR(1000) NOT NULL,	
+	`text` VARCHAR(10000) NOT NULL,	
 	`wasRead` BOOL NOT NULL,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`sender`) REFERENCES `user`(`id`),

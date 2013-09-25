@@ -75,9 +75,21 @@ VALUES
 
 INSERT INTO `message`(`sender`,`receiver`,`text`,`title`,`wasRead`)
 VALUES 
-	('1','2','The first message','A title',false),
+	('1','2','Em reunião nesta terça-feira (24), a CPI (Comissão Parlamentar de Inquérito) da Espionagem no Senado aprovou a realização de uma série de audiências públicas. Entre os convidados a serem ouvidos pelos senadores em reuniões com datas ainda a serem marcadas estão representantes de companhias telefônicas, como Telefônica, GVT, Oi e TIM, e gigantes da internet como Google, Facebook e Microsoft.',
+	 'CPI da Espionagem vai convidar Google, Facebook e empresas de telefonia',false),
 	('1','3','The second message','A title 2',false),
-	('3','5','Other Message','A title 3',false);
+	('3','5','O ministro da Justiça, José Eduardo Cardozo, defendeu nesta terça-feira (24) o aprimoramento das leis brasileiras, a fim de defender a privacidade dos cidadãos e também do Estado brasileiro. Mais cedo, a presidente Dilma Rousseff havia defendido a regulação da internet em seu discurso na abertura da 68ª Assembleia Geral da ONU (Organização das Nações Unidas).',
+	 'Ministro segue Dilma e defende Marco Civil da Internet em resposta a espionagem',false),
+	('3','6','O presidente da Câmara, Henrique Eduardo Alves (PMDB-RN), disse nesta terça-feira (24) que pretende colocar em votação hoje, na sessão ordinária do plenário, os três projetos de lei com urgência constitucional que trancam a pauta. São eles: PL 3471/12, que anistia as dívidas das Santas Casas de Misericórdia; PL 5740/13, que cria a Agência Nacional de Assistência Técnica e Extensão Rural (Anater); e PL 6053/13, que cria funções comissionadas para o Departamento Nacional de Infraestrutura de Transportes (Dnit).',
+	 'Alves pretende por em votação hoje três projetos que trancam a pauta da Câmara',false),
+	('4','3','O deputado Cândido Vaccarezza (PT-SP) vai defender na reunião de líderes logo mais que seja votada a proposta de minirreforma eleitoral aprovada no Senado, para vigorar para as próximas eleições.',
+	 'Vaccarezza critica posição do PT contra minirreforma eleitoral, mas segue partido',false),
+	('4','2','A deputada federal Luiza Erundina (PSB-SP) afirmou nesta segunda-feira (23) que a ruptura de seu partido com a base do governo da presidente Dilma Rousseff (PT) foi uma "medida necessária e natural", uma vez que a legenda lançará, na eleição de 2014, a candidatura de Eduardo Campos, atual governador de Pernambuco, à Presidência da República.','Erundina diz que PSB tem "projeto de nação" para enfrentar Dilma em 2014',false),
+	('3','7','Com dificuldades para conseguir a tempo sua aprovação na Justiça Eleitoral, o partido da ex-senadora Marina Silva decidiu flexibilizar as regras de filiação como forma de facilitar o ingresso de candidatos às eleições de 2014.','Rede flexibiliza as adesões, mas quer barrar ruralistas',false),
+	('2','5','Os ex-presidentes da República Luiz Inácio Lula da Silva e Fernando Henrique Cardoso assumiram pessoalmente a busca por nomes de candidatos a vice-governador de seus partidários, respectivamente Alexandre Padilha e o governador Geraldo Alckmin, na eleição paulista de 2014','Lula e FHC garimpam no agronegócio vices para afilhados',false),
+	('7','1','Chefes de dois cartórios eleitorais da Grande São Paulo acusam o Solidariedade, novo partido organizado pelo deputado Paulo Pereira da Silva (PDT-SP), de falsificar suas assinaturas para engordar as listas de apoio apresentadas pela sigla à Justiça Eleitoral.','Fraude para criar partido usa até nome de chefe de cartório',false),
+	('7','10','No dia seguinte a tomar posse, o novo procurador-geral da República, Rodrigo Janot, garantiu a seus colegas de carreira o direito de viajar em classe executiva, espaço com mais conforto aos passageiros nas aeronaves. A medida foi publicada no Diário Oficial da União na semana passada e diferencia os procuradores dos demais servidores do órgão. Na maioria dos casos, os funcionários comuns terão direito a viajar de classe econômica, enquanto que os procuradores, de executiva.','Janot garante a procuradores viagem em classe executiva',false);	
+
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;

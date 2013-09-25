@@ -448,7 +448,7 @@ function getMessages() {
 		$db = getConnection();		
 		$stmt = $db->query($sql);  
 		$messages = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
+		$db = null;				
 		echo json_encode($messages);
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
