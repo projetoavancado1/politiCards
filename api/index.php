@@ -73,7 +73,7 @@ function getUser($id){
 		$stmt = $db->prepare($sql);  
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
-		$user = $stmt->fetchObject();  
+		$user = $stmt->fetchObject();
 		$db = null;
 		echo json_encode($user); 
 	} catch(PDOException $e) {
@@ -174,14 +174,47 @@ function getConnection() {
  * This is just an example. Do not use this in a production environment
  */
 
-function login() {
-	$conexao = mysql_connect("localhost","dev","pas20122");	
-	mysql_select_db("politiCards");
 
-	//getConnection();
+function login() {		
     if(!empty($_POST['email']) && !empty($_POST['password'])){
     	$email = $_POST['email'];
-    	$senha = $_POST['password'];
+    	$password = $_POST['password'];		
+    	$sql = "SELECT * FROM user WHERE email='$email' and password='$password';";
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->execute();		 
+		$result = $stmt->fetchAll(PDO::FETCH_OBJ);		
+		$db = null;		
+		
+		//echo $result[0]->name;
+
+    	// Verifica se encontrou algum registro
+    	if (empty($result)) {
+    		echo '{"error":{"text":"E-mail ou senha incorreto(s)"}}';    		   
+		}else if(count($result)>1){
+			echo '{"error":{"text":"Erro interno do sistema. Foram encontrados mais de um usuário com o login e senha informado."}}';    		   
+		}else{			
+	        // normally you would load credentials from a database. 
+	        // This is just an example and is certainly not secure
+	        $user = array("id"=>$result[0]->id, "name"=>$result[0]->name, "email"=>$result[0]->email,
+	        			  "profilePicture"=>$result[0]->profilePicture, "role"=>"user");
+	        $_SESSION["user"] = $user;	 	        
+	        echo json_encode($user);
+        }
+    }
+    else {
+        echo '{"error":{"text":"E-mail e senha são obrigatórios."}}';
+    }
+}
+
+/*
+function login() {	
+	
+    if(!empty($_POST['email']) && !empty($_POST['password'])){
+    	$conexao = mysql_connect("localhost","dev","pas20122");	
+		mysql_select_db("politiCards");
+    	$email = $_POST['email'];
+    	$senha = $_POST['password'];    	
     	$sql = "SELECT * FROM user WHERE email='$email' and password='$senha';";
     	$query = mysql_query($sql);
     	$result = mysql_fetch_assoc($query);
@@ -203,7 +236,7 @@ function login() {
     else {
         echo '{"error":{"text":"E-mail e senha são obrigatórios."}}';
     }
-}
+}*/
 
 function logout(){
 	if(!empty($_SESSION['user'])){
