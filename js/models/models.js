@@ -144,6 +144,18 @@ window.Message = Backbone.Model.extend({
 });
 
 window.MessageCollection = Backbone.Collection.extend({
-    model: Post,
-    url:"../api/messages"    
+    model: Message,
+    url:"../api/messages",
+
+    test:function() {
+        var url = '../api/messages';        
+        var self = this;
+        $.ajax({
+            url:url,
+            dataType:"json",
+            success:function (data) {                
+                self.reset(data);
+            }
+        });
+    } 
 });

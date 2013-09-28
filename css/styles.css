@@ -73,3 +73,7 @@ a.plain:hover
   top: 40px;
 }
 
+.message-list{
+    max-height: 400px;
+    overflow-y: scroll;
+}

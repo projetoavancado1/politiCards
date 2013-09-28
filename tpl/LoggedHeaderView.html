@@ -1,18 +1,8 @@
 <script type="text/javascript">
     //apagar tudo depois - Só pra ilustrar os alertas do sistema
-    var us = true;
-    var msg = true;
+    var us = true;    
     var user = true;
-    var changeIconMessage = function(id){
-        var element = document.getElementById("message");
-        if(msg){
-            element.style.opacity="1.0";
-            msg = false;
-        }else{
-            element.style.opacity="0.1";
-            msg = true;
-        }
-    };
+
     var changeIconUserNotification = function(){
         var element = document.getElementById("notification");
         if(us){
@@ -35,21 +25,21 @@
     }
 </script>
 
-
-<ul id="logged-user" class="nav"> 
-    <li style="padding-top: 8px;"><img onclick="changeIconMessage()" id="message" width="32" height="32" style="cursor:pointer; opacity:0.1" src="../img/icons/message3.png">
+<ul id="logged-user" class="nav">       
+    <li id ="message-list" class="dropdown">
+        <a role="button" class="dropdown-toggle" data-toggle="dropdown">
+            <img id="message" width="32" height="32" style="cursor:pointer; opacity:0.1" src="../img/icons/message3.png">
+        </a>        
     </li>  
     <li style="padding-top: 10px;"><img onclick="changeIconUserNotification()" id="notification" width="30" height="30"style="cursor:pointer; opacity:0.1" src="../img/icons/notification3.png">
     </li>
     <li style="padding-top: 12px; padding-right:10px"><img onclick="changeIconUser()" id="new-user" width="29" height="29"style="cursor:pointer; opacity:0.1" src="../img/icons/new-user.png">
     </li>
 
-
-
     <li class="add-menu pull-right"><a href='#users/<%= id %>' ><img width="25" height="25" src="<%= profilePicture %>" style="float:left;"/><b style="padding-left:20px"> <%=name%></b></a></li>
     <li class="divider-vertical"></li>
     <li id="fat-menu" class="dropdown">
-      <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Opções<b class="caret"></b></a>
+      <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Opções<b class="caret"></b></a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
         <li role="presentation"><a role="menuitem" tabindex="-1" href="#/users/edit/<%= id %>">Editar Perfil</a></li>        
         <li role="presentation" class="divider"></li>

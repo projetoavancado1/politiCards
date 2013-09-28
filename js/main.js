@@ -93,7 +93,7 @@ var AppRouter = Backbone.Router.extend({
 	addUser: function() {        
         var user = new User();
         $('#content').html(new UserView({model: user}).el);
-        this.headerView.selectMenuItem('add-menu');
+        //this.headerView.selectMenuItem('add-menu');
 	},
 
     login: function() {            
@@ -131,8 +131,7 @@ var AppRouter = Backbone.Router.extend({
     },
      
     home: function(){
-        $('#content').html(new HomeView().render().el);                                         
-        this.headerView.selectMenuItem();
+        $('#content').html(new HomeView().render().el);                                                 
     },
 
     editPost: function(id){
@@ -189,7 +188,8 @@ var AppRouter = Backbone.Router.extend({
 
 utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 
                     'CommentView','LoginView', 'HomeView', 'UserSummaryView', 'PostView',
-                    'CommentItemView','MenuNavigationView', 'FriendRequestItemView', 'MessageView'], function() {
+                    'CommentItemView','MenuNavigationView', 'FriendRequestItemView', 'MessageView',
+                    'MessageListItemView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
