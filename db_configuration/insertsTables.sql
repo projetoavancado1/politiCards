@@ -76,8 +76,7 @@ VALUES
 INSERT INTO `message`(`sender`,`receiver`,`text`,`title`,`wasRead`)
 VALUES 			
 	('1','2','Em reuniao nesta terca-feira (24), a CPI (Comissao Parlamentar de Inquerito) da Espionagem no Senado aprovou a realizacao de uma serie de audiencias publicas. Entre os convidados a serem ouvidos pelos senadores em reunioes com datas ainda a serem marcadas estao representantes de companhias telefonicas, como Telefonica, GVT, Oi e TIM, e gigantes da internet como Google, Facebook e Microsoft.',
-	 'CPI da Espionagem vai convidar Google, Facebook e empresas de telefonia',false),
-	('1','3','The second message','A title 2',false),
+	 'CPI da Espionagem vai convidar Google, Facebook e empresas de telefonia',false),	
 	('3','5','O ministro da Justica, Jose Eduardo Cardozo, defendeu nesta terca-feira (24) o aprimoramento das leis brasileiras, a fim de defender a privacidade dos cidadaos e tambem do Estado brasileiro. Mais cedo, a presidente Dilma Rousseff havia defendido a regulacao da internet em seu discurso na abertura da 68a Assembleia Geral da ONU (Organizacao das Nacoes Unidas).',
 	 'Ministro segue Dilma e defende Marco Civil da Internet em resposta a espionagem',false),
 	('3','6','O presidente da Camara, Henrique Eduardo Alves (PMDB-RN), disse nesta terca-feira (24) que pretende colocar em votacao hoje, na sessao ordinaria do plenario, os tres projetos de lei com urgencia constitucional que trancam a pauta. Sao eles: PL 3471/12, que anistia as dividas das Santas Casas de Misericordia; PL 5740/13, que cria a Agencia Nacional de Assistencia Tecnica e Extensao Rural (Anater); e PL 6053/13, que cria funcoes comissionadas para o Departamento Nacional de Infraestrutura de Transportes (Dnit).',
@@ -88,7 +87,28 @@ VALUES
 	('3','7','Com dificuldades para conseguir a tempo sua aprovacao na Justica Eleitoral, o partido da ex-senadora Marina Silva decidiu flexibilizar as regras de filiacao como forma de facilitar o ingresso de candidatos as eleicoes de 2014.','Rede flexibiliza as adesoes, mas quer barrar ruralistas',false),
 	('2','5','Os ex-presidentes da Republica Luiz Inacio Lula da Silva e Fernando Henrique Cardoso assumiram pessoalmente a busca por nomes de candidatos a vice-governador de seus partidarios, respectivamente Alexandre Padilha e o governador Geraldo Alckmin, na eleicao paulista de 2014','Lula e FHC garimpam no agronegocio vices para afilhados',false),
 	('7','1','Chefes de dois cartorios eleitorais da Grande Sao Paulo acusam o Solidariedade, novo partido organizado pelo deputado Paulo Pereira da Silva (PDT-SP), de falsificar suas assinaturas para engordar as listas de apoio apresentadas pela sigla a Justica Eleitoral.','Fraude para criar partido usa ate nome de chefe de cartorio',false),
-	('7','10','No dia seguinte a tomar posse, o novo procurador-geral da Republica, Rodrigo Janot, garantiu a seus colegas de carreira o direito de viajar em classe executiva, espaco com mais conforto aos passageiros nas aeronaves. A medida foi publicada no Diario Oficial da Uniao na semana passada e diferencia os procuradores dos demais servidores do orgao. Na maioria dos casos, os funcionarios comuns terao direito a viajar de classe economica, enquanto que os procuradores, de executiva.','Janot garante a procuradores viagem em classe executiva',false);			
+	('7','10','No dia seguinte a tomar posse, o novo procurador-geral da Republica, Rodrigo Janot, garantiu a seus colegas de carreira o direito de viajar em classe executiva, espaco com mais conforto aos passageiros nas aeronaves. A medida foi publicada no Diario Oficial da Uniao na semana passada e diferencia os procuradores dos demais servidores do orgao. Na maioria dos casos, os funcionarios comuns terao direito a viajar de classe economica, enquanto que os procuradores, de executiva.','Janot garante a procuradores viagem em classe executiva',false),
+	('2','1', 'Testando a funcionalidade de mensagem!', 'Teste 1', false),
+	('3','1', 'Testando a funcionalidade de mensagem!', 'Teste 2', false),
+	('5','1', 'Testando a funcionalidade de mensagem!', 'Teste 3', false),
+	('7','1', 'Testando a funcionalidade de mensagem!', 'Teste 4', false),
+	('6','1', 'Testando a funcionalidade de mensagem!', 'Teste 5', false),
+	('2','3', 'Testando a funcionalidade de mensagem!', 'Teste 6', false),
+	('3','3', 'Testando a funcionalidade de mensagem!', 'Teste 7', false),
+	('5','3', 'Testando a funcionalidade de mensagem!', 'Teste 8', false),
+	('7','3', 'Testando a funcionalidade de mensagem!', 'Teste 9', false),
+	('6','3', 'Testando a funcionalidade de mensagem!', 'Teste 10', false),
+	('2','4', 'Testando a funcionalidade de mensagem!', 'Teste 11', false),
+	('3','4', 'Testando a funcionalidade de mensagem!', 'Teste 12', false),
+	('5','4', 'Testando a funcionalidade de mensagem!', 'Teste 13', false),
+	('7','4', 'Testando a funcionalidade de mensagem!', 'Teste 14', false),
+	('6','4', 'Testando a funcionalidade de mensagem!', 'Teste 15', false),
+	('1','4', 'Testando a funcionalidade de mensagem!', 'Teste 16', false),	
+	('4','3', 'Testando a funcionalidade de mensagem!', 'Teste 17', false),
+	('8','3', 'Testando a funcionalidade de mensagem!', 'Teste 18', false),
+	('9','3', 'Testando a funcionalidade de mensagem!', 'Teste 19', false),
+	('10','3', 'Testando a funcionalidade de mensagem!', 'Teste 20', false),
+	('1','3', 'Testando a funcionalidade de mensagem!', 'Teste 21', false);
 	
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;

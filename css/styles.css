@@ -76,4 +76,5 @@ a.plain:hover
 .message-list{
     max-height: 400px;
     overflow-y: scroll;
+    width: 300px;
 }

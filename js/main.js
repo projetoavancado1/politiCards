@@ -32,14 +32,15 @@ var AppRouter = Backbone.Router.extend({
 
     },
 
-    messageDetails: function(id){
-
-        utils.getUser(id, function(user){
-            var message = new Message({id: id}); 
-            message.fetch({success: function(){                
-                $('#content').html(new MessageDetailsView({model: message}).el);
-            }});
-        });                               
+    messageDetails: function(id){        
+        var message = new Message({id: id});
+        message.fetch({success: function(){                
+            utils.getUser(message.get('sender'), function(user){                
+                message.set("profilePicture", user.profilePicture);
+                message.set("senderOrReceiverName", user.name);
+            });            
+            $('#content').html(new MessageDetailsView({model: message}).el);
+        }});        
     },
 
     alerts:function(id){
@@ -179,10 +180,13 @@ var AppRouter = Backbone.Router.extend({
     },
 
     createMessage: function(userReceiver){                
-        utils.sessionInfo(function(data){
-           var message = new Message({sender: data.id, receiver: userReceiver});           
-           $('#content').html(new MessageView({model: message}).el);
-        });                
+        utils.getUser(userReceiver, function(userReceiverData){
+            utils.sessionInfo(function(data){            
+                var message = new Message({sender: data.id, receiver: userReceiver, 
+                                           senderOrReceiverName: userReceiverData.name, profilePicture: userReceiverData.profilePicture});
+                $('#content').html(new MessageView({model: message}).el);
+            });
+        });                        
     }
 });
 

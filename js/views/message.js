@@ -14,10 +14,8 @@ window.MessageView = Backbone.View.extend({
 
   render: function(){
     $(this.el).html(this.template(this.model.toJSON()));
-    $("#textInput",this.el).append('<div>'+
-                                        '<a id="sendMessageButton" style="margin-left:427px"'+ 
-                                        'class="btn btn-primary save">Enviar Mensagem</a>'+
-                                   '</div>');                                                                          
+    $("#message-action",this.el).append('<a id="sendMessageButton"'+ 
+                                        'class="btn btn-primary save pull-right">Enviar Mensagem</a>');
     return this;
   },
 
@@ -52,12 +50,13 @@ window.MessageView = Backbone.View.extend({
 
       this.model.save(null, {
           success: function (model) {              
-              utils.showAlert('Sucesso!', 'Sua mensagem foi enviada com sucesso', 'alert-success');                
-              $("#menuOptions").toggle();
+              utils.showAlert('Sucesso!', 'Sua mensagem foi enviada com sucesso.', 'alert-success');                
               $("#textInput").toggle();
+              $("#message-action").html('<a id="sendOtherMessage"class="btn btn-primary save">Enviar outra mensagem</a> '+
+                                        '<a href="#users/<%= receiver %>" class="btn delete">Voltar</a>');
           },
           error: function () {
-              utils.showAlert('Erro:', 'Um erro correu na criação desta mensagem', 'alert-error');
+              utils.showAlert('Erro:', 'Um erro correu na criação desta mensagem.', 'alert-error');
           }
       });
   },
@@ -74,7 +73,6 @@ window.MessageView = Backbone.View.extend({
       });
       return false;
   }
-
 })
 
 window.MessageDetailsView = Backbone.View.extend({
@@ -87,18 +85,13 @@ window.MessageDetailsView = Backbone.View.extend({
     render: function(){
         var self = this;
         var view = 'MessageView';        
-        var deferred = $.get('tpl/' + view + '.html', function(data) {                        
-            //self.prototype.template = _.template(data);                  
+        var deferred = $.get('tpl/' + view + '.html', function(data) {            
             self.$el.html(_.template(data, self.model.toJSON()));
             $('#title', self.$el).attr('disabled','disabled');
             $('#text', self.$el).attr('disabled','disabled');
-        });        
-        //$(this.el).html(this.template(this.model.toJSON()));
-        //this.$el.html(_.template(data, self.model.toJSON()));        
-        //alert(this.template(this.model.toJSON()));
-        //$(this.el).html(this.template(this.model.toJSON()));
-        //console.log(this.el);
+            $("#message-action",self.$el).append('<a href="#message/send/user/'+self.model.get("sender")+'"'+
+                                                 'class="btn btn-primary save pull-right">Responder Mensagem</a>');                                                 
+        });                     
         return this;
- 
     }
 });

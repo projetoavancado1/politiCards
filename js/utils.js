@@ -31,7 +31,7 @@ window.utils = {
             contentType: false
         })
         .done(function () {
-            console.log("Upload de "+file.name + " realizado com sucesso");
+            console.log("Upload de "+file.name + " realizado com sucesso.");
             callbackSuccess();
         })
         .fail(function () {
@@ -44,7 +44,7 @@ window.utils = {
             if (messages.hasOwnProperty(key)) 
                 this.addValidationError(key, messages[key]);
         }
-        this.showAlert('Aviso!', 'Corriga os erros de validação e tente novamente', 'alert-warning');
+        this.showAlert('Aviso!', 'Corriga os erros de validação e tente novamente.', 'alert-warning');
     },
 
     addValidationError: function (field, message) {        
@@ -130,7 +130,6 @@ window.utils = {
         });
     },
 
-
     logout:function(){                   
         var url = '../api/logout';
         console.log('Logout... ');                           
@@ -187,6 +186,29 @@ window.utils = {
         }        
 
         return _.size(messages) > 0 ? {isValid: false, messages: messages} : {isValid: true};
-    }
+    },
 
+    receivedMessage:function(user, callback){
+        var url = '../api/messages/received/'+user;        
+        var self = this;
+        $.ajax({
+            url:url,
+            dataType:"json",
+            success:function (data){                                
+                callback(data);
+            }
+        });
+    },
+
+    sentMessage:function(user, callback){
+        var url = '../messages/sent/'+user;        
+        var self = this;
+        $.ajax({
+            url:url,
+            dataType:"json",
+            success:function(data){
+                callback(data);
+            }
+        });
+    }
 };

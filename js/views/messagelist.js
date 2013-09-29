@@ -6,14 +6,19 @@ window.MessageListView = Backbone.View.extend({
 
     initialize:function () {
         console.log('Initializing MessageListView');         
-        this.model.bind("reset", this.render, this);
         this.render();
     },
 
-    render:function () {
-        $(this.el).empty();        
-        _.each(this.model.models, function (message) {
-            $(this.el).append(new MessageListItemView({model:message}).el);
+    render:function (){
+        var self = this;
+        $(this.el).empty();          
+        $(self.el).append('<li><a href="#message">Detalhes das mensagens</a></li>');
+        _.each(this.model.models, function (message) {            
+            utils.getUser(message.get('sender'), function(sender){
+                message.set("profilePicture", sender.profilePicture);
+                message.set("senderName", sender.name);                
+                $(self.el).append(new MessageListItemView({model:message}).el);
+            });
         }, this);
         return this;
     }
@@ -24,14 +29,12 @@ window.MessageListItemView = Backbone.View.extend({
     tagName:"li",
 
     initialize:function () {
-        this.model.bind("change", this.render, this);
-        this.model.bind("destroy", this.close, this);
+        console.log('Initializing MessageListItemView');
         this.render();
     },
 
-    render:function () {
+    render:function () {                
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
     }
-
 });

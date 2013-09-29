@@ -15,11 +15,14 @@ window.HeaderView = Backbone.View.extend({
         "click #message" : "toggleMessageList"                
     },
 
-    showMessageList: function(){        
-        var messages = new MessageCollection();        
-        var messageListView = new MessageListView({model: messages, className: 'dropdown-menu message-list'}); 
-        $('#message-list', this.el).append(messageListView.el);
-        messages.test();
+    showMessageList: function(){                
+        utils.sessionInfo(function(sessionInfo){
+            utils.receivedMessage(sessionInfo['id'], function(receivedMessagesData){
+            var messages = new MessageCollection(receivedMessagesData);                        
+            var messageListView = new MessageListView({model: messages, className: 'dropdown-menu message-list'}); 
+            $('#message-list', this.el).append(messageListView.el);
+        });
+        });        
         setTimeout(function () {
             //$('#message-list').addClass('open');
         });
