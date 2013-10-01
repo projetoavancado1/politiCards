@@ -1,19 +1,17 @@
-<div class="row status-bar">
-    <div class="span12">
-        <div class="alert alert-success" style="display: none">
-            <b>Successo!</b> Usuário Salvo Corretamente.
-        </div>
-    </div>
-</div>
-
 <div class="row">
 
     <form class="form-horizontal span12">
 
         <fieldset>
 
-            <legend>Detalhes do Usuário</legend>
-            <br/>
+            <legend id="legend">Detalhes do Usuário</legend>            
+
+            <div class="status-bar">                                                                
+                <div class="alert alert-success" style="display: none">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>Sucessso!</strong> Usuário salvo corretamente.
+                </div>
+            </div>
 
             <div class="row">
                 <div class="span9">
@@ -41,11 +39,11 @@
 
                         <div class="controls">
                             <select id="gender" name="gender" value="<%= gender %>">
-                                <option
+                                <option name=""
                                 <%= gender == 1?'selected':'' %>></option>
-                                <option
+                                <option name="Masculino"
                                 <%= gender == 2?'selected':'' %>>Masculino</option>
-                                <option
+                                <option name="Feminino"
                                 <%= gender == 3?'selected':'' %>>Feminino</option>
                             </select>
                             <span class="help-inline"></span>
@@ -75,19 +73,20 @@
 
                         <div class="controls">
                             <select class="span1" id="userType" name="userType" value="<%= userType %>">
-                                <option
+                                <option name=""
                                 <%= userType == 1?'selected':'' %>></option>
-                                <option
+                                <option name="1"
                                 <%= userType == 2?'selected':'' %>>1</option>
-                                <option
+                                <option name="2"
                                 <%= userType == 3?'selected':'' %>>2</option>
                             </select>
+                            <span class="help-inline"></span>
                         </div>
                     </div>                
 
                 </div>
 
-                <div class="span3">
+                <div id="div-profile-picture"class="span3">
                     <div class="well">
                         <p><img id="viewProfilePicture"width="180" height = "200" src="<%= profilePicture === '../img/profilePictures/defaultPicture.jpg' ? '../img/profilePictures/defaultPicture.jpg' :  profilePicture %>"/></p>
 
@@ -101,12 +100,10 @@
         </fieldset>
 
         <div class="form-actions">
-            <a href="#" class="btn btn-primary save">Salvar</a>
-            <a href="#" class="btn delete">Deletar</a>
+            <a id="user-save" href="#" class="btn btn-primary save">Salvar</a>
+            <a id="user-delete" href="#" class="btn delete">Deletar</a>
         </div>
 
     </form>
 
 </div>
-
-

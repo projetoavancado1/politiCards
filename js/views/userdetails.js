@@ -2,11 +2,13 @@ window.UserView = Backbone.View.extend({
 
     initialize: function () {
         console.log('Initializing User View');    
-        this.render();
+        this.render();        
     },
 
     render: function () {
-        $(this.el).html(this.template(this.model.toJSON()));
+        $(this.el).html(this.template(this.model.toJSON()));                
+        $('#gender option[name="'+this.model.attributes.gender+'"]', this.$el).attr({selected : "selected" });        
+        $('#userType option[name="'+this.model.attributes.userType+'"]', this.$el).attr({selected : "selected" });
         return this;
     },
 
@@ -14,19 +16,7 @@ window.UserView = Backbone.View.extend({
         "change"                  : "change",
         "click .save"             : "beforeSave",
         "click .delete"           : "deleteUser",        
-        "change  #profilePicture" : "profilePictureUpload"        
-    },
-
-    //drop after presentation
-    showCalendar: function(event){
-        $("#birthday").datepicker({
-            yearRange: "1900:2023",
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "yy-mm-dd",
-            showAnim: "slideDown",
-            duration: "slow"
-        }); 
+        "change  #profilePicture" : "profilePictureUpload"
     },
 
     change: function (event) {

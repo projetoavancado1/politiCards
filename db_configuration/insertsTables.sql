@@ -53,24 +53,25 @@ INSERT INTO `user`(`name`,`email`,`gender`,`birthday`,`passWord`,`profilePicture
 VALUES 
 	('Digenaldo Neto','digenaldo.neto@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/digenaldo.jpg', '1'),
 	('Raphael Diniz','raphael.diniz@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/raphael.jpg', '1'),
-	('Joao Helis Bernardo','joaohelis.bernardo@dce.ufpb.br','Masculino', '07-27-1993', '123', '../img/profilePictures/joaohelis.jpg', '1'),
+	('Joao Helis Bernardo','joaohelis.bernardo@dce.ufpb.br','Masculino', '1993-07-27', '123', '../img/profilePictures/joaohelis.jpg', '1'),
 	('Kelson Victor','kelson.victor@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/kelson.jpg', '1'),
 	('Pablo Lima','pablo.lima@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/pablo.jpg', '1'),
 	('Juan Duarte','juan.duarte@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/juan.jpg', '1'),
 	('Smith Ascari','smith.ascari@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/smith.jpg', '1'),
 	('Yuri Malheiros','yuri@dce.ufpb.br','Masculino', '1970-01-01', '123', '../img/profilePictures/yuri.jpg', '1'),
-	('Carlos Junior','carlos.junior@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Lucas Andrade','lucas.andrade@hotmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Joaquim Santos','joaquim.santos@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Jaqueline Silva','jaqueline.silva@uol.com.br','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Giseli Lima','giseli.lima@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Maria Jose','maria.jose@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Joana Silva','joana.silva@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Juliana Bernardo','juliana.bernardo@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Barbara Duarte','barbara.duarte@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Isadora Montenegro','isadora.montenegro@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Fernanda Lima','fernada.lima@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1'),
-	('Joao Maria','joao.maria@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/defaultPicture.jpg', '1');
+	('Amy Jones','amy.jones@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/Amy_Jones.jpg', '1'),
+	('Julie Taylor','julie.taylor@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/Julie_Taylor.jpg', '1'),
+	('Kathleen Byrne','kathleen.byrne@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/Kathleen_Byrne.jpg', '1'),
+	('Lisa Wong','lisa.wong@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/Lisa_Wong.jpg', '1'),
+	('Paula Gates','paula.gates@gmail.com','Feminino', '1970-01-01', '123', '../img/profilePictures/Paula_Gates.jpg', '1'),
+	('Eugene Lee','eugene.lee@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/Eugene_Lee.jpg', '1'),
+	('Gary Donovan','gary.donovan@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/Gary_Donovan.jpg', '1'),
+	('James King','james.king@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/James_King.jpg', '1'),
+	('John Williams','john.williams@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/John_Williams.jpg', '1'),
+	('Paul Jones','paul.jones@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/Paul_Jones.jpg', '1'),
+	('Ray Moore','ray.moore@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/Ray_Moore.jpg', '1'),
+	('Steven Wells','steven.wells@gmail.com','Masculino', '1970-01-01', '123', '../img/profilePictures/Steven_Wells.jpg', '1');
+	
 
 
 INSERT INTO `message`(`sender`,`receiver`,`text`,`title`,`wasRead`)

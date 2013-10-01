@@ -34,17 +34,22 @@ window.User = Backbone.Model.extend({
         this.validators.passWord = function (value) {
             return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir uma senha."};
         };
+
+        this.validators.userType = function (value) {
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "Você precisa inserir o tipo de usuário."};
+        };
     },
     
     defaults: {
         id: null,
         name: "",
         email: "",        
-        gender: "Masculino",
-        birthday: "1970-01-01",
+        gender: "",
+        //birthday: "1970-01-01",
+        birthday: "",
         passWord: "",
         profilePicture: "../img/profilePictures/defaultPicture.jpg",
-        userType: null
+        userType: ""
     }
     
 });

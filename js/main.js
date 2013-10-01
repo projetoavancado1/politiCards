@@ -3,7 +3,7 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         ""                         : "home",
         "users/page/:page" 	       : "list",
-        "users/add"                : "addUser",
+        "user/new"                 : "addUser",
         "users/edit/:id"           : "editUser",
         "users/:id"                : "userDetails",
         "login"                    : "login",      
@@ -92,8 +92,11 @@ var AppRouter = Backbone.Router.extend({
     },
 
 	addUser: function() {        
-        var user = new User();
-        $('#content').html(new UserView({model: user}).el);
+        var user = new User();                
+        $('#content').html(new UserView({model: user}).el);        
+        $("#legend").html("<div class='well'><h1>Cadastre-se</h1></div>");
+        $("#user-save").html("Cadastre-se");        
+        $("#user-delete").remove();
         //this.headerView.selectMenuItem('add-menu');
 	},
 
