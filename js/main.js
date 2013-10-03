@@ -1,27 +1,27 @@
 var AppRouter = Backbone.Router.extend({
 
     routes: {
-        ""                         : "home",
-        "users/page/:page" 	       : "list",
-        "user/new"                 : "addUser",
-        "users/edit/:id"           : "editUser",
-        "users/:id"                : "userDetails",
-        "login"                    : "login",      
-        "posts/edit/:id"           : "editPost",
-        "posts/new"                : "createPost",
-        "posts/page/:page"         : "listPosts",
-        "my/posts/page/:page"      : "listMyPosts",
-        "posts/:id"                : "showPost",
-        "alerts/:id"               : "alerts",
+        ""                                  : "home",
+        "users/page/:page" 	                : "list",
+        "user/new"                          : "addUser",
+        "users/edit/:id"                    : "editUser",
+        "users/:id"                         : "userDetails",
+        "login"                             : "login",
+        "posts/edit/:id"                    : "editPost",
+        "posts/new"                         : "createPost",
+        "posts/page/:page"                  : "listPosts",
+        "my/posts/page/:page"               : "listMyPosts",
+        "posts/:id"                         : "showPost",
+        "alerts/:id"                        : "alerts",
         "message/send/user/:userReceiver"   : "createMessage",
-        "message/received"         : "showReceivedMessage",
-        "message/sent"             : "showSentMessage",
-        "message/details/:id"      : "messageDetails",
-        "message"                  : "message"
+        "message/received"                  : "showReceivedMessage",
+        "message/sent"                      : "showSentMessage",
+        "message/details/:id"               : "messageDetails",
+        "message"                           : "message"
     },
 
-    message: function () {                        
-        $('#content').html(new TableMessageView().el);        
+    message: function () {
+        $('#content').html(new TableMessageView().el);
     },
 
     showReceivedMessage: function(){
@@ -32,15 +32,15 @@ var AppRouter = Backbone.Router.extend({
 
     },
 
-    messageDetails: function(id){        
+    messageDetails: function(id){
         var message = new Message({id: id});
-        message.fetch({success: function(){                
-            utils.getUser(message.get('sender'), function(user){                
+        message.fetch({success: function(){
+            utils.getUser(message.get('sender'), function(user){
                 message.set("profilePicture", user.profilePicture);
                 message.set("senderOrReceiverName", user.name);
-            });            
+            });
             $('#content').html(new MessageDetailsView({model: message}).el);
-        }});        
+        }});
     },
 
     alerts:function(id){
@@ -60,9 +60,9 @@ var AppRouter = Backbone.Router.extend({
     list: function(page) {
         var p = page ? parseInt(page, 10) : 1;
         var userList = new UserCollection();
-        userList.fetch({success: function(){            
+        userList.fetch({success: function(){
             $("#content").html(new UserListView({model: userList, page: p}).el);
-        }});       
+        }});
     },
 
     editUser: function (id) {
@@ -85,43 +85,43 @@ var AppRouter = Backbone.Router.extend({
         });
         //cria o menu navigation quando logamos no sistema
         utils.renderMenuNavigation();
-        
+
         //this.headerView.selectMenuItem();
     },
 
-	addUser: function() {        
-        var user = new User();                
-        $('#content').html(new UserView({model: user}).el);        
+	addUser: function() {
+        var user = new User();
+        $('#content').html(new UserView({model: user}).el);
         $("#legend").html("<div class='well'><h1>Cadastre-se</h1></div>");
-        $("#user-save").html("Cadastre-se");        
+        $("#user-save").html("Cadastre-se");
         $("#user-delete").remove();
         //this.headerView.selectMenuItem('add-menu');
 	},
 
-    login: function() {            
-        var loginData = {email: $('#email-auth').length > 0? $('#email-auth').val(): "", 
+    login: function() {
+        var loginData = {email: $('#email-auth').length > 0? $('#email-auth').val(): "",
                          password: $('#password-auth').length > 0? $('#password-auth').val(): "",
                          erroMessage: $("#erroMessage").text()};
-        $('#content').prepend(new LoginView(loginData).el);         
+        $('#content').prepend(new LoginView(loginData).el);
         $('#loginModal').on('show', function (){
             $('#userLoginOptions').html("");
             if($("#errorAlert").text().length > 0){
-                $("#errorAlert").show();       
+                $("#errorAlert").show();
             }else{
-                $("#errorAlert").hide();                  
+                $("#errorAlert").hide();
             }
-        });        
+        });
         $('#loginModal').on('hide', function (){
-            $('#userLoginOptions').html(new UserLoginOptionsView().el);                    
+            $('#userLoginOptions').html(new UserLoginOptionsView().el);
             window.location.replace('#');
         });
-        $('#loginModal').modal('show');                        
+        $('#loginModal').modal('show');
         // Tell jQuery to watch for any 401 or 403 errors and handle them appropriately
         $.ajaxSetup({
             statusCode: {
                 401: function(){
                     // Redirec the to the login page.
-                    window.location.replace('/#login');             
+                    window.location.replace('/#login');
                 },
                 403: function() {
                     // 403 -- Access denied
@@ -131,9 +131,9 @@ var AppRouter = Backbone.Router.extend({
         });
 
     },
-     
+
     home: function(){
-        $('#content').html(new HomeView().render().el);                                                 
+        $('#content').html(new HomeView().render().el);
     },
 
     editPost: function(id){
@@ -143,11 +143,11 @@ var AppRouter = Backbone.Router.extend({
         }});
     },
 
-    createPost: function(){        
+    createPost: function(){
         utils.sessionInfo(function(data){
-           var post = new Post({author: data.id});           
+           var post = new Post({author: data.id});
            $('#content').html(new PostView({model: post}).el);
-        });                
+        });
     },
 
     listPosts: function(page){
@@ -155,7 +155,7 @@ var AppRouter = Backbone.Router.extend({
         var postList = new PostCollection();
         postList.fetch({success: function(){
             $("#content").html(new PostListView({model: postList, page: p}).el);
-        }});        
+        }});
     },
 
     listMyPosts: function(page){
@@ -171,7 +171,7 @@ var AppRouter = Backbone.Router.extend({
 
     createListCommentsOfPost:function(postID){
         postUtils.getCommentsOfPost(postID,function(data){
-            var commentList = new CommentCollection(data);            
+            var commentList = new CommentCollection(data);
         });
     },
 
@@ -179,18 +179,18 @@ var AppRouter = Backbone.Router.extend({
         postUtils.showPost(id);
     },
 
-    createMessage: function(userReceiver){                
+    createMessage: function(userReceiver){
         utils.getUser(userReceiver, function(userReceiverData){
-            utils.sessionInfo(function(data){            
-                var message = new Message({sender: data.id, receiver: userReceiver, 
+            utils.sessionInfo(function(data){
+                var message = new Message({sender: data.id, receiver: userReceiver,
                                            senderOrReceiverName: userReceiverData.name, profilePicture: userReceiverData.profilePicture});
                 $('#content').html(new MessageView({model: message}).el);
             });
-        });                        
+        });
     }
 });
 
-utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 
+utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView',
                     'CommentView','LoginView', 'HomeView', 'UserSummaryView', 'PostView',
                     'CommentItemView','MenuNavigationView', 'FriendRequestItemView', 'MessageView',
                     'MessageListItemView', 'SearchUserListItemView'], function() {
