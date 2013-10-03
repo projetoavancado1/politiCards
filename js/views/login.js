@@ -52,20 +52,20 @@ window.UserLoginOptionsView = Backbone.View.extend({
                 utils.sessionInfo(function(sessionUserInfo){                                        
                     $.get('tpl/LoggedHeaderView.html', function(data) {                        
                          this.template = _.template(data, sessionUserInfo);                                                 
-                         self.$el.html(this.template);    
+                         self.$el.html(this.template);                         
                     });                    
                 });
             }else{                                
                 $.get('tpl/UnLoggedHeaderView.html', function(data){                                            
                     this.template = _.template(data); 
-                    self.$el.html(this.template);                                       
+                    self.$el.html(this.template);                           
                 });                     
             }   
         });            
         return this;
     },
 
-    login:function (event){
+    login:function (event){        
         event.preventDefault(); // Don't let this button submit the form
         $('.alert-error').hide(); // Hide any errors on a new submit
         var email = $('#email-auth').val();
@@ -81,10 +81,9 @@ window.UserLoginOptionsView = Backbone.View.extend({
         });                    
     },
 
-    logout: function(){
+    logout: function(){        
         //assegura que o menu navigation será removido após o logout
-        utils.deleteMenuNavigation();
-        //----
+        utils.deleteMenuNavigation();        
         window.location.replace('#');
         utils.logout();        
         this.render();

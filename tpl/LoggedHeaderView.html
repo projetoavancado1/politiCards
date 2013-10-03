@@ -25,22 +25,27 @@
     }
 </script>
 
-<ul id="logged-user" class="nav">       
+<ul id="logged-user" class="nav pull-right">               
+    <li id ="dropdown-user-search" class="dropdown">
+        <form class="navbar-search dropdown-toggle" data-toggle="dropdown">
+            <input id="user-search" role="button" type="text" class="search-query span4" placeholder="Encontrar usuário" autocomplete="off">
+        </form>
+    </li>
     <li id ="message-list" class="dropdown">
         <a role="button" class="dropdown-toggle" data-toggle="dropdown">
             <img id="message" width="32" height="32" style="cursor:pointer; opacity:0.1" src="../img/icons/message3.png">
         </a>        
-    </li>  
+    </li>      
     <li style="padding-top: 10px;"><img onclick="changeIconUserNotification()" id="notification" width="30" height="30"style="cursor:pointer; opacity:0.1" src="../img/icons/notification3.png">
     </li>
     <li style="padding-top: 12px; padding-right:10px"><img onclick="changeIconUser()" id="new-user" width="29" height="29"style="cursor:pointer; opacity:0.1" src="../img/icons/new-user.png">
-    </li>
+    </li>    
 
     <li class="add-menu pull-right"><a href='#users/<%= id %>' ><img width="25" height="25" src="<%= profilePicture %>" style="float:left;"/><b style="padding-left:20px"> <%=name%></b></a></li>
     <li class="divider-vertical"></li>
     <li id="fat-menu" class="dropdown">
       <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-tasks"></i><b class="caret"></b></a>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+      <ul class="dropdown-menu" role="menu">
         <li role="presentation"><a role="menuitem" tabindex="-1" href="#/users/edit/<%= id %>">Editar Perfil</a></li>        
         <li role="presentation" class="divider"></li>
 

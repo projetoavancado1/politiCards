@@ -78,3 +78,9 @@ a.plain:hover
     overflow-y: scroll;
     width: 300px;
 }
+
+.dropdown-user-search{
+    max-height: 400px;
+    overflow-y: scroll;
+    width: 300px;
+}

@@ -57,8 +57,21 @@ window.User = Backbone.Model.extend({
 window.UserCollection = Backbone.Collection.extend({
 
     model: User,
-    url:"../api/users"    
+    url:"../api/users",
 
+    findByName:function (key) {
+        var url = (key == '') ? '../api/users' : "../api/users/search/" + key;
+        console.log('findByName: ' + key);
+        var self = this;
+        $.ajax({
+            url:url,
+            dataType:"json",
+            success:function (data) {
+                console.log("search success: " + data.length);
+                self.reset(data);
+            }
+        });
+    } 
 });
 
 // Model Post

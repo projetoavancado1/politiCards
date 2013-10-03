@@ -54,9 +54,7 @@ var AppRouter = Backbone.Router.extend({
         this.headerView = new HeaderView();
         $('.header').html(this.headerView.el);
         $('#userLoginOptions').html(new UserLoginOptionsView().el);
-        
         utils.renderMenuNavigation();
-       
     },
 
     list: function(page) {
@@ -157,8 +155,7 @@ var AppRouter = Backbone.Router.extend({
         var postList = new PostCollection();
         postList.fetch({success: function(){
             $("#content").html(new PostListView({model: postList, page: p}).el);
-        }});
-        //this.headerView.selectMenuItem('list-menu');
+        }});        
     },
 
     listMyPosts: function(page){
@@ -196,7 +193,7 @@ var AppRouter = Backbone.Router.extend({
 utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 
                     'CommentView','LoginView', 'HomeView', 'UserSummaryView', 'PostView',
                     'CommentItemView','MenuNavigationView', 'FriendRequestItemView', 'MessageView',
-                    'MessageListItemView'], function() {
+                    'MessageListItemView', 'SearchUserListItemView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });

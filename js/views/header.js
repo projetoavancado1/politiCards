@@ -1,18 +1,49 @@
 window.HeaderView = Backbone.View.extend({    
 
     initialize: function () {                
-        console.log('Initializing Header View');         
+        console.log('Initializing Header View'); 
+        this.searchResults = new UserCollection();
+        this.searchresultsView = new SearchUserListView({model: this.searchResults, className: 'dropdown-menu dropdown-user-search'});
         this.msgIcon = true;
         this.render();        
-    },
+    },    
     
     render: function () {                
-        $(this.el).html(this.template());   
+        $(this.el).html(this.template());          
+        $('#dropdown-user-search', this.el).append(this.searchresultsView.el);
+        this.alignmentUserLogginOption();
         return this;
     },
 
     events: {
-        "click #message" : "toggleMessageList"                
+        "click #message"       : "toggleMessageList",                 
+        "keyup #user-search"   : "search",
+        "keypress #user-search": "onkeypress",
+        "click #logoutOption"  : "alignmentUserLogginOption",
+        "click #loginButton"   : "alignmentUserLogginOption"
+    },
+
+    search: function () {
+        var self = this;
+        var key = $('#user-search').val();
+        key = key.replace(" ","%");
+        console.log('search ' + key);
+        this.searchResults.findByName(key);
+        setTimeout(function () {                    
+            $('#dropdown-user-search', self.el).append(self.searchresultsView.el);
+            $('#dropdown-user-search').addClass('open');
+        });
+    },
+
+    onkeypress: function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+        }
+    },
+
+    select: function(menuItem) {
+        $('.nav li').removeClass('active');
+        $('.' + menuItem).addClass('active');
     },
 
     showMessageList: function(){                
@@ -39,5 +70,16 @@ window.HeaderView = Backbone.View.extend({
             //$('#message-list').removeClass('open');            
             this.msgIcon = true;
         }
+    },
+
+    alignmentUserLogginOption: function(){
+        utils.isLogged(function(islogged){
+            if (islogged == true){
+                $('#userLoginOptions', self.$el).removeClass("pull-right");
+            }else{
+                $('#userLoginOptions', self.$el).addClass("pull-right");
+            }
+        });
     }
+
 });
