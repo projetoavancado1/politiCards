@@ -52,8 +52,9 @@ var AppRouter = Backbone.Router.extend({
 
     initialize: function () {
         this.headerView = new HeaderView();
-        $('.header').html(this.headerView.el);
-        $('#userLoginOptions').html(new UserLoginOptionsView().el);
+        $('#header').html(this.headerView.el);
+        $('#userLoginOptions').html(new UserLoginOptionsView().el);        
+        $('#footer').html(new FooterView().el);
         utils.renderMenuNavigation();
     },
 
@@ -69,8 +70,7 @@ var AppRouter = Backbone.Router.extend({
         var user = new User({id: id});
         user.fetch({success: function(){
             $("#content").html(new UserView({model: user}).el);
-        }});
-        this.headerView.selectMenuItem();
+        }});        
     },
 
     userDetails: function (id) {
@@ -84,9 +84,7 @@ var AppRouter = Backbone.Router.extend({
             $("#content").append(new PostListView({model: postList, page: 1}).el);
         });
         //cria o menu navigation quando logamos no sistema
-        utils.renderMenuNavigation();
-        
-        //this.headerView.selectMenuItem();
+        utils.renderMenuNavigation();                
     },
 
 	addUser: function() {        
@@ -193,7 +191,7 @@ var AppRouter = Backbone.Router.extend({
 utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView', 
                     'CommentView','LoginView', 'HomeView', 'UserSummaryView', 'PostView',
                     'CommentItemView','MenuNavigationView', 'FriendRequestItemView', 'MessageView',
-                    'MessageListItemView', 'SearchUserListItemView'], function() {
+                    'MessageListItemView', 'SearchUserListItemView', 'FooterView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });

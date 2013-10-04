@@ -95,7 +95,7 @@ window.UserView = Backbone.View.extend({
         var files = event.target.files; // FileList object
         //render image files as thumbnails.        
         this.pictureFile = files[0];
-        if (!this.pictureFile.type.match('image.*')){
+        if(!this.pictureFile.type.match('image.*')){
             alert('Escolha um arquivo de imagem');
             return false;
         }

@@ -11,7 +11,7 @@ window.MessageListView = Backbone.View.extend({
 
     render:function (){
         var self = this;
-        $(this.el).empty();          
+        $(this.el).empty();            
         $(self.el).append('<li><a href="#message">Detalhes das mensagens</a></li>');
         _.each(this.model.models, function (message) {            
             utils.getUser(message.get('sender'), function(sender){

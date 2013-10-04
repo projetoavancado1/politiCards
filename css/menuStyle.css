@@ -65,7 +65,7 @@
 }
 /* Custom CSS Styles */
 #cssmenu {
-  width: 200px;
+  width: 183px;
   background: #333333;
   font-family: 'Oxygen Mono', Tahoma, Arial, sans-serif;
   zoom: 1;
@@ -88,10 +88,10 @@
   text-transform: uppercase;
 }
 #cssmenu ul {
-  width: 200px;
+  width: 183px;
 }
 #cssmenu ul ul {
-  width: 200px;
+  width: 183px;
 }
 #cssmenu > ul > li > a {
   border-right: 4px solid #1b9bff;

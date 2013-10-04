@@ -25,8 +25,8 @@
     }
 </script>
 
-<ul id="logged-user" class="nav pull-right">               
-    <li id ="dropdown-user-search" class="dropdown">
+<ul id="logged-user" class="nav">
+    <li id ="dropdown-user-search" class="dropdown" style="margin-left:50px">
         <form class="navbar-search dropdown-toggle" data-toggle="dropdown">
             <input id="user-search" role="button" type="text" class="search-query span4" placeholder="Encontrar usuário" autocomplete="off">
         </form>
@@ -43,18 +43,13 @@
 
     <li class="add-menu pull-right"><a href='#users/<%= id %>' ><img width="25" height="25" src="<%= profilePicture %>" style="float:left;"/><b style="padding-left:20px"> <%=name%></b></a></li>
     <li class="divider-vertical"></li>
+
     <li id="fat-menu" class="dropdown">
-      <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-tasks"></i><b class="caret"></b></a>
+      <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+            <img width="32" height="32" src="../img/icons/exit-option.png">
+      </a>
       <ul class="dropdown-menu" role="menu">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/users/edit/<%= id %>">Editar Perfil</a></li>        
-        <li role="presentation" class="divider"></li>
-
-        <li><a href="#users/page/1"><i></i>Usuários</a></li>
-        <li><a href="#posts/page/1"><i></i>Postagens</a></li>
-        <li><a href="#posts/new"><i ></i>Nova postagem</a></li>
-        <li><a href="#my/posts/page/1"><i ></i>Minhas postagens</a></li>
-
-        <li role="presentation" class="divider"></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/users/edit/<%= id %>">Editar Perfil</a></li>      <li role="presentation" class="divider"></li>
         <li id="logoutOption" role="presentation"><a role="menuitem" tabindex="-1">Sair</a></li>
       </ul>
     </li>

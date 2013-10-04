@@ -1,48 +1,34 @@
-<script type="text/javascript">
-    var teste = function(){
-        var url = window.location;
-        var id="";
-        for(i=29; i < url.href.length;i++){
-            id+= url.href[i];
-        }
-    };
+<div id="user-summary">
+    <div id="errorAlert"class="alert alert-error" style="display:none;"></div>    
+    <div class="well">
+        <img src="<%= profilePicture %>" width="160" height="160"/>
 
-</script>
+        <button style="margin-left:20px;margin-top:125px" class="btn"><img width="20" height="20"  src="../img/icons/add-user.png"> Adicionar aos amigos</button>            
+    </div>
+    <h1><%= name %></h1><br>
 
-<div class="row">
-    <div class="span6">    
-        <div id="errorAlert"class="alert alert-error" style="display:none;"></div>    
-        <div class="well">
-            <img src="<%= profilePicture %>" width="160" height="160"/>
+    <table class="table table-striped">                        
+        <tr>
+            <td><h6>E-mail:</h6></td>
+            <td><i class="icon-envelope"></i> <a href="mailto:<%= email %>"><%= email %></a></td>
+        </tr>
+        <tr>
+            <td><h6>Gênero:</h6></td>
+            <td><i class="icon-user"></i> <%= gender %></td>
+        </tr>
+        <tr>
+            <td><h6>Data de Nascimento:</h6></td>
+            <td><i class="icon-calendar"></i> <%= birthday %></td>
+        </tr>
+        <tr>
+            <td><h6>Tipo do Usuário:</h6></td>
+            <td><i class="icon-arrow-right"></i> <%= userType %></td>
+        </tr>
+    </table>
+    <br>
 
-            <button  onclick="teste()" style="margin-left:80px;margin-top:125px" class="btn"><img width="20" height="20"  src="../img/icons/add-user.png"> Adicionar aos amigos</button>            
-        </div>
-        <h1><%= name %></h1><br>
-
-        <table class="table table-striped">                        
-            <tr>
-                <td><h6>E-mail:</h6></td>
-                <td><i class="icon-envelope"></i> <a href="mailto:<%= email %>"><%= email %></a></td>
-            </tr>
-            <tr>
-                <td><h6>Gênero:</h6></td>
-                <td><i class="icon-user"></i> <%= gender %></td>
-            </tr>
-            <tr>
-                <td><h6>Data de Nascimento:</h6></td>
-                <td><i class="icon-calendar"></i> <%= birthday %></td>
-            </tr>
-            <tr>
-                <td><h6>Tipo do Usuário:</h6></td>
-                <td><i class="icon-arrow-right"></i> <%= userType %></td>
-            </tr>
-        </table>
-        <br>
-
-        <div class="form-actions">    
-            <a href="#/users/edit/<%= id %>" class="btn save">Editar Dados</a>
-            <a href="#message/send/user/<%= id %>" class="btn save">Enviar Mensagem</a>              
-        </div>
-    
+    <div class="form-actions">    
+        <a href="#/users/edit/<%= id %>" class="btn save">Editar Dados</a>
+        <a href="#message/send/user/<%= id %>" class="btn save">Enviar Mensagem</a>              
     </div>
 </div>

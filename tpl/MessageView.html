@@ -1,40 +1,38 @@
-<div class="row">
-    <div class="span6" style="margin-left:125px">    
+<!--<div id="user-message" style="margin-left:125px">-->    
+<div id="user-message">
+	<fieldset>
+	    		
+        <!--<legend><h2>Mensagem</h2></legend>-->        
 
-    	<fieldset>
-    	    		
-            <legend><h2>Mensagem</h2></legend>            
+        <div class="well">	        	
+        	<img width="30" height="30" src="<%= profilePicture %>" style="float:left; padding-right:5px"/>
+			<h3><%= senderOrReceiverName %></h3>
+        </div>	        
 
-	        <div id="errorAlert"class="alert alert-error" style="display:none;"></div>
+        <div id="errorAlert"class="alert alert-error" style="display:none;"></div>
 
-	        <div class="well">	        	
-	        	<img width="30" height="30" src="<%= profilePicture %>" style="float:left; padding-right:5px"/>
-				<h3><%= senderOrReceiverName %></h3>
-	        </div>	        
+		<div id="textInput">
+			<div class="control-group">
+		        <label for="title" class="control-label">Título:</label>
+		        <div class="controls">
+			        <input id="title" class="input-block-level" type="text" name="title" value="<%= title %>" placeholder="Digite o título da mensagem"/>      		
+			        
+			        <span class="help-inline"></span>        
+		        </div>
+	    	</div>
+	    
 
-			<div id="textInput">
-				<div class="control-group">
-			        <label for="title" class="control-label">Título:</label>
-			        <div class="controls">
-				        <input id="title" class="input-block-level postTitle" type="text" name="title" value="<%= title %>" placeholder="Digite o título da mensagem" />      		
-				        
-				        <span class="help-inline"></span>        
-			        </div>
-		    	</div>
-		    
-
-				<div class="control-group">		
-					<label for="text" class="control-label">Mensagem:</label>
-					<div class="controls">
-						<textarea class="input-block-level" rows="10" id= "text" name = "text" placeholder="Escreva uma mensagem"><%= text %></textarea>			
-						<span class="help-inline"></span>        
-						<!--cols="100"-->
-					</div>	
-				</div>
+			<div class="control-group">		
+				<label for="text" class="control-label">Mensagem:</label>
+				<div class="controls">
+					<textarea class="input-block-level" rows="10" id= "text" name = "text" placeholder="Escreva uma mensagem"><%= text %></textarea>			
+					<span class="help-inline"></span>        
+					<!--cols="100"-->
+				</div>	
 			</div>
+		</div>
 
-	        <div id="message-action" class="form-actions"></div>
-       
-    	</fieldset>
-    </div>
-</div>    
+        <div id="message-action" class="form-actions"></div>
+   
+	</fieldset>
+</div>

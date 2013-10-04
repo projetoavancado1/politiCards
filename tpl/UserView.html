@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row-fluid">
 
     <form class="form-horizontal span12">
 
@@ -45,6 +45,8 @@
                                 <%= gender == 2?'selected':'' %>>Masculino</option>
                                 <option name="Feminino"
                                 <%= gender == 3?'selected':'' %>>Feminino</option>
+                                <option name="Indefinido"
+                                <%= gender == 3?'selected':'' %>>Indefinido</option>
                             </select>
                             <span class="help-inline"></span>
                         </div>
@@ -72,7 +74,7 @@
                         <label for="userType" class="control-label">Tipo de Usuário:</label>
 
                         <div class="controls">
-                            <select class="span1" id="userType" name="userType" value="<%= userType %>">
+                            <select class="span3" id="userType" name="userType" value="<%= userType %>">
                                 <option name=""
                                 <%= userType == 1?'selected':'' %>></option>
                                 <option name="1"
@@ -87,7 +89,7 @@
                 </div>
 
                 <div id="div-profile-picture"class="span3">
-                    <div class="well">
+                    <div id="profile-picture-well"class="well">
                         <p><img id="viewProfilePicture"width="180" height = "200" src="<%= profilePicture === '../img/profilePictures/defaultPicture.jpg' ? '../img/profilePictures/defaultPicture.jpg' :  profilePicture %>"/></p>
 
                         <p>Alterar foto do perfil:<br>

@@ -14,7 +14,7 @@ window.PostPaginator = Backbone.View.extend({
         var length = items.length;
         var pageCount = Math.ceil(length / boundarElements);
 
-        $(this.el).html('<ul />');
+        $(this.el).html('<ul/>');
 
         for (var i=0; i < pageCount; i++) {
             $('ul', this.el).append("<li" + ((i + 1) === this.options.page ? " class='active'" : "") + "><a href='#posts/page/"+(i+1)+"'>" + (i+1) + "</a></li>");

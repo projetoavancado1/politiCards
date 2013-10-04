@@ -45,8 +45,8 @@ window.User = Backbone.Model.extend({
         name: "",
         email: "",        
         gender: "",
-        //birthday: "1970-01-01",
-        birthday: "",
+        birthday: "1970-01-01",
+        //birthday: "",
         passWord: "",
         profilePicture: "../img/profilePictures/defaultPicture.jpg",
         userType: ""
