@@ -10,17 +10,14 @@ window.HeaderView = Backbone.View.extend({
     
     render: function () {                
         $(this.el).html(this.template());          
-        $('#dropdown-user-search', this.el).append(this.searchresultsView.el);
-        this.alignmentUserLogginOption();
+        $('#dropdown-user-search', this.el).append(this.searchresultsView.el);        
         return this;
     },
 
     events: {
         "click #message"       : "toggleMessageList",                 
         "keyup #user-search"   : "search",
-        "keypress #user-search": "onkeypress",
-        "click #logoutOption"  : "alignmentUserLogginOption",
-        "click #loginButton"   : "alignmentUserLogginOption"
+        "keypress #user-search": "onkeypress"
     },
 
     search: function () {
@@ -70,16 +67,6 @@ window.HeaderView = Backbone.View.extend({
             //$('#message-list').removeClass('open');            
             this.msgIcon = true;
         }
-    },
-
-    alignmentUserLogginOption: function(){
-        utils.isLogged(function(islogged){
-            if (islogged == true){
-                $('#userLoginOptions', self.$el).removeClass("pull-right");
-            }else{
-                $('#userLoginOptions', self.$el).addClass("pull-right");
-            }
-        });
     }
 
 });

@@ -26,12 +26,12 @@
 </script>
 
 <ul id="logged-user" class="nav">
-    <li id ="dropdown-user-search" class="dropdown" style="margin-left:50px">
+    <li id ="dropdown-user-search" class="dropdown" style="margin-left:47px;padding-right:330px">
         <form class="navbar-search dropdown-toggle" data-toggle="dropdown">
             <input id="user-search" role="button" type="text" class="search-query span4" placeholder="Encontrar usuário" autocomplete="off">
         </form>
     </li>
-    <li id ="message-list" class="dropdown">
+    <li id ="message-list" class="dropdown pull-right">
         <a role="button" class="dropdown-toggle" data-toggle="dropdown">
             <img id="message" width="32" height="32" style="cursor:pointer; opacity:0.1" src="../img/icons/message3.png">
         </a>        
@@ -44,7 +44,7 @@
     <li class="add-menu pull-right"><a href='#users/<%= id %>' ><img width="25" height="25" src="<%= profilePicture %>" style="float:left;"/><b style="padding-left:20px"> <%=name%></b></a></li>
     <li class="divider-vertical"></li>
 
-    <li id="fat-menu" class="dropdown">
+    <li id="fat-menu" class="dropdown pull-right">
       <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
             <img width="32" height="32" src="../img/icons/exit-option.png">
       </a>

@@ -2,7 +2,7 @@ window.MessageListView = Backbone.View.extend({
 
     tagName:'ul',
 
-    className:'nav nav-list',
+    //className:'nav nav-list',
 
     initialize:function () {
         console.log('Initializing MessageListView');         

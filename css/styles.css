@@ -57,15 +57,19 @@ a.plain:hover
 }
 
 .message-list{
-    max-height: 400px;    
-    overflow-x: hidden;
-    width: 300px;
+    max-height: 400px;
+    width: 300px;       
+    overflow-x: hidden;    
+}
+
+.list-item{
+  text-overflow:ellipsis;
 }
 
 .dropdown-user-search{
     max-height: 400px;
-    overflow-x: hidden;
     width: 307px;
+    overflow-x: hidden;    
 }
 
 #profile-picture-well{
