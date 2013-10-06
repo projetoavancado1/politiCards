@@ -60,18 +60,22 @@ window.UserView = Backbone.View.extend({
         this.model.save(null, {
             success: function(model){
                 self.render();                
-                //app.navigate('users/' + model.id, false);                
-                utils.showAlert('Sucesso!', 'Usuário salvo corretamente.', 'alert-success');
+                //app.navigate('users/' + model.id, false);
+                utils.showAlert('Sucesso!', 'Usuário cadastrado com sucesso.', 'alert-success');                
                 utils.isLogged(function(islogged){                    
                     if (islogged == false){   
+                        app.navigate('#');
+                        /*
                         utils.login(model.get("email"), model.get("passWord"), function(){});
                         window.location.replace('#');
                         $('#userLoginOptions').html(new UserLoginOptionsView().el);                
+                        */
                     }
                 });
+                
             },
             error: function () {
-                utils.showAlert('Erro!', 'Um erro correu enquanto tentava salvar o usuário.', 'alert-error');
+                utils.showAlert('Erro!', 'Um erro correu enquanto tentava salvar o usuário. Por favor, tente mais tarde.', 'alert-error');
             }
         });
     },

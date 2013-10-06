@@ -9,14 +9,16 @@ window.UserListView = Backbone.View.extend({
         var users = this.model.models;
         var len = users.length;
         var usersPerPage = 12;
+        var userPerLinePage = 4;
         var startPos = (this.options.page - 1) * usersPerPage;
         var endPos = Math.min(startPos + usersPerPage, len);
-
-        //50px exibe a listagem de usuários de forma centralizada na div #content style="padding-left:50px"
-        $(this.el).html('<ul class="thumbnails"></ul>');
-
-        for (var i = startPos; i < endPos; i++) {
-            $('.thumbnails', this.el).append(new UserListItemView({model: users[i]}).render().el);
+        
+        var userIndex = startPos;
+        for(var i = 0; i < usersPerPage/userPerLinePage && userIndex < endPos; i++){
+            $(this.el).append('<ul id="thumbnails'+i+'" class="thumbnails"></ul>');
+            for(var j = 0; j < userPerLinePage && userIndex < endPos; j++){
+                $('#thumbnails'+i, this.el).append(new UserListItemView({model: users[userIndex++]}).render().el);
+            }
         }
 
         $(this.el).append(new Paginator({model: this.model, page: this.options.page}).render().el);
