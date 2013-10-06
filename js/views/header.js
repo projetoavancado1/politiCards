@@ -47,7 +47,7 @@ window.HeaderView = Backbone.View.extend({
         utils.sessionInfo(function(sessionInfo){
             utils.receivedMessage(sessionInfo['id'], function(receivedMessagesData){
             var messages = new MessageCollection(receivedMessagesData);                        
-            var messageListView = new MessageListView({model: messages, className: 'dropdown-menu message-list'}); 
+            var messageListView = new MessageListView({model: messages});             
             $('#message-list', this.el).append(messageListView.el);
         });
         });        
