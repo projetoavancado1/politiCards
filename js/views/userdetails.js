@@ -124,7 +124,13 @@ window.UserSummaryView = Backbone.View.extend({
     },
 
     render: function () {
+        var self = this;
         $(this.el).html(this.template(this.model.toJSON()));
+        utils.sessionInfo(function(loggedUserInfo){
+            if(loggedUserInfo["id"] == self.model.attributes.id){
+                $('.form-actions', this.el).prepend('<a href="#/users/edit/'+self.model.attributes.id+'" class="btn save">Editar Dados</a>');
+            }
+        });        
         return this;
     },
     
