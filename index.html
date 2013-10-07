@@ -31,16 +31,28 @@
       	<div class="span2 menu"></div>
         <div id="content" class="span7"></div>
         <div id="user-painel" class="span3">
-           <div class="hero-unit">              
-              <p>Lista de Amigos</p>
-              <p>
-                <a class="btn btn-primary btn-large">
-                  Desenvolvendo
-                </a>
-              </p>
-            </div> 
-        </div>	           	            
+            <!-- Apagar div abaixo-->
+            <div id="para-apagar-eh-so-teste" class="well">
+                <h3>Lista de Amigos</h3>
+                <p>Adicionar uma simples view para listar os amigos</p>
+                <ul class="thumbnails"></ul>
+                <script src="lib/jquery-2.0.3.min.js"></script>
 
+                <script type="text/javascript">
+                    var usersPerPage = 12;
+                    var userPerLinePage = 4
+
+                    for(var i = 0; i < usersPerPage/userPerLinePage; i++){
+                        $('#para-apagar-eh-so-teste').append('<ul id="thumbnails'+i+'" class="thumbnails"></ul>');
+                        for(var j = 0; j < userPerLinePage; j++){
+                            $('#thumbnails'+i, this.el).append('<li class="span3"><a href="#" class="thumbnail inner-border"><span></span><img src="http://placehold.it/60x60" alt=""></a></li>');
+                        }
+                    }
+                </script>              
+            </div>            
+            <div id="facebook-like-box"></div>            
+        </div>	           	            
+        
       </div>
 
       <div class="row-fluid">
@@ -54,6 +66,7 @@
     <script src="lib/bootstrap.js"></script>
 
     <script src="js/utils.js"></script>
+    <script src="js/facebook-dependencies.js"></script>
     <script src="js/postUtils.js"></script>
     <script src="js/models/models.js"></script>
     <script src="js/views/paginator.js"></script>
@@ -74,6 +87,7 @@
     <script src="js/views/messagelist.js"></script>
     <script src="js/views/search-user-list.js"></script>
     <script src="js/views/footer.js"></script>
+    <script src="js/views/facebook-options.js"></script>
     <script src="js/main.js"></script>
 
 </body>  

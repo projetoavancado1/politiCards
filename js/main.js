@@ -20,6 +20,15 @@ var AppRouter = Backbone.Router.extend({
         "message"                           : "message"
     },
 
+    initialize: function () {
+        this.headerView = new HeaderView();
+        $('#header').html(this.headerView.el);
+        $('#userLoginOptions').html(new UserLoginOptionsView().el);        
+        $('#footer').html(new FooterView().el);
+        $('#facebook-like-box').html(new FacebookLikeBoxView().el);
+        utils.renderMenuNavigation();
+    },
+
     message: function () {
         $('#content').html(new TableMessageView().el);
     },
@@ -48,14 +57,6 @@ var AppRouter = Backbone.Router.extend({
             var requestList = new FriendRequestCollection(data);
             $('body').html(new FriendRequestListView({model: requestList}).el);
         });
-    },
-
-    initialize: function () {
-        this.headerView = new HeaderView();
-        $('#header').html(this.headerView.el);
-        $('#userLoginOptions').html(new UserLoginOptionsView().el);        
-        $('#footer').html(new FooterView().el);
-        utils.renderMenuNavigation();
     },
 
     list: function(page) {
@@ -194,7 +195,8 @@ var AppRouter = Backbone.Router.extend({
 utils.loadTemplate(['HeaderView', 'UserView','UserListItemView','PostShowView', 'PostItemView',
                     'CommentView','LoginView', 'HomeView', 'UserSummaryView', 'PostView',
                     'CommentItemView','MenuNavigationView', 'FriendRequestItemView', 'MessageView',
-                    'MessageListItemView', 'SearchUserListItemView', 'FooterView'], function() {
+                    'MessageListItemView', 'SearchUserListItemView', 'FooterView', 
+                    'FacebookLikeBoxView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
