@@ -32,7 +32,7 @@ $app->get('/posts/:id', authorize('user'), 'getPost');
 $app->get('/posts/my/:user', authorize('user'), 'getPostsOfUser');
 $app->post('/posts', authorize('user'), 'addPost');
 $app->put('/posts/:id', authorize('user'), 'updatePost');
-$app->delete('/posts/:id', authorize('user'), 'deletePost');  
+$app->delete('/posts/:id', authorize('user'), 'deletePost');
 
 // routes for comments
 $app->get('/comments/list/:post', authorize('user'), 'getCommentsOfPost');
@@ -46,87 +46,109 @@ $app->get('/messages/sent/:user', authorize('user'), 'getSentMessageOfUser');
 $app->get('/messages/received/:user', authorize('user'), 'getReceivedMessageOfUser');
 $app->post('/messages', 'addMessage');
 $app->put('/messages/:id', authorize('user'), 'updateMessage');
-$app->delete('/messages/:id', authorize('user'), 'deleteMessage');  
+$app->delete('/messages/:id', authorize('user'), 'deleteMessage');
 
-$app->get('/friendrequests/:user', authorize('user'), 'getRequestsUser');
+$app->get('/friendrequest/:user', authorize('user'), 'getRequestsUser');
+$app->post('/friendrequest', 'createFriendRequest');
 
 $app->run();
 
-function getUsers() {	
+function createFriendRequest(){
+	error_log('createFriendRequest\n', 3, '/var/tmp/php.log');
+	$request = Slim::getInstance()->request();
+	$friendrequest = json_decode($request->getBody());
+	$sql = "INSERT INTO friend_requests (requestingUser, targetUser) VALUES (:user, :targetUser)";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("user", $friendrequest->requestingUser);
+		$stmt->bindParam("targetUser", $friendrequest->targetUser);
+		$stmt->execute();
+		$friendrequest->id = $db->lastInsertId();
+		$db = null;
+		echo json_encode($friendrequest);
+	} catch(PDOException $e) {
+		error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+	}
+
+}
+
+function getUsers() {
 	$sql = "select * FROM user ORDER BY name";
 	try {
-		$db = getConnection();		
-		$stmt = $db->query($sql);  
+		$db = getConnection();
+		$stmt = $db->query($sql);
 		$users = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		// echo '{"users": ' . json_encode($users) . '}';
 		echo json_encode($users);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
-function getUser($id){		
+function getUser($id){
 	$sql = "SELECT * FROM user WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
 		$user = $stmt->fetchObject();
 		$db = null;
-		echo json_encode($user); 
+		echo json_encode($user);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
-function addUser() {	
+function addUser() {
 	error_log('addUsers\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
-	$user = json_decode($request->getBody());	
+	$user = json_decode($request->getBody());
 	$sql = "INSERT INTO user (name, email, gender, birthday, passWord, profilePicture, userType) VALUES (:name, :email, :gender, :birthday, :passWord, :profilePicture, :userType)";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("name", $user->name);
 		$stmt->bindParam("email", $user->email);
 		$stmt->bindParam("gender", $user->gender);
 		$stmt->bindParam("birthday", $user->birthday);
 		$stmt->bindParam("passWord", $user->passWord);
-		$stmt->bindParam("profilePicture", $user->profilePicture);		
-		$stmt->bindParam("userType", $user->userType);		
+		$stmt->bindParam("profilePicture", $user->profilePicture);
+		$stmt->bindParam("userType", $user->userType);
 		$stmt->execute();
 		$user->id = $db->lastInsertId();
 		$db = null;
-		echo json_encode($user); 
+		echo json_encode($user);
 	} catch(PDOException $e) {
 		error_log($e->getMessage(), 3, '/var/tmp/php.log');
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
 function updateUser($id){
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
-	$user = json_decode($body);	
+	$user = json_decode($body);
 	$sql = "UPDATE user SET name=:name, email=:email, gender=:gender, birthday=:birthday, passWord=:passWord, profilePicture=:profilePicture, userType=:userType WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("name", $user->name);
 		$stmt->bindParam("email", $user->email);
 		$stmt->bindParam("gender", $user->gender);
 		$stmt->bindParam("birthday", $user->birthday);
 		$stmt->bindParam("passWord", $user->passWord);
-		$stmt->bindParam("profilePicture", $user->profilePicture);		
-		$stmt->bindParam("userType", $user->userType);		
+		$stmt->bindParam("profilePicture", $user->profilePicture);
+		$stmt->bindParam("userType", $user->userType);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
 		$db = null;
-		echo json_encode($user); 
+		echo json_encode($user);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
@@ -134,12 +156,12 @@ function deleteUser($id) {
 	$sql = "DELETE FROM user WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
 		$db = null;
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
@@ -148,14 +170,14 @@ function findByName($query) {
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
-		$query = "%".$query."%";  
+		$query = "%".$query."%";
 		$stmt->bindParam("query", $query);
 		$stmt->execute();
 		$users = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($users);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
@@ -164,7 +186,7 @@ function getConnection() {
 	$dbuser="dev";
 	$dbpass="pas20122";
 	$dbname="politiCards";
-	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
+	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	return $dbh;
 }
@@ -175,30 +197,30 @@ function getConnection() {
  */
 
 
-function login() {		
+function login() {
     if(!empty($_POST['email']) && !empty($_POST['password'])){
     	$email = $_POST['email'];
-    	$password = $_POST['password'];		
+    	$password = $_POST['password'];
     	$sql = "SELECT * FROM user WHERE email='$email' and password='$password';";
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
-		$stmt->execute();		 
-		$result = $stmt->fetchAll(PDO::FETCH_OBJ);		
-		$db = null;		
-		
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+
 		//echo $result[0]->name;
 
     	// Verifica se encontrou algum registro
     	if (empty($result)) {
-    		echo '{"error":{"text":"E-mail ou senha incorreto(s)"}}';    		   
+    		echo '{"error":{"text":"E-mail ou senha incorreto(s)"}}';
 		}else if(count($result)>1){
-			echo '{"error":{"text":"Erro interno do sistema. Foram encontrados mais de um usuário com o login e senha informado."}}';    		   
-		}else{			
-	        // normally you would load credentials from a database. 
+			echo '{"error":{"text":"Erro interno do sistema. Foram encontrados mais de um usuário com o login e senha informado."}}';
+		}else{
+	        // normally you would load credentials from a database.
 	        // This is just an example and is certainly not secure
 	        $user = array("id"=>$result[0]->id, "name"=>$result[0]->name, "email"=>$result[0]->email,
 	        			  "profilePicture"=>$result[0]->profilePicture, "role"=>"user");
-	        $_SESSION["user"] = $user;	 	        
+	        $_SESSION["user"] = $user;
 	        echo json_encode($user);
         }
     }
@@ -208,29 +230,29 @@ function login() {
 }
 
 /*
-function login() {	
-	
+function login() {
+
     if(!empty($_POST['email']) && !empty($_POST['password'])){
-    	$conexao = mysql_connect("localhost","dev","pas20122");	
+    	$conexao = mysql_connect("localhost","dev","pas20122");
 		mysql_select_db("politiCards");
     	$email = $_POST['email'];
-    	$senha = $_POST['password'];    	
+    	$senha = $_POST['password'];
     	$sql = "SELECT * FROM user WHERE email='$email' and password='$senha';";
     	$query = mysql_query($sql);
     	$result = mysql_fetch_assoc($query);
 
     	// Verifica se encontrou algum registro
     	if (empty($result)) {
-    		echo '{"error":{"text":"E-mail ou senha incorreto(s)"}}';    		   
+    		echo '{"error":{"text":"E-mail ou senha incorreto(s)"}}';
 		}else if(mysql_num_rows($query)>1){
-			echo '{"error":{"text":"Erro interno do sistema. Foram encontrados mais de um usuário com o login e senha informado."}}';    		   
+			echo '{"error":{"text":"Erro interno do sistema. Foram encontrados mais de um usuário com o login e senha informado."}}';
 		}else{
-	        // normally you would load credentials from a database. 
+	        // normally you would load credentials from a database.
 	        // This is just an example and is certainly not secure
 	        $user = array("id"=>$result['id'], "name"=>$result['name'], "email"=>$result['email'], "profilePicture"=>$result['profilePicture'], "role"=>"user");
 
-	        $_SESSION["user"] = $user;	        
-	        echo json_encode($user);//json_encode(array_merge($user,array("profilePicture"=>$result['profilePicture'])));        
+	        $_SESSION["user"] = $user;
+	        echo json_encode($user);//json_encode(array_merge($user,array("profilePicture"=>$result['profilePicture'])));
         }
     }
     else {
@@ -244,11 +266,11 @@ function logout(){
 		session_destroy();
 	}else{
 		echo '{"error":{"text":"O usuário não está logado no sistema."}}';
-	}	
+	}
 }
 
-function isLogged(){	
-	if(!empty($_SESSION['user'])){		
+function isLogged(){
+	if(!empty($_SESSION['user'])){
 		echo '{"islogged":true}';
 	}else{
 		echo '{"islogged":false}';
@@ -256,7 +278,7 @@ function isLogged(){
 }
 
 function sessionInfo(){
-	if(!empty($_SESSION['user'])){							
+	if(!empty($_SESSION['user'])){
 		echo json_encode($_SESSION["user"]);
 	}else{
 		echo '{"error":{"text":"Não há nenhum usuário logado no sistema."}}';
@@ -271,7 +293,7 @@ function authorize($role = "user"){
         if(!empty($_SESSION['user'])) {
             // Next, validate the role to make sure they can access the route
             // We will assume admin role can access everything
-            if($_SESSION['user']['role'] == $role || 
+            if($_SESSION['user']['role'] == $role ||
                $_SESSION['user']['role'] == 'admin'){
                 //User is logged in and has the correct permissions... Nice!
                 return true;
@@ -292,143 +314,143 @@ function authorize($role = "user"){
 // ---------- functions for posts routes -----------
 
 //return all posts in database
-function getPosts() {	
+function getPosts() {
 	$sql = "select * FROM posts ORDER BY id DESC";
 	try {
-		$db = getConnection();		
-		$stmt = $db->query($sql);  
+		$db = getConnection();
+		$stmt = $db->query($sql);
 		$posts = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($posts);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
 //return one post, if your ID equals the parameter ID
-function getPost($id) {		
+function getPost($id) {
 	$sql = "SELECT * FROM posts WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
-		$post = $stmt->fetchObject();  
+		$post = $stmt->fetchObject();
 		$db = null;
-		echo json_encode($post); 
+		echo json_encode($post);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
 // return all posts createds for one user, if your id equals the parameter id
-function getPostsOfUser($user) {	
+function getPostsOfUser($user) {
 	$sql = "select * FROM posts where author=:author ORDER BY id DESC";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("author", $user);
 		$stmt->execute();
-		$posts = $stmt->fetchAll(PDO::FETCH_OBJ); 
+		$posts = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($posts);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
-function addPost() {	
+function addPost() {
 	error_log('addPost\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
-	$post = json_decode($request->getBody());	
+	$post = json_decode($request->getBody());
 	$sql = "INSERT INTO posts (author, title, text) VALUES (:author, :title, :text)";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("author", $post->author);
 		$stmt->bindParam("title", $post->title);
 		$stmt->bindParam("text", $post->text);
 		$stmt->execute();
 		$post->id = $db->lastInsertId();
 		$db = null;
-		echo json_encode($post); 
+		echo json_encode($post);
 	} catch(PDOException $e) {
 		error_log($e->getMessage(), 3, '/var/tmp/php.log');
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
 function updatePost($id){
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
-	$post = json_decode($body);	
+	$post = json_decode($body);
 	$sql = "UPDATE posts SET author=:author, test=:text WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("author", $post->author);
 		$stmt->bindParam("text", $post->text);
 		$stmt->bindParam("id", $post->id);
 		$stmt->execute();
 		$db = null;
-		echo json_encode($post); 
+		echo json_encode($post);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
 function deletePost($id) {
-	//delete all comments this POST 
+	//delete all comments this POST
 	deleteCommentOfPost($id);
 
 	$sql = "DELETE FROM posts WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
 		$db = null;
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
 
 // ---------- functions for comments routes -----------
 
-function getCommentsOfPost($post) {	
+function getCommentsOfPost($post) {
 	$sql = "select * FROM comments where post=:post";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("post", $post);
 		$stmt->execute();
-		$comments = $stmt->fetchAll(PDO::FETCH_OBJ); 
+		$comments = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($comments);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
-function addComment() {	
+function addComment() {
 	error_log('addComment\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
-	$comment = json_decode($request->getBody());	
+	$comment = json_decode($request->getBody());
 	$sql = "INSERT INTO comments (author, post, text) VALUES (:author, :post, :text)";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("author", $comment->author);
 		$stmt->bindParam("post", $comment->post);
 		$stmt->bindParam("text", $comment->text);
 		$stmt->execute();
 		$comment->id = $db->lastInsertId();
 		$db = null;
-		echo json_encode($comment); 
+		echo json_encode($comment);
 	} catch(PDOException $e) {
 		error_log($e->getMessage(), 3, '/var/tmp/php.log');
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
@@ -436,12 +458,12 @@ function deleteComment($id) {
 	$sql = "DELETE FROM comments WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
 		$db = null;
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
@@ -449,12 +471,12 @@ function deleteCommentOfPost($post){
 	$sql = "DELETE FROM comments WHERE post=:post";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("post", $post);
 		$stmt->execute();
 		$db = null;
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
@@ -475,76 +497,76 @@ function getRequestsUser($user){
 
 // ---------- functions for messages routes -----------
 
-function getMessages() {	
+function getMessages() {
 	$sql = "SELECT * FROM message ORDER BY id DESC";
 	try {
-		$db = getConnection();		
-		$stmt = $db->query($sql);  
+		$db = getConnection();
+		$stmt = $db->query($sql);
 		$messages = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;				
+		$db = null;
 		echo json_encode($messages);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
-function getMessage($id) {		
+function getMessage($id) {
 	$sql = "SELECT * FROM message WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
-		$message = $stmt->fetchObject();  
+		$message = $stmt->fetchObject();
 		$db = null;
-		echo json_encode($message); 
+		echo json_encode($message);
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
-function getSentMessageOfUser($sender) {	
+function getSentMessageOfUser($sender) {
 	//error_log('getSentMessageOfUser\n', 3, '/var/tmp/php.log');
 	$sql = "SELECT * FROM message WHERE sender=:sender";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("sender", $sender);
 		$stmt->execute();
-		$message = $stmt->fetchAll(PDO::FETCH_OBJ); 
+		$message = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($message);
 	} catch(PDOException $e) {
 	//	error_log($e->getMessage(), 3, '/var/tmp/php.log');
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
-function getReceivedMessageOfUser($receiver) {	
+function getReceivedMessageOfUser($receiver) {
 	//error_log('getReceivedMessageOfUser\n', 3, '/var/tmp/php.log');
 	$sql = "select * FROM message where receiver=:receiver";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("receiver", $receiver);
 		$stmt->execute();
-		$message = $stmt->fetchAll(PDO::FETCH_OBJ); 
+		$message = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($message);
 	} catch(PDOException $e) {
 	//	error_log($e->getMessage(), 3, '/var/tmp/php.log');
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
-function addMessage(){	
+function addMessage(){
 	//error_log('addMessage\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
-	$message = json_decode($request->getBody());	
+	$message = json_decode($request->getBody());
 	$sql = "INSERT INTO message (sender, receiver, text, title, wasRead) VALUES (:sender, :receiver, :text, :title, :wasRead)";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("sender", $message->sender);
 		$stmt->bindParam("receiver", $message->receiver);
 		$stmt->bindParam("text", $message->text);
@@ -553,10 +575,10 @@ function addMessage(){
 		$stmt->execute();
 		$message->id = $db->lastInsertId();
 		$db = null;
-		echo json_encode($message); 
+		echo json_encode($message);
 	} catch(PDOException $e) {
 	//	error_log($e->getMessage(), 3, '/var/tmp/php.log');
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
@@ -564,11 +586,11 @@ function updateMessage($id){
 	//error_log('updateMessage\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
-	$message = json_decode($body);	
+	$message = json_decode($body);
 	$sql = "UPDATE message SET sender=:sender, receiver=:receiver, text=:text, title=:title, wasRead=:wasRead WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("sender", $message->sender);
 		$stmt->bindParam("receiver", $message->receiver);
 		$stmt->bindParam("text", $message->text);
@@ -576,10 +598,10 @@ function updateMessage($id){
 		$stmt->bindParam("wasRead", $message->wasRead);
 		$stmt->execute();
 		$db = null;
-		echo json_encode($post); 
+		echo json_encode($post);
 	} catch(PDOException $e) {
 		error_log($e->getMessage(), 3, '/var/tmp/php.log');
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
@@ -588,13 +610,13 @@ function deleteMessage($id) {
 	$sql = "DELETE FROM message WHERE id=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
+		$stmt = $db->prepare($sql);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
 		$db = null;
 	} catch(PDOException $e) {
 	//	error_log($e->getMessage(), 3, '/var/tmp/php.log');
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 

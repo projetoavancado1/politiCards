@@ -41,13 +41,13 @@ window.utils = {
 
     displayValidationErrors: function (messages) {
         for (var key in messages) {
-            if (messages.hasOwnProperty(key)) 
+            if (messages.hasOwnProperty(key))
                 this.addValidationError(key, messages[key]);
         }
         this.showAlert('Aviso!', 'Corriga os erros de validação e tente novamente.', 'alert-warning');
     },
 
-    addValidationError: function (field, message) {        
+    addValidationError: function (field, message) {
         var controlGroup = $('#' + field).parent().parent();
         controlGroup.addClass('error');
         $('.help-inline', controlGroup).html(message);
@@ -70,45 +70,45 @@ window.utils = {
         $('.alert').hide();
     },
 
-    isLogged: function(callback){        
+    isLogged: function(callback){
         var url = '../api/islogged';
-        console.log('islogged... ');                                      
+        console.log('islogged... ');
         $.ajax({
             url: url,
             type:'GET',
             dataType:"json",
-            success:function (data) {                                                                                                    
+            success:function (data) {
                 callback(data["islogged"]);
             },
-        });        
+        });
     },
 
     getUser: function(id, user_callback){
         var url = '../api/users/'+id;
-        console.log('getUser... ');                                      
+        console.log('getUser... ');
         $.ajax({
             url: url,
             type:'GET',
             dataType:"json",
-            success:function (data) {                                                                                                    
+            success:function (data) {
                 user_callback(data);
             },
         });
     },
 
-    sessionInfo: function(callback){        
+    sessionInfo: function(callback){
         var url = '../api/sessionInfo';
-        console.log('sessionInfo... ');                                      
+        console.log('sessionInfo... ');
         $.ajax({
             url: url,
             type:'GET',
             dataType:"json",
-            success:function (data) {   
+            success:function (data) {
                 //console.log("Session Info: ");
-                //console.log(data);                                                                                                 
+                //console.log(data);
                 callback(data);
             },
-        });        
+        });
     },
 
     login:function (email, password, callback){
@@ -123,29 +123,29 @@ window.utils = {
             url:url,
             type:'POST',
             dataType:"json",
-            data: formValues,            
-            success:function (data) {        
-                callback(data);                                       
+            data: formValues,
+            success:function (data) {
+                callback(data);
             }
         });
     },
 
-    logout:function(){                   
+    logout:function(){
         var url = '../api/logout';
-        console.log('Logout... ');                           
+        console.log('Logout... ');
         $.ajax({
             url: url,
             type:'GET'
-        });                            
+        });
     },
 
     renderMenuNavigation:function(){
         utils.isLogged(function(state){
-             //verifica se o usuário está logado, se sim, renderiza o menu navigation 
+             //verifica se o usuário está logado, se sim, renderiza o menu navigation
             if(state){
                 //cria o menu navigation, quando atualizamos a página
-                $('.menu').html(new MenuNavigationView().el);                  
-            }   
+                $('.menu').html(new MenuNavigationView().el);
+            }
         });
     },
 
@@ -155,19 +155,19 @@ window.utils = {
     },
 
     getFriendRequestsOfUser:function(userId, callback){
-        var url = '../api//friendrequests/'+ userId;
-        
+        var url = '../api/friendrequest/'+ userId;
+
         $.ajax({
             url:url,
             type:'GET',
-            dataType:"json",            
-            success:function (data) {        
-                callback(data);                                       
+            dataType:"json",
+            success:function (data) {
+                callback(data);
             }
-        });   
+        });
     },
 
-    validateItem: function (key, model){                        
+    validateItem: function (key, model){
         return (model.validators[key]) ? model.validators[key](model.get(key)) : {isValid: true};
     },
 
@@ -183,25 +183,25 @@ window.utils = {
                     messages[key] = check.message;
                 }
             }
-        }        
+        }
 
         return _.size(messages) > 0 ? {isValid: false, messages: messages} : {isValid: true};
     },
 
     receivedMessage:function(user, callback){
-        var url = '../api/messages/received/'+user;        
+        var url = '../api/messages/received/'+user;
         var self = this;
         $.ajax({
             url:url,
             dataType:"json",
-            success:function (data){                                
+            success:function (data){
                 callback(data);
             }
         });
     },
 
     sentMessage:function(user, callback){
-        var url = '../messages/sent/'+user;        
+        var url = '../messages/sent/'+user;
         var self = this;
         $.ajax({
             url:url,
@@ -210,5 +210,35 @@ window.utils = {
                 callback(data);
             }
         });
-    }
+    },
+
+    createFriendRequest:function(target_user){
+        utils.sessionInfo(function(session){
+            var user = session.id;
+
+            console.log(user);
+            console.log(target_user);
+
+            var friendrequest = {
+                requestingUser:user,
+                targetUser:target_user
+            };
+
+            console.log(friendrequest);
+
+            var url = '../api/friendrequest';
+
+            $.ajax({
+                url:url,
+                type:'POST',
+                dataType:"json",
+                data: friendrequest,
+                success:function (data) {
+                    callback(data);
+                }
+            });
+        });
+
+    },
+
 };

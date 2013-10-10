@@ -1,13 +1,13 @@
 <div id="user-summary">
-    <div id="errorAlert"class="alert alert-error" style="display:none;"></div>    
+    <div id="errorAlert"class="alert alert-error" style="display:none;"></div>
     <div class="well">
         <img src="<%= profilePicture %>" width="160" height="160"/>
 
-        <button style="margin-left:20px;margin-top:125px" class="btn"><img width="20" height="20"  src="../img/icons/add-user.png"> Adicionar aos amigos</button>            
+        <button onclick="utils.createFriendRequest(<%= id %>)" style="margin-left:20px;margin-top:125px" class="btn"><img width="20" height="20"  src="../img/icons/add-user.png"> Adicionar aos amigos</button>
     </div>
     <h1><%= name %></h1><br>
 
-    <table class="table table-striped">                        
+    <table class="table table-striped">
         <tr>
             <td><h6>E-mail:</h6></td>
             <td><i class="icon-envelope"></i> <a href="mailto:<%= email %>"><%= email %></a></td>
@@ -29,7 +29,7 @@
     </table>
     <br>
 
-    <div class="form-actions">        
-        <a href="#message/send/user/<%= id %>" class="btn save">Enviar Mensagem</a>              
+    <div class="form-actions">
+        <a href="#message/send/user/<%= id %>" class="btn save">Enviar Mensagem</a>
     </div>
 </div>
