@@ -25,7 +25,7 @@ var AppRouter = Backbone.Router.extend({
         $('#header').html(this.headerView.el);
         $('#userLoginOptions').html(new UserLoginOptionsView().el);        
         $('#footer').html(new FooterView().el);
-        $('#facebook-like-box').html(new FacebookLikeBoxView().el);
+        utils.renderFacebookLikeBox();        
         utils.renderMenuNavigation();
     },
 
@@ -86,7 +86,8 @@ var AppRouter = Backbone.Router.extend({
         });
         //cria o menu navigation quando logamos no sistema
 
-        utils.renderMenuNavigation();
+        utils.renderFacebookLikeBox();
+        utils.renderMenuNavigation();        
 
         //this.headerView.selectMenuItem();
     },

@@ -53,15 +53,16 @@ $app->post('/friendrequest', 'createFriendRequest');
 
 $app->run();
 
-function createFriendRequest(){
+function createFriendRequest2(){
 	error_log('createFriendRequest\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
 	$friendrequest = json_decode($request->getBody());
-	$sql = "INSERT INTO friend_requests (requestingUser, targetUser) VALUES (:user, :targetUser)";
+		
+	$sql = "INSERT INTO friend_requests (requestingUser, targetUser) VALUES (:requestingUser, :targetUser)";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
-		$stmt->bindParam("user", $friendrequest->requestingUser);
+		$stmt->bindParam("requestingUser", $friendrequest->requestingUser);
 		$stmt->bindParam("targetUser", $friendrequest->targetUser);
 		$stmt->execute();
 		$friendrequest->id = $db->lastInsertId();
@@ -71,7 +72,15 @@ function createFriendRequest(){
 		error_log($e->getMessage(), 3, '/var/tmp/php.log');
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
+}
 
+function createFriendRequest() {    
+	$requestingUser = $_POST['requestingUser'];
+	$targetUser = $_POST['targetUser'];
+	$sql = "INSERT INTO friend_requests (requestingUser, targetUser) VALUES ('$requestingUser', '$targetUser')";    
+	$db = getConnection();
+	$stmt = $db->prepare($sql);
+	$stmt->execute();
 }
 
 function getUsers() {

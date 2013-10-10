@@ -123,6 +123,11 @@ window.UserSummaryView = Backbone.View.extend({
         this.render();
     },
 
+    events: {
+        "change" : "render",
+        "click #relationship-button"  : "createFriendRequest"        
+    },
+
     render: function () {
         var self = this;
         $(this.el).html(this.template(this.model.toJSON()));
@@ -133,8 +138,24 @@ window.UserSummaryView = Backbone.View.extend({
         });        
         return this;
     },
-    
-    events: {
-        "change" : "render"        
+
+    createFriendRequest: function(id){
+        utils.createFriendRequest(this.model.attributes.id);
+    },
+
+    relationshipInformation: function(user){
+        utils.relationshipStatus(user, function(status){    
+            if(status == "not-friends"){
+                $("#relationship-button").removeClass("btn-primary");
+                $('#relationship-button').attr('disabled','disabled');
+                
+                if(status == "friends"){                
+                    $('#relationship-button').text('Amigos');
+                }else if(status == "friendshipEvaluation"){ 
+                    $('#relationship-button').text('Solicitação de amizade enviada');
+                }
+            }            
+        });
     }
+
 });

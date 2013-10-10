@@ -83,6 +83,15 @@ window.utils = {
         });
     },
 
+    relationshipStatus: function(user, callback){
+        utils.sessionInfo(function(session){
+            // Saber qual a relacao entre o usuaro que esta logado e o usuario passado como parametro
+            // o retorno no callback deve ser "friendshipEvaluation" se o usuario enviou uma solicitacao para user
+            // o retorno no callback deve ser "friends" se forem amigos
+            // E "not-friends" se não forem amigos e se não foi enviada uma solicitacao de amizade
+        });
+    },
+
     getUser: function(id, user_callback){
         var url = '../api/users/'+id;
         console.log('getUser... ');
@@ -149,6 +158,16 @@ window.utils = {
         });
     },
 
+    renderFacebookLikeBox: function(){
+        utils.isLogged(function(logged){             
+            if(logged){
+                $('#fb-root').html(new FacebookLikeBoxView().el);     
+                $('#fb-root').load();
+            }   
+        });
+
+    },
+
     //garante a exclusão do menu navigation após logout
     deleteMenuNavigation: function(){
         $('.menu').html("<div />");
@@ -212,16 +231,17 @@ window.utils = {
         });
     },
 
-    createFriendRequest:function(target_user){
+    createFriendRequest: function(target_user){
         utils.sessionInfo(function(session){
-            var user = session.id;
+
+            var requestingUser = session["id"];
 
             console.log(user);
             console.log(target_user);
 
             var friendrequest = {
-                requestingUser:user,
-                targetUser:target_user
+                "requestingUser": requestingUser,
+                "targetUser": target_user
             };
 
             console.log(friendrequest);
@@ -232,13 +252,9 @@ window.utils = {
                 url:url,
                 type:'POST',
                 dataType:"json",
-                data: friendrequest,
-                success:function (data) {
-                    callback(data);
-                }
+                data: friendrequest                
             });
         });
-
     },
 
 };
