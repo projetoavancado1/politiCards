@@ -2,7 +2,7 @@ window.FriendRequestListView = Backbone.View.extend({
 
 	initialize:function(){
 		console.log("Starting Friend Request View ...");
-		this.render(); 
+		this.render();
 	},
 
 	render:function(){
@@ -23,13 +23,13 @@ window.FriendRequestItemView = Backbone.View.extend({
 
 	initialize:function(){
 		console.log("Starting Friend Request View ...");
-		this.render(); 
+		this.render();
 	},
 
 	render:function(){
 		var self= this;
 		utils.getUser(this.model.get("requestingUser"),function(user){
-			
+
 			self.model.set({
 				userPicture: user.profilePicture,
 				userName: user.name
@@ -37,7 +37,7 @@ window.FriendRequestItemView = Backbone.View.extend({
 			$(self.el).html(self.template(self.model.toJSON()));
 			return this;
 		});
-		
+
 	}
 
 
